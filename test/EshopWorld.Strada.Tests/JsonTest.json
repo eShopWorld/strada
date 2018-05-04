@@ -1,0 +1,47 @@
+[
+  {
+    "_id": "5aec7bbfeb4c738f92da5137",
+    "index": 0,
+    "guid": "40c7a6fd-58a4-4dc9-afad-78c6f2eefab3",
+    "isActive": false,
+    "balance": "$2,444.98",
+    "picture": "http://placehold.it/32x32",
+    "age": 20,
+    "eyeColor": "brown",
+    "name": "Tammi Buchanan",
+    "gender": "female",
+    "company": "PLASMOX",
+    "email": "tammibuchanan@plasmox.com",
+    "phone": "+1 (827) 516-2994",
+    "address": "757 Chapel Street, Lemoyne, Ohio, 1330",
+    "about": "Ea quis est deserunt adipisicing consequat ipsum elit ut commodo aliqua mollit. Ex veniam velit amet aute nulla sunt ipsum laboris laborum proident sint laboris nulla ea. Incididunt adipisicing pariatur magna adipisicing officia Lorem qui minim consequat pariatur sunt mollit. Enim laborum minim enim quis culpa ad. Officia aliqua ut excepteur velit ullamco reprehenderit id do est Lorem. Esse veniam proident minim nostrud reprehenderit qui voluptate Lorem enim quis reprehenderit adipisicing.\r\n",
+    "registered": "2018-02-17T03:50:27 -00:00",
+    "latitude": 4.766169,
+    "longitude": -76.421056,
+    "tags": [
+      "dolore",
+      "labore",
+      "consequat",
+      "ad",
+      "voluptate",
+      "in",
+      "fugiat"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Sykes Bentley"
+      },
+      {
+        "id": 1,
+        "name": "Watson Flynn"
+      },
+      {
+        "id": 2,
+        "name": "Pickett Solomon"
+      }
+    ],
+    "greeting": "Hello, Tammi Buchanan! You have 5 unread messages.",
+    "favoriteFruit": "banana"
+  }
+]

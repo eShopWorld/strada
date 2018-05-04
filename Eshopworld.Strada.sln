@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshopworld.Strada.Clients", "Eshopworld.Strada.Clients\Eshopworld.Strada.Clients.csproj", "{A7F0E9D4-25E7-4EDF-99E4-09D1B446FC81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshopworld.Strada.Clients", "src\Eshopworld.Strada.Clients\Eshopworld.Strada.Clients.csproj", "{A7F0E9D4-25E7-4EDF-99E4-09D1B446FC81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EshopWorld.Strada.Tests", "test\EshopWorld.Strada.Tests\EshopWorld.Strada.Tests.csproj", "{699EE9EB-F61D-44BC-AAB1-5FF9454C9659}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A7F0E9D4-25E7-4EDF-99E4-09D1B446FC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7F0E9D4-25E7-4EDF-99E4-09D1B446FC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7F0E9D4-25E7-4EDF-99E4-09D1B446FC81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{699EE9EB-F61D-44BC-AAB1-5FF9454C9659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{699EE9EB-F61D-44BC-AAB1-5FF9454C9659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{699EE9EB-F61D-44BC-AAB1-5FF9454C9659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{699EE9EB-F61D-44BC-AAB1-5FF9454C9659}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
