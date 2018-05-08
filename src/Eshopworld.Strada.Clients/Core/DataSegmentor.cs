@@ -2,7 +2,7 @@
 {
     public static class DataSegmentor
     {
-        public static float CalculateSizeInKilobytes(string data)
+        public static float CalculateDataSizeInKilobytes(string data)
         {
             return data.Length / 1024f;
         }

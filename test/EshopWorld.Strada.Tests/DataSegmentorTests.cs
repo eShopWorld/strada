@@ -13,9 +13,9 @@ namespace EshopWorld.Strada.Tests
         {
             // var sampleFile = File.ReadAllText(@"JsonTest.json");
             var sampleFile = Resources.SampleFile;
-            var fileSizeInKilobytes = DataSegmentor.CalculateSizeInKilobytes(sampleFile);
+            var dataSizeInKilobytes = DataSegmentor.CalculateDataSizeInKilobytes(sampleFile);
 
-            Assert.AreEqual(1.544921875, fileSizeInKilobytes);
+            Assert.AreEqual(1.544921875, dataSizeInKilobytes);
         }
     }
 }
