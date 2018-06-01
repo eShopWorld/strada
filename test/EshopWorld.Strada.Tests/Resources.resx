@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CompressionEventHubsConnectionString" xml:space="preserve">
+    <value>Endpoint=sb://compressionchannel.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=uxLxarLV/vinlnqGW/0SwdTdqUYud/BDZVT9HKscgMM=</value>
+  </data>
+  <data name="EventHubsName" xml:space="preserve">
+    <value>integration-test</value>
+  </data>
+  <data name="EventHubsPayload" xml:space="preserve">
+    <value>[{"id":1,"first_name":"Regine","last_name":"Tallis","email":"rtallis0@ca.gov","gender":"Female","ip_address":"124.243.16.25"},{"id":2,"first_name":"Meryl","last_name":"Tigner","email":"mtigner1@soup.io","gender":"Female","ip_address":"3.255.212.100"},{"id":3,"first_name":"Noami","last_name":"Morfell","email":"nmorfell2@comcast.net","gender":"Female","ip_address":"108.27.148.195"},{"id":4,"first_name":"Sosanna","last_name":"Langmaid","email":"slangmaid3@usda.gov","gender":"Female","ip_address":"100.124.62.71"},{"id":5,"first_name":"Bay","last_name":"Carolan","email":"bcarolan4@digg.com","gender":"Male","ip_address":"78.117.251.79"},{"id":6,"first_name":"Preston","last_name":"Skelhorn","email":"pskelhorn5@squidoo.com","gender":"Male","ip_address":"110.25.170.0"},{"id":7,"first_name":"Joey","last_name":"Nottram","email":"jnottram6@themeforest.net","gender":"Female","ip_address":"176.117.133.254"},{"id":8,"first_name":"Coriss","last_name":"Peckitt","email":"cpeckitt7@si.edu","gender":"Female","ip_address":"247.254.215.119"},{"id":9,"first_name":"Kass","last_name":"Cattow","email":"kcattow8@parallels.com","gender":"Female","ip_address":"87.214.80.57"},{"id":10,"first_name":"Caspar","last_name":"Gerald","email":"cgerald9@list-manage.com","gender":"Male","ip_address":"173.117.172.194"}]</value>
+  </data>
+  <data name="ServiceBusConnectionString" xml:space="preserve">
+    <value>Endpoint=sb://strada.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=atxvtCnKnvvqiQDyD0G0+TUGqEaBEkXo660tUM/uGxA=</value>
+  </data>
+  <data name="StorageConnectionString" xml:space="preserve">
+    <value>DefaultEndpointsProtocol=https;AccountName=strada;AccountKey=/QqqyGc4m26ggNIrCcC28OXJyOcmKaXnudYVrEo9Jn6P+aHiriwu63uz1/ZfayFPtkQox6PW5EKgAIhFMZF3wA==;EndpointSuffix=core.windows.net</value>
+  </data>
+  <data name="SubscriptionName" xml:space="preserve">
+    <value>integration-test</value>
+  </data>
+  <data name="TopicName" xml:space="preserve">
+    <value>integration-test</value>
+  </data>
+</root>

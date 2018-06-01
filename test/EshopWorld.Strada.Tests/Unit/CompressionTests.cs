@@ -2,7 +2,7 @@
 using Eshopworld.Strada.Clients.Core;
 using Xunit;
 
-namespace EshopWorld.Strada.Tests
+namespace EshopWorld.Strada.Tests.Unit
 {
     public class CompressionTests
     {
