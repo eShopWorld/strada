@@ -154,6 +154,7 @@
     </Compile>
     <Compile Include="Unit\CompressionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Unit\MetadataSizeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MOCK_DATA.json">

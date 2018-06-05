@@ -18,7 +18,7 @@ namespace EshopWorld.Strada.Tests.Integration
                 .GetBytes(Resources.EventHubsPayload)
                 .Compress();
 
-            EventHubClient eventHubClient = null;
+            EventHubClient eventHubClient = null;            
             ServicebusAdapter servicebusAdapter = null;
 
             try

@@ -126,6 +126,55 @@
   <data name="EventHubsPayload" xml:space="preserve">
     <value>[{"id":1,"first_name":"Regine","last_name":"Tallis","email":"rtallis0@ca.gov","gender":"Female","ip_address":"124.243.16.25"},{"id":2,"first_name":"Meryl","last_name":"Tigner","email":"mtigner1@soup.io","gender":"Female","ip_address":"3.255.212.100"},{"id":3,"first_name":"Noami","last_name":"Morfell","email":"nmorfell2@comcast.net","gender":"Female","ip_address":"108.27.148.195"},{"id":4,"first_name":"Sosanna","last_name":"Langmaid","email":"slangmaid3@usda.gov","gender":"Female","ip_address":"100.124.62.71"},{"id":5,"first_name":"Bay","last_name":"Carolan","email":"bcarolan4@digg.com","gender":"Male","ip_address":"78.117.251.79"},{"id":6,"first_name":"Preston","last_name":"Skelhorn","email":"pskelhorn5@squidoo.com","gender":"Male","ip_address":"110.25.170.0"},{"id":7,"first_name":"Joey","last_name":"Nottram","email":"jnottram6@themeforest.net","gender":"Female","ip_address":"176.117.133.254"},{"id":8,"first_name":"Coriss","last_name":"Peckitt","email":"cpeckitt7@si.edu","gender":"Female","ip_address":"247.254.215.119"},{"id":9,"first_name":"Kass","last_name":"Cattow","email":"kcattow8@parallels.com","gender":"Female","ip_address":"87.214.80.57"},{"id":10,"first_name":"Caspar","last_name":"Gerald","email":"cgerald9@list-manage.com","gender":"Male","ip_address":"173.117.172.194"}]</value>
   </data>
+  <data name="SampleFile" xml:space="preserve">
+    <value>[
+  {
+    "_id": "5aec7bbfeb4c738f92da5137",
+    "index": 0,
+    "guid": "40c7a6fd-58a4-4dc9-afad-78c6f2eefab3",
+    "isActive": false,
+    "balance": "$2,444.98",
+    "picture": "http://placehold.it/32x32",
+    "age": 20,
+    "eyeColor": "brown",
+    "name": "Tammi Buchanan",
+    "gender": "female",
+    "company": "PLASMOX",
+    "email": "tammibuchanan@plasmox.com",
+    "phone": "+1 (827) 516-2994",
+    "address": "757 Chapel Street, Lemoyne, Ohio, 1330",
+    "about": "Ea quis est deserunt adipisicing consequat ipsum elit ut commodo aliqua mollit. Ex veniam velit amet aute nulla sunt ipsum laboris laborum proident sint laboris nulla ea. Incididunt adipisicing pariatur magna adipisicing officia Lorem qui minim consequat pariatur sunt mollit. Enim laborum minim enim quis culpa ad. Officia aliqua ut excepteur velit ullamco reprehenderit id do est Lorem. Esse veniam proident minim nostrud reprehenderit qui voluptate Lorem enim quis reprehenderit adipisicing.\r\n",
+    "registered": "2018-02-17T03:50:27 -00:00",
+    "latitude": 4.766169,
+    "longitude": -76.421056,
+    "tags": [
+      "dolore",
+      "labore",
+      "consequat",
+      "ad",
+      "voluptate",
+      "in",
+      "fugiat"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Sykes Bentley"
+      },
+      {
+        "id": 1,
+        "name": "Watson Flynn"
+      },
+      {
+        "id": 2,
+        "name": "Pickett Solomon"
+      }
+    ],
+    "greeting": "Hello, Tammi Buchanan! You have 5 unread messages.",
+    "favoriteFruit": "banana"
+  }
+]</value>
+  </data>
   <data name="ServiceBusConnectionString" xml:space="preserve">
     <value>Endpoint=sb://strada.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=atxvtCnKnvvqiQDyD0G0+TUGqEaBEkXo660tUM/uGxA=</value>
   </data>
