@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading.Tasks;
 using Eshopworld.Strada.Clients.Core;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
@@ -38,7 +39,7 @@ namespace Eshopworld.Strada.Clients.Azure
         /// <summary>
         ///     Connect establishes an AMQP connection to an Event Hub.
         /// </summary>
-        public void Connect()
+        public void Connect() // Todo: Add retry metadata as parameter.
         {
             var builder = new ServiceBusConnectionStringBuilder(_connectionString)
             {
@@ -58,10 +59,11 @@ namespace Eshopworld.Strada.Clients.Azure
         /// </summary>
         /// <param name="metadata">The metadata to transmit to the Event Hub.</param>
         /// <param name="brand">The brand associated with <see cref="metadata" />.</param>
-        public void Transmit(object metadata, string brand)
+        public async Task Transmit(object metadata, string brand)
         {
             // Todo: Use ESW Brand package Enum.
             // Todo: Error-handling (to App Insights).
+            // Todo: Introduce an error event so that apps can catch, but won't require try-catch
 
             var serialisedPayload = JsonConvert.SerializeObject(metadata);
             var payloadSizeInKilobytes = serialisedPayload.GetSizeInKilobytes();
@@ -71,7 +73,7 @@ namespace Eshopworld.Strada.Clients.Azure
                 : Encoding.UTF8.GetBytes(serialisedPayload);
 
             if (_eventHubClient == null || _eventHubClient.IsClosed) Connect();
-            _eventHubClient.SendAsync(new EventData(streamToSend));
+            await _eventHubClient.SendAsync(new EventData(streamToSend));
         }
     }
 }

@@ -16,7 +16,7 @@ namespace EshopWorld.Strada.Tests.Integration
             dataTransmissionClient.Init(Resources.EventHubsConnectionString, Resources.EventHubsName);
             dataTransmissionClient.Connect();
 
-            dataTransmissionClient.Transmit(string.Empty, string.Empty);
+            dataTransmissionClient.Transmit(string.Empty, string.Empty).Wait();
         }
     }
 }
