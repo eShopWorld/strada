@@ -145,7 +145,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Integration\AzureMetadataSizeLimitTests.cs" />
+    <Compile Include="Integration\CompressionTests.cs" />
     <Compile Include="Integration\DataTransmissionClientTests.cs" />
     <Compile Include="ServicebusAdapter.cs" />
     <Compile Include="Resources.Designer.cs">

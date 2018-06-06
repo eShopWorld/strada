@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Clients.Azure
 {
+    /// <summary>
+    ///     DataTransmissionClient is a static Event Hubs client, providing connectivity and transmission functionality.
+    /// </summary>
     public class DataTransmissionClient
     {
         private static readonly Lazy<DataTransmissionClient> InnerDataTransmissionClient =
@@ -16,23 +19,27 @@ namespace Eshopworld.Strada.Clients.Azure
         private EventHubClient _eventHubClient;
         private string _eventHubPath;
 
+        /// <summary>
+        ///     Instance is a static instance of <see cref="DataTransmissionClient" />.
+        /// </summary>
         public static DataTransmissionClient Instance => InnerDataTransmissionClient.Value;
 
-        public void Init()
-        {
-            _connectionString = "";
-            _eventHubPath = "";
-        }
-
+        /// <summary>
+        ///     Init instantiates Event Hub connectivity metadata.
+        /// </summary>
+        /// <param name="connectionString">The Event Hub connection-string.</param>
+        /// <param name="eventHubPath">The Event Hub name, or URI path.</param>
         public void Init(string connectionString, string eventHubPath)
         {
             _connectionString = connectionString;
             _eventHubPath = eventHubPath;
         }
 
+        /// <summary>
+        ///     Connect establishes an AMQP connection to an Event Hub.
+        /// </summary>
         public void Connect()
         {
-
             var builder = new ServiceBusConnectionStringBuilder(_connectionString)
             {
                 TransportType = TransportType.Amqp
@@ -45,9 +52,15 @@ namespace Eshopworld.Strada.Clients.Azure
             _eventHubClient.RetryPolicy = new RetryExponential(TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(10), 3);
         }
 
-        // Todo: Use ESW Brand package Enum.
+        /// <summary>
+        ///     Transmit persists <see cref="metadata" /> with associated <see cref="brand" /> metadata
+        ///     to the connected Event Hub.
+        /// </summary>
+        /// <param name="metadata">The metadata to transmit to the Event Hub.</param>
+        /// <param name="brand">The brand associated with <see cref="metadata" />.</param>
         public void Transmit(object metadata, string brand)
         {
+            // Todo: Use ESW Brand package Enum.
             // Todo: Error-handling (to App Insights).
 
             var serialisedPayload = JsonConvert.SerializeObject(metadata);
@@ -57,12 +70,7 @@ namespace Eshopworld.Strada.Clients.Azure
                 ? Encoding.UTF8.GetBytes(serialisedPayload).Compress()
                 : Encoding.UTF8.GetBytes(serialisedPayload);
 
-            if (_eventHubClient == null || _eventHubClient.IsClosed)
-            {
-                Init();
-                Connect();
-            }
-
+            if (_eventHubClient == null || _eventHubClient.IsClosed) Connect();
             _eventHubClient.SendAsync(new EventData(streamToSend));
         }
     }

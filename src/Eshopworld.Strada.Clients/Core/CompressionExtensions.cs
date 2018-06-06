@@ -4,8 +4,7 @@ using System.IO.Compression;
 namespace Eshopworld.Strada.Clients.Core
 {
     /// <summary>
-    ///     CompressionExtensions provide compression and decompression features
-    ///     for byte array inputs.
+    ///     CompressionExtensions provide compression and decompression features for byte array inputs.
     /// </summary>
     public static class CompressionExtensions
     {
@@ -14,7 +13,7 @@ namespace Eshopworld.Strada.Clients.Core
         ///     metadata transmission in Azure, whose transmission size-limit is
         ///     256kB at time of writing.
         /// </summary>
-        /// <param name="raw"></param>
+        /// <param name="raw">The raw bytes to compress.</param>
         /// <returns>A compressed byte array representing the original input.</returns>
         /// <remarks>
         ///     Compresses metadata streams, up to 2.47MB in size,
@@ -37,10 +36,9 @@ namespace Eshopworld.Strada.Clients.Core
         /// <summary>
         ///     Decompress decompresses a byte array to its original size and format.
         /// </summary>
-        /// <param name="gzip"></param>
+        /// <param name="gzip">The Gzip-compressed stream to decompress.</param>
         /// <returns>
-        ///     A decompressed byte array that represents the original compressed
-        ///     byte array.
+        ///     A decompressed byte array that represents the original compressed byte array.
         /// </returns>
         private static byte[] Decompress(this byte[] gzip)
         {
@@ -51,7 +49,7 @@ namespace Eshopworld.Strada.Clients.Core
                 var buffer = new byte[size];
                 using (var memory = new MemoryStream())
                 {
-                    var count = 0;
+                    int count;
                     do
                     {
                         count = stream.Read(buffer, 0, size);

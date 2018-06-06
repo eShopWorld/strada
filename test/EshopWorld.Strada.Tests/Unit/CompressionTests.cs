@@ -7,8 +7,7 @@ namespace EshopWorld.Strada.Tests.Unit
     public class CompressionTests
     {
         /// <summary>
-        ///     Ensures that a large file is compressed to within 256kB - the Azure
-        ///     metadata transmission size-limit.
+        ///     Ensures that a large file is compressed to within 256kB - the Azure metadata transmission size-limit.
         /// </summary>
         [Fact]
         public void LargeFileIsCompressedToLessThanAzureSizeLimit()

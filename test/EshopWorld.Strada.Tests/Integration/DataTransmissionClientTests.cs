@@ -5,6 +5,9 @@ namespace EshopWorld.Strada.Tests.Integration
 {
     public class DataTransmissionClientTests
     {
+        /// <summary>
+        ///     Ensures that metadata is transmitted to an Event Hub.
+        /// </summary>
         [Fact]
         public void DataIsTransmittedToEventHubs()
         {
