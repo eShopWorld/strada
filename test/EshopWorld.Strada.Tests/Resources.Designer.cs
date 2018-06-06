@@ -63,9 +63,9 @@ namespace EshopWorld.Strada.Tests {
         /// <summary>
         ///   Looks up a localized string similar to Endpoint=sb://compressionchannel.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=uxLxarLV/vinlnqGW/0SwdTdqUYud/BDZVT9HKscgMM=.
         /// </summary>
-        internal static string CompressionEventHubsConnectionString {
+        internal static string EventHubsConnectionString {
             get {
-                return ResourceManager.GetString("CompressionEventHubsConnectionString", resourceCulture);
+                return ResourceManager.GetString("EventHubsConnectionString", resourceCulture);
             }
         }
         
@@ -118,15 +118,6 @@ namespace EshopWorld.Strada.Tests {
         internal static string ServiceBusConnectionString {
             get {
                 return ResourceManager.GetString("ServiceBusConnectionString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DefaultEndpointsProtocol=https;AccountName=strada;AccountKey=/QqqyGc4m26ggNIrCcC28OXJyOcmKaXnudYVrEo9Jn6P+aHiriwu63uz1/ZfayFPtkQox6PW5EKgAIhFMZF3wA==;EndpointSuffix=core.windows.net.
-        /// </summary>
-        internal static string StorageConnectionString {
-            get {
-                return ResourceManager.GetString("StorageConnectionString", resourceCulture);
             }
         }
         

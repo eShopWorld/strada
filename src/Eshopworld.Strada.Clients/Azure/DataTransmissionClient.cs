@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text;
+using Eshopworld.Strada.Clients.Core;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using Newtonsoft.Json;
@@ -11,6 +13,7 @@ namespace Eshopworld.Strada.Clients.Azure
             new Lazy<DataTransmissionClient>(() => new DataTransmissionClient());
 
         private string _connectionString;
+        private EventHubClient _eventHubClient;
         private string _eventHubPath;
 
         public static DataTransmissionClient Instance => InnerDataTransmissionClient.Value;
@@ -27,22 +30,40 @@ namespace Eshopworld.Strada.Clients.Azure
             _eventHubPath = eventHubPath;
         }
 
-        public void Transmit(object data)
+        public void Connect()
         {
-            // Todo: 2. Size
-            // Todo: 3. Compress
-            // Todo: 4. Send
-            // Todo: 5. Error-handling (to App Insights).
 
-            var serialised = JsonConvert.SerializeObject(data);
+            var builder = new ServiceBusConnectionStringBuilder(_connectionString)
+            {
+                TransportType = TransportType.Amqp
+            };
 
-            var messagingFactory = MessagingFactory.CreateFromConnectionString(_connectionString);
-            var eventHubClient = messagingFactory.CreateEventHubClient(_eventHubPath);
+            var messagingFactory = MessagingFactory.CreateFromConnectionString(builder.ToString());
 
-            eventHubClient.RetryPolicy = new RetryExponential(TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(10), 3);
+            _eventHubClient = messagingFactory.CreateEventHubClient(_eventHubPath);
 
-            var streamToSend = new byte[0];
-            eventHubClient.SendAsync(new EventData(streamToSend));
+            _eventHubClient.RetryPolicy = new RetryExponential(TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(10), 3);
+        }
+
+        // Todo: Use ESW Brand package Enum.
+        public void Transmit(object metadata, string brand)
+        {
+            // Todo: Error-handling (to App Insights).
+
+            var serialisedPayload = JsonConvert.SerializeObject(metadata);
+            var payloadSizeInKilobytes = serialisedPayload.GetSizeInKilobytes();
+
+            var streamToSend = payloadSizeInKilobytes >= 256
+                ? Encoding.UTF8.GetBytes(serialisedPayload).Compress()
+                : Encoding.UTF8.GetBytes(serialisedPayload);
+
+            if (_eventHubClient == null || _eventHubClient.IsClosed)
+            {
+                Init();
+                Connect();
+            }
+
+            _eventHubClient.SendAsync(new EventData(streamToSend));
         }
     }
 }

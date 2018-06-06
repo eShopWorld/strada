@@ -26,7 +26,7 @@ namespace EshopWorld.Strada.Tests.Integration
                 // Transmit metadata to Event Hubs         
 
                 eventHubClient = EventHubClient.CreateFromConnectionString(
-                    Resources.CompressionEventHubsConnectionString,
+                    Resources.EventHubsConnectionString,
                     Resources.EventHubsName);
 
                 eventHubClient.Send(new EventData(metadata));
