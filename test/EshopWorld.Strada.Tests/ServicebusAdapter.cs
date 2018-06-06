@@ -39,8 +39,8 @@ namespace EshopWorld.Strada.Tests
 
         private async Task ProcessMessagesAsync(Message message, CancellationToken token)
         {
-            if (++MessageCount == 10) _manualResetEvent.Set();
             await _subscriptionClient.CompleteAsync(message.SystemProperties.LockToken);
+            if (++MessageCount == 10) _manualResetEvent.Set();
         }
 
         private static Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
