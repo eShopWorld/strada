@@ -36,8 +36,8 @@ namespace EshopWorld.Strada.Tests
         {
             _subscriptionClient = new SubscriptionClient(
                 Resources.ServiceBusConnectionString,
-                Resources.TopicName,
-                Resources.SubscriptionName);
+                Resources.ServiceBusTopicId,
+                Resources.ServiceBusSubsriptionName);
 
             var messageHandlerOptions = new MessageHandlerOptions(ExceptionReceivedHandler)
             {

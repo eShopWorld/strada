@@ -39,7 +39,7 @@ namespace Eshopworld.Strada.Clients.Azure
         /// <summary>
         ///     Connect establishes an AMQP connection to an Event Hub.
         /// </summary>
-        public void Connect() // Todo: Add retry metadata as parameter.
+        public void Connect()
         {
             var builder = new ServiceBusConnectionStringBuilder(_connectionString)
             {
@@ -59,12 +59,8 @@ namespace Eshopworld.Strada.Clients.Azure
         /// </summary>
         /// <param name="metadata">The metadata to transmit to the Event Hub.</param>
         /// <param name="brand">The brand associated with <see cref="metadata" />.</param>
-        public async Task Transmit(object metadata, string brand)
+        public async Task Transmit(object metadata, string brand = null)
         {
-            // Todo: Use ESW Brand package Enum.
-            // Todo: Error-handling (to App Insights).
-            // Todo: Introduce an error event so that apps can catch, but won't require try-catch
-
             var serialisedPayload = JsonConvert.SerializeObject(metadata);
             var payloadSizeInKilobytes = serialisedPayload.GetSizeInKilobytes();
 

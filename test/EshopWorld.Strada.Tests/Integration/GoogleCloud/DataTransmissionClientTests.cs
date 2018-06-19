@@ -1,12 +1,12 @@
-﻿using Eshopworld.Strada.Clients.Azure;
+﻿using Eshopworld.Strada.Clients.GoogleCloud;
 using Xunit;
 
-namespace EshopWorld.Strada.Tests.Integration
+namespace EshopWorld.Strada.Tests.Integration.GoogleCloud
 {
     public class DataTransmissionClientTests
     {
         /// <summary>
-        ///     Ensures that metadata is transmitted to an Event Hub.
+        ///     Ensures that metadata is transmitted to a Cloud Pub/Sub Topic.
         /// </summary>
         [Fact]
         public void DataIsTransmittedToEventHubs()
@@ -14,7 +14,7 @@ namespace EshopWorld.Strada.Tests.Integration
             var dataTransmissionClient = new DataTransmissionClient();
 
             dataTransmissionClient.Init(Resources.EventHubsConnectionString, Resources.EventHubsName);
-            dataTransmissionClient.Connect();
+            dataTransmissionClient.Init(Resources.ProjectId, Resources.PubSubTopicId);
 
             dataTransmissionClient.Transmit(string.Empty, string.Empty).Wait();
         }

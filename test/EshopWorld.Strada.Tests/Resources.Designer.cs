@@ -88,6 +88,24 @@ namespace EshopWorld.Strada.Tests {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to pubsub-test-206510.
+        /// </summary>
+        internal static string ProjectId {
+            get {
+                return ResourceManager.GetString("ProjectId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to simpletest.
+        /// </summary>
+        internal static string PubSubTopicId {
+            get {
+                return ResourceManager.GetString("PubSubTopicId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [
         ///  {
         ///    &quot;_id&quot;: &quot;5aec7bbfeb4c738f92da5137&quot;,
@@ -124,18 +142,18 @@ namespace EshopWorld.Strada.Tests {
         /// <summary>
         ///   Looks up a localized string similar to integration-test.
         /// </summary>
-        internal static string SubscriptionName {
+        internal static string ServiceBusSubsriptionName {
             get {
-                return ResourceManager.GetString("SubscriptionName", resourceCulture);
+                return ResourceManager.GetString("ServiceBusSubsriptionName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to integration-test.
         /// </summary>
-        internal static string TopicName {
+        internal static string ServiceBusTopicId {
             get {
-                return ResourceManager.GetString("TopicName", resourceCulture);
+                return ResourceManager.GetString("ServiceBusTopicId", resourceCulture);
             }
         }
     }
