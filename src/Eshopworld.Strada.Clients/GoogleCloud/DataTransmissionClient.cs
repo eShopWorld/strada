@@ -30,7 +30,7 @@ namespace Eshopworld.Strada.Clients.GoogleCloud
         public void Init(string projectId, string topicId)
         {
             _topicName = new TopicName(projectId, topicId);
-            _publisherClient = PublisherClient.Create();
+            _publisherClient = PublisherClient.Create(); // Todo: Close/reopen the channel.
         }
 
         /// <summary>
@@ -41,6 +41,7 @@ namespace Eshopworld.Strada.Clients.GoogleCloud
         /// <param name="brand">The brand associated with <see cref="metadata" />.</param>
         public async Task Transmit(object metadata, string brand = null)
         {
+            // Todo: Handle lost connectivity with RetryPolicy.
             var payload = JsonConvert.SerializeObject(metadata);
             await _publisherClient.PublishAsync(_topicName, new[]
             {

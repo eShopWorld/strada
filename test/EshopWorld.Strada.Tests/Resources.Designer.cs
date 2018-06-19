@@ -90,14 +90,23 @@ namespace EshopWorld.Strada.Tests {
         /// <summary>
         ///   Looks up a localized string similar to pubsub-test-206510.
         /// </summary>
-        internal static string ProjectId {
+        internal static string GCPProjectId {
             get {
-                return ResourceManager.GetString("ProjectId", resourceCulture);
+                return ResourceManager.GetString("GCPProjectId", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to simpletest.
+        ///   Looks up a localized string similar to strada-test-subscription.
+        /// </summary>
+        internal static string PubSubSubscriptionId {
+            get {
+                return ResourceManager.GetString("PubSubSubscriptionId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to strada-test-topic.
         /// </summary>
         internal static string PubSubTopicId {
             get {
