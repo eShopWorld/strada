@@ -13,9 +13,7 @@ namespace EshopWorld.Strada.Tests.Integration.GoogleCloud
         {
             var dataTransmissionClient = new DataTransmissionClient();
 
-            dataTransmissionClient.Init(Resources.EventHubsConnectionString, Resources.EventHubsName);
             dataTransmissionClient.Init(Resources.ProjectId, Resources.PubSubTopicId);
-
             dataTransmissionClient.Transmit(string.Empty, string.Empty).Wait();
         }
     }
