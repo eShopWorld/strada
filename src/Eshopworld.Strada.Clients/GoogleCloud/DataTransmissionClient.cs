@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Google.Apis.Auth.OAuth2;
 using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
+using Grpc.Auth;
+using Grpc.Core;
 using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Clients.GoogleCloud
@@ -14,7 +17,7 @@ namespace Eshopworld.Strada.Clients.GoogleCloud
         private static readonly Lazy<DataTransmissionClient> InnerDataTransmissionClient =
             new Lazy<DataTransmissionClient>(() => new DataTransmissionClient());
 
-        private PublisherClient _publisherClient;
+        private PublisherServiceApiClient _publisher;
         private TopicName _topicName;
 
         /// <summary>
@@ -29,8 +32,16 @@ namespace Eshopworld.Strada.Clients.GoogleCloud
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
         public void Init(string projectId, string topicId)
         {
+            const string credentialsFilePath = "Content/data-analytics-421f476fd5e8.json";
+
+            var publisherCredential = GoogleCredential.FromFile(credentialsFilePath)
+                .CreateScoped(PublisherServiceApiClient.DefaultScopes);
+            var publisherChannel = new Channel(
+                PublisherServiceApiClient.DefaultEndpoint.ToString(),
+                publisherCredential.ToChannelCredentials());
+
+            _publisher = PublisherServiceApiClient.Create(publisherChannel);
             _topicName = new TopicName(projectId, topicId);
-            _publisherClient = PublisherClient.Create(); // Todo: Close/reopen the channel.
         }
 
         /// <summary>
@@ -43,7 +54,7 @@ namespace Eshopworld.Strada.Clients.GoogleCloud
         {
             // Todo: Handle lost connectivity with RetryPolicy.
             var payload = JsonConvert.SerializeObject(metadata);
-            await _publisherClient.PublishAsync(_topicName, new[]
+            await _publisher.PublishAsync(_topicName, new[]
             {
                 new PubsubMessage
                 {

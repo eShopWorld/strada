@@ -60,7 +60,7 @@
       <HintPath>..\..\packages\Google.Cloud.Iam.V1.1.0.0\lib\net45\Google.Cloud.Iam.V1.dll</HintPath>
     </Reference>
     <Reference Include="Google.Cloud.PubSub.V1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Google.Cloud.PubSub.V1.1.0.0-beta09\lib\net45\Google.Cloud.PubSub.V1.dll</HintPath>
+      <HintPath>..\..\packages\Google.Cloud.PubSub.V1.1.0.0-beta18\lib\net45\Google.Cloud.PubSub.V1.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
@@ -114,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="Content\data-analytics-421f476fd5e8.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

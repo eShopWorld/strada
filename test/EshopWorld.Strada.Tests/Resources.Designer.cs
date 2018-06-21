@@ -88,7 +88,7 @@ namespace EshopWorld.Strada.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pubsub-test-206510.
+        ///   Looks up a localized string similar to data-analytics-207910.
         /// </summary>
         internal static string GCPProjectId {
             get {
@@ -97,7 +97,7 @@ namespace EshopWorld.Strada.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to strada-test-subscription.
+        ///   Looks up a localized string similar to data-analytics-test-subscription.
         /// </summary>
         internal static string PubSubSubscriptionId {
             get {
@@ -106,7 +106,7 @@ namespace EshopWorld.Strada.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to strada-test-topic.
+        ///   Looks up a localized string similar to data-analytics-test-topic.
         /// </summary>
         internal static string PubSubTopicId {
             get {

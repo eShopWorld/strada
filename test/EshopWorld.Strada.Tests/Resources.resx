@@ -127,13 +127,13 @@
     <value>[{"id":1,"first_name":"Regine","last_name":"Tallis","email":"rtallis0@ca.gov","gender":"Female","ip_address":"124.243.16.25"},{"id":2,"first_name":"Meryl","last_name":"Tigner","email":"mtigner1@soup.io","gender":"Female","ip_address":"3.255.212.100"},{"id":3,"first_name":"Noami","last_name":"Morfell","email":"nmorfell2@comcast.net","gender":"Female","ip_address":"108.27.148.195"},{"id":4,"first_name":"Sosanna","last_name":"Langmaid","email":"slangmaid3@usda.gov","gender":"Female","ip_address":"100.124.62.71"},{"id":5,"first_name":"Bay","last_name":"Carolan","email":"bcarolan4@digg.com","gender":"Male","ip_address":"78.117.251.79"},{"id":6,"first_name":"Preston","last_name":"Skelhorn","email":"pskelhorn5@squidoo.com","gender":"Male","ip_address":"110.25.170.0"},{"id":7,"first_name":"Joey","last_name":"Nottram","email":"jnottram6@themeforest.net","gender":"Female","ip_address":"176.117.133.254"},{"id":8,"first_name":"Coriss","last_name":"Peckitt","email":"cpeckitt7@si.edu","gender":"Female","ip_address":"247.254.215.119"},{"id":9,"first_name":"Kass","last_name":"Cattow","email":"kcattow8@parallels.com","gender":"Female","ip_address":"87.214.80.57"},{"id":10,"first_name":"Caspar","last_name":"Gerald","email":"cgerald9@list-manage.com","gender":"Male","ip_address":"173.117.172.194"}]</value>
   </data>
   <data name="GCPProjectId" xml:space="preserve">
-    <value>pubsub-test-206510</value>
+    <value>data-analytics-207910</value>
   </data>
   <data name="PubSubSubscriptionId" xml:space="preserve">
-    <value>strada-test-subscription</value>
+    <value>data-analytics-test-subscription</value>
   </data>
   <data name="PubSubTopicId" xml:space="preserve">
-    <value>strada-test-topic</value>
+    <value>data-analytics-test-topic</value>
   </data>
   <data name="SampleFile" xml:space="preserve">
     <value>[
