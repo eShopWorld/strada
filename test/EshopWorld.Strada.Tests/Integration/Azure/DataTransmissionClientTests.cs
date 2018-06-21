@@ -9,7 +9,7 @@ namespace EshopWorld.Strada.Tests.Integration.Azure
         ///     Ensures that metadata is transmitted to an Event Hub.
         /// </summary>
         [Fact]
-        public void DataIsTransmittedToEventHubs()
+        public void DataIsTransmittedToEventHubs() // Todo: Clean up resources.
         {
             var dataTransmissionClient = new DataTransmissionClient();
 
