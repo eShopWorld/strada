@@ -7,7 +7,7 @@ using Grpc.Auth;
 using Grpc.Core;
 using Newtonsoft.Json;
 
-namespace Eshopworld.Strada.Clients.GoogleCloud
+namespace Eshopworld.Strada.Clients
 {
     /// <summary>
     ///     DataTransmissionClient is a static Cloud Pub/Sub client, providing connectivity and transmission functionality.

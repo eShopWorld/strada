@@ -208,18 +208,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Integration\CompressionTests.cs" />
-    <Compile Include="Integration\Azure\DataTransmissionClientTests.cs" />
-    <Compile Include="Integration\GoogleCloud\DataTransmissionClientTests.cs" />
-    <Compile Include="ServicebusAdapter.cs" />
+    <Compile Include="Integration\DataTransmissionClientTests.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Unit\CompressionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Unit\MetadataSizeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
@@ -230,9 +225,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <EmbeddedResource Include="MOCK_DATA.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
     <Content Include="Content\data-analytics-421f476fd5e8.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
