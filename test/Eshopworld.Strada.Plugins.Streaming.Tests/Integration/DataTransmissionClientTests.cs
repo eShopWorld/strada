@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using Eshopworld.Strada.Clients;
 using Google.Api.Gax;
 using Google.Api.Gax.Grpc;
 using Google.Apis.Auth.OAuth2;
@@ -10,7 +9,7 @@ using Grpc.Core;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace EshopWorld.Strada.Tests.Integration
+namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
 {
     public class DataTransmissionClientTests
     {

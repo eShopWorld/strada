@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Eshopworld.Strada.Plugins.Streaming</PackageId>
+    <version>1.5.0</version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Cloud.PubSub.V1" Version="1.0.0-beta18" />
+  </ItemGroup>
+
+</Project>
