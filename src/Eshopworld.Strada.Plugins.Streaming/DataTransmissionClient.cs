@@ -30,10 +30,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// </summary>
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
-        public void Init(string projectId, string topicId)
+        /// <param name="credentialsFilePath">The GCP Pub/Sub credentials file path.</param>
+        public void Init(string projectId, string topicId, string credentialsFilePath)
         {
-            const string credentialsFilePath = "Content/data-analytics-421f476fd5e8.json";
-
             var publisherCredential = GoogleCredential.FromFile(credentialsFilePath)
                 .CreateScoped(PublisherServiceApiClient.DefaultScopes);
             var publisherChannel = new Channel(

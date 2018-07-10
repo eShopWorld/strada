@@ -107,7 +107,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
             {
                 const int queueMessageId = 1;
 
-                dataTransmissionClient.Init(Resources.GCPProjectId, Resources.PubSubTopicId);
+                dataTransmissionClient.Init(
+                    Resources.GCPProjectId,
+                    Resources.PubSubTopicId,
+                    "Content/data-analytics-421f476fd5e8.json");
                 dataTransmissionClient.Transmit(new QueueMessage
                 {
                     Id = queueMessageId
