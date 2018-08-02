@@ -13,15 +13,16 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
 {
     public class DataTransmissionClientTests
     {
-        private class QueueMessage
+        private class PreOrder
         {
-            public int Id { get; set; }
+            public string ProductName { get; set; }
+            public double ProductValue { get; set; }
         }
 
-        private static void PullMessage(
-            Action<QueueMessage> callback,
+        private static void PullMessage<T>(
+            Action<MetadataWrapper<T>> callback,
             SubscriberServiceApiClient subscriber,
-            SubscriptionName subscriptionName)
+            SubscriptionName subscriptionName) where T : class
         {
             var response = subscriber.Pull(subscriptionName, false, 3,
                 CallSettings.FromCallTiming(
@@ -34,7 +35,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
             foreach (var message in response.ReceivedMessages)
             {
                 var json = message.Message.Data.ToByteArray();
-                var queueMessage = JsonConvert.DeserializeObject<QueueMessage>(Encoding.UTF8.GetString(json));
+                var queueMessage = JsonConvert.DeserializeObject<MetadataWrapper<T>>(Encoding.UTF8.GetString(json));
                 callback(queueMessage);
             }
 
@@ -105,7 +106,8 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
 
             try
             {
-                const int queueMessageId = 1;
+                const string productName = "SNKRS";
+                const double productValue = 1.5;
 
                 dataTransmissionClient.Init(
                     Resources.GCPProjectId,
@@ -113,13 +115,20 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     "Content/data-analytics-421f476fd5e8.json");
 
                 dataTransmissionClient.Transmit(
-                    Resources.Brand,
-                    new QueueMessage
+                    Resources.BrandName,
+                    new PreOrder
                     {
-                        Id = queueMessageId
+                        ProductName = "SNKRS",
+                        ProductValue = 1.5
                     }).Wait();
 
-                PullMessage(queueMessage => { Assert.Equal(queueMessageId, queueMessage.Id); },
+                PullMessage<PreOrder>(metadataWrapper =>
+                    {
+                        var preOrder = metadataWrapper.Metadata;
+                        Assert.Equal(productName, preOrder.ProductName);
+                        Assert.Equal(productValue, preOrder.ProductValue);
+                        Assert.Equal(Resources.BrandName, metadataWrapper.BrandName);
+                    },
                     subscriber,
                     subscriptionName);
             }

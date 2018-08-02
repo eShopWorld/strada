@@ -47,11 +47,17 @@ namespace Eshopworld.Strada.Plugins.Streaming
         ///     Transmit persists <see cref="metadata" /> with associated <see cref="brand" /> metadata
         ///     to the connected Cloud Pub/Sub instance.
         /// </summary>
-        /// <param name="brand">The brand associated with <see cref="metadata" />.</param>
+        /// <param name="brandName">The brand name associated with <see cref="metadata" />.</param>
         /// <param name="metadata">The metadata to transmit to the Cloud Pub/Sub instance.</param>
-        public async Task Transmit(string brand, object metadata)
+        public async Task Transmit<T>(string brandName, T metadata) where T : class
         {
-            var payload = JsonConvert.SerializeObject(metadata);
+            var metadataWrapper = new MetadataWrapper<T>
+            {
+                BrandName = brandName,
+                Metadata = metadata
+            };
+
+            var payload = JsonConvert.SerializeObject(metadataWrapper);
             await _publisher.PublishAsync(_topicName, new[]
             {
                 new PubsubMessage
@@ -60,5 +66,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 }
             });
         }
+    }
+
+    public class MetadataWrapper<T> where T : class
+    {
+        public string BrandName { get; set; }
+        public T Metadata { get; set; }
     }
 }

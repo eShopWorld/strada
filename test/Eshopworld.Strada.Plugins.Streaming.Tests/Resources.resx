@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Brand" xml:space="preserve">
-    <value>NKE</value>
+  <data name="BrandName" xml:space="preserve">
+    <value>Nike</value>
   </data>
   <data name="GCPProjectId" xml:space="preserve">
     <value>data-analytics-207910</value>

@@ -61,11 +61,11 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NKE.
+        ///   Looks up a localized string similar to Nike.
         /// </summary>
-        internal static string Brand {
+        internal static string BrandName {
             get {
-                return ResourceManager.GetString("Brand", resourceCulture);
+                return ResourceManager.GetString("BrandName", resourceCulture);
             }
         }
         
