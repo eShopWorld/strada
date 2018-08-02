@@ -61,6 +61,15 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NKE.
+        /// </summary>
+        internal static string Brand {
+            get {
+                return ResourceManager.GetString("Brand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to data-analytics-207910.
         /// </summary>
         internal static string GCPProjectId {

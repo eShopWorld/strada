@@ -55,12 +55,12 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
             TopicName topicName;
             SubscriptionName subscriptionName;
 
+            const string credentialsFilePath = "Content/data-analytics-421f476fd5e8.json";
+
             try
             {
                 topicName = new TopicName(Resources.GCPProjectId, Resources.PubSubTopicId);
                 subscriptionName = new SubscriptionName(Resources.GCPProjectId, Resources.PubSubSubscriptionId);
-
-                const string credentialsFilePath = "Content/data-analytics-421f476fd5e8.json";
 
                 var publisherCredential = GoogleCredential.FromFile(credentialsFilePath)
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);
@@ -111,10 +111,13 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     Resources.GCPProjectId,
                     Resources.PubSubTopicId,
                     "Content/data-analytics-421f476fd5e8.json");
-                dataTransmissionClient.Transmit(new QueueMessage
-                {
-                    Id = queueMessageId
-                }, string.Empty).Wait();
+
+                dataTransmissionClient.Transmit(
+                    Resources.Brand,
+                    new QueueMessage
+                    {
+                        Id = queueMessageId
+                    }).Wait();
 
                 PullMessage(queueMessage => { Assert.Equal(queueMessageId, queueMessage.Id); },
                     subscriber,

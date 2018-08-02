@@ -47,11 +47,10 @@ namespace Eshopworld.Strada.Plugins.Streaming
         ///     Transmit persists <see cref="metadata" /> with associated <see cref="brand" /> metadata
         ///     to the connected Cloud Pub/Sub instance.
         /// </summary>
-        /// <param name="metadata">The metadata to transmit to the Cloud Pub/Sub instance.</param>
         /// <param name="brand">The brand associated with <see cref="metadata" />.</param>
-        public async Task Transmit(object metadata, string brand = null)
+        /// <param name="metadata">The metadata to transmit to the Cloud Pub/Sub instance.</param>
+        public async Task Transmit(string brand, object metadata)
         {
-            // Todo: Handle lost connectivity with RetryPolicy.
             var payload = JsonConvert.SerializeObject(metadata);
             await _publisher.PublishAsync(_topicName, new[]
             {
