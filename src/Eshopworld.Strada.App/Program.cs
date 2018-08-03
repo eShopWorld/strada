@@ -24,6 +24,7 @@ namespace Eshopworld.Strada.App
                    Resources.GCPProjectId,
                    Resources.PubSubTopicId,
                    "Content/data-analytics-421f476fd5e8.json");
+            // todo: subscribe to error event-handler
             
             await DataTransmissionClient.Instance.TransmitAsync(
                 Resources.BrandName,
@@ -33,7 +34,7 @@ namespace Eshopworld.Strada.App
                     ProductValue = 1.5
                 }, CancellationToken.None);
         }
-
+        // todo: create shutdown method
         static void BootUp()
         {
             PublisherServiceApiClient publisher;

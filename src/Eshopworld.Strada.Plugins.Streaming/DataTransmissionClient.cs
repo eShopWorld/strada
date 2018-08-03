@@ -47,7 +47,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             var publisherChannel = new Channel(
                 PublisherServiceApiClient.DefaultEndpoint.ToString(),
                 publisherCredential.ToChannelCredentials());
-
+            // todo: shutdown publisherChannel
             _publisher = PublisherServiceApiClient.Create(publisherChannel);
             _topicName = new TopicName(projectId, topicId);
         }
@@ -62,9 +62,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public async Task TransmitAsync<T>(string brandName, T metadata, CancellationToken cancellationToken) where T : class
         {
             if (string.IsNullOrEmpty(brandName)) throw new ArgumentNullException("brandName");
-            if (metadata == null) throw new ArgumentNullException("metadata");
-
-            // todo: BOOT-UP & SHUTDOWN
+            if (metadata == null) throw new ArgumentNullException("metadata");            
 
             try
             {
