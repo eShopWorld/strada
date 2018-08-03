@@ -58,8 +58,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// </summary>
         /// <param name="brandName">The brand name associated with <see cref="metadata" />.</param>
         /// <param name="metadata">The metadata to transmit to the Cloud Pub/Sub instance.</param>
-        /// <param name="cancellationToken">Used to cancel this function when executing.</param>
-        public async Task TransmitAsync<T>(string brandName, T metadata, CancellationToken cancellationToken) where T : class
+        public async Task TransmitAsync<T>(string brandName, T metadata) where T : class
         {
             if (string.IsNullOrEmpty(brandName)) throw new ArgumentNullException("brandName");
             if (metadata == null) throw new ArgumentNullException("metadata");            

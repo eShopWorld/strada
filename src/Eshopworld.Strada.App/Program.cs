@@ -32,7 +32,7 @@ namespace Eshopworld.Strada.App
                 {
                     ProductName = "SNKRS",
                     ProductValue = 1.5
-                }, CancellationToken.None);
+                });
         }
         // todo: create shutdown method
         static void BootUp()
