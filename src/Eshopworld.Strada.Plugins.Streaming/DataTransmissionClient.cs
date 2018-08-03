@@ -51,7 +51,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="metadata">The metadata to transmit to the Cloud Pub/Sub instance.</param>
         public async Task Transmit<T>(string brandName, T metadata) where T : class
         {
-            // todo: validate input
+            if (string.IsNullOrEmpty(brandName)) throw new ArgumentNullException("brandName");
+            if (metadata == null) throw new ArgumentNullException("metadata");
+
             // todo: CRUMPLE-ZONES; ERROR-HANDLING [event-based]; BOOT-UP & SHUTDOWN; DEVELOPER-FRIENDLY
 
             var metadataWrapper = new MetadataWrapper<T>
@@ -69,11 +71,5 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 }
             });
         }
-    }
-
-    public class MetadataWrapper<T> where T : class
-    {
-        public string BrandName { get; set; }
-        public T Metadata { get; set; }
     }
 }
