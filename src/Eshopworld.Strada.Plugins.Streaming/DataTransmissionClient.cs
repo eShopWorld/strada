@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using Google.Api.Gax.Grpc;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
@@ -49,12 +51,13 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// </summary>
         /// <param name="brandName">The brand name associated with <see cref="metadata" />.</param>
         /// <param name="metadata">The metadata to transmit to the Cloud Pub/Sub instance.</param>
-        public async Task Transmit<T>(string brandName, T metadata) where T : class
+        /// <param name="cancellationToken">Used to cancel this function when executing.</param>
+        public async Task TransmitAsync<T>(string brandName, T metadata, CancellationToken cancellationToken) where T : class
         {
             if (string.IsNullOrEmpty(brandName)) throw new ArgumentNullException("brandName");
             if (metadata == null) throw new ArgumentNullException("metadata");
 
-            // todo: CRUMPLE-ZONES; ERROR-HANDLING [event-based]; BOOT-UP & SHUTDOWN; DEVELOPER-FRIENDLY
+            // todo: ERROR-HANDLING [event-based]; BOOT-UP & SHUTDOWN; DEVELOPER-FRIENDLY
 
             var metadataWrapper = new MetadataWrapper<T>
             {
@@ -63,13 +66,14 @@ namespace Eshopworld.Strada.Plugins.Streaming
             };
 
             var payload = JsonConvert.SerializeObject(metadataWrapper);
+
             await _publisher.PublishAsync(_topicName, new[]
             {
                 new PubsubMessage
                 {
                     Data = ByteString.CopyFromUtf8(payload)
                 }
-            });
+            }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(3))));
         }
     }
 }

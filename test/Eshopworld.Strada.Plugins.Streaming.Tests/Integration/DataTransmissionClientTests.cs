@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading;
 using Google.Api.Gax;
 using Google.Api.Gax.Grpc;
 using Google.Apis.Auth.OAuth2;
@@ -114,13 +115,13 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     Resources.PubSubTopicId,
                     "Content/data-analytics-421f476fd5e8.json");
 
-                dataTransmissionClient.Transmit(
+                dataTransmissionClient.TransmitAsync(
                     Resources.BrandName,
                     new PreOrder
                     {
                         ProductName = "SNKRS",
                         ProductValue = 1.5
-                    }).Wait();
+                    }, CancellationToken.None).Wait();
 
                 PullMessage<PreOrder>(metadataWrapper =>
                     {
