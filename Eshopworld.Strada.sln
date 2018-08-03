@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshopworld.Strada.Plugins.Streaming", "src\Eshopworld.Strada.Plugins.Streaming\Eshopworld.Strada.Plugins.Streaming.csproj", "{7C59070B-E9FF-4296-8A5C-5A66E8EFA3EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshopworld.Strada.Plugins.Streaming", "src\Eshopworld.Strada.Plugins.Streaming\Eshopworld.Strada.Plugins.Streaming.csproj", "{7C59070B-E9FF-4296-8A5C-5A66E8EFA3EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshopworld.Strada.Plugins.Streaming.Tests", "test\Eshopworld.Strada.Plugins.Streaming.Tests\Eshopworld.Strada.Plugins.Streaming.Tests.csproj", "{B6C2D242-279D-4B4A-85DE-D62704B26BA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshopworld.Strada.Plugins.Streaming.Tests", "test\Eshopworld.Strada.Plugins.Streaming.Tests\Eshopworld.Strada.Plugins.Streaming.Tests.csproj", "{B6C2D242-279D-4B4A-85DE-D62704B26BA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshopworld.Strada.App", "src\Eshopworld.Strada.App\Eshopworld.Strada.App.csproj", "{0C93DF30-7A11-4022-9D07-85CFCE800562}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B6C2D242-279D-4B4A-85DE-D62704B26BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6C2D242-279D-4B4A-85DE-D62704B26BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6C2D242-279D-4B4A-85DE-D62704B26BA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C93DF30-7A11-4022-9D07-85CFCE800562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C93DF30-7A11-4022-9D07-85CFCE800562}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C93DF30-7A11-4022-9D07-85CFCE800562}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C93DF30-7A11-4022-9D07-85CFCE800562}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
