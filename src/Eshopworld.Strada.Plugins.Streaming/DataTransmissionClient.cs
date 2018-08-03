@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
+    public delegate void TransmissionFailedEventHandler(object sender, TransmissionFailedEventArgs e);
+
     /// <summary>
     ///     DataTransmissionClient is a static Cloud Pub/Sub client, providing connectivity and transmission functionality.
     /// </summary>
@@ -21,6 +23,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         private PublisherServiceApiClient _publisher;
         private TopicName _topicName;
+
+        /// <summary>
+        /// Raised when and exception occurs during <see cref="TransmitAsync{T}(string, T, CancellationToken)"/> execution.
+        /// </summary>
+        public event TransmissionFailedEventHandler TransmissionFailed;
 
         /// <summary>
         ///     Instance is a static instance of <see cref="DataTransmissionClient" />.
@@ -46,7 +53,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         }
 
         /// <summary>
-        ///     Transmit persists <see cref="metadata" /> with associated <see cref="brand" /> metadata
+        ///     TransmitAsync persists <see cref="metadata" /> with associated <see cref="brand" /> metadata
         ///     to the connected Cloud Pub/Sub instance.
         /// </summary>
         /// <param name="brandName">The brand name associated with <see cref="metadata" />.</param>
@@ -57,23 +64,34 @@ namespace Eshopworld.Strada.Plugins.Streaming
             if (string.IsNullOrEmpty(brandName)) throw new ArgumentNullException("brandName");
             if (metadata == null) throw new ArgumentNullException("metadata");
 
-            // todo: ERROR-HANDLING [event-based]; BOOT-UP & SHUTDOWN; DEVELOPER-FRIENDLY
+            // todo: BOOT-UP & SHUTDOWN
 
-            var metadataWrapper = new MetadataWrapper<T>
+            try
             {
-                BrandName = brandName,
-                Metadata = metadata
-            };
-
-            var payload = JsonConvert.SerializeObject(metadataWrapper);
-
-            await _publisher.PublishAsync(_topicName, new[]
-            {
-                new PubsubMessage
+                var metadataWrapper = new MetadataWrapper<T>
                 {
-                    Data = ByteString.CopyFromUtf8(payload)
-                }
-            }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(3))));
+                    BrandName = brandName,
+                    Metadata = metadata
+                };
+
+                var payload = JsonConvert.SerializeObject(metadataWrapper);
+                await _publisher.PublishAsync(_topicName, new[]
+                {
+                    new PubsubMessage
+                    {
+                        Data = ByteString.CopyFromUtf8(payload)
+                    }
+                },  CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(3))));
+            }
+            catch (Exception exception)
+            {
+                OnTransmissionFailed(new TransmissionFailedEventArgs(exception));
+            }            
+        }
+
+        protected virtual void OnTransmissionFailed(TransmissionFailedEventArgs e)
+        {
+            TransmissionFailed?.Invoke(this, e);
         }
     }
 }
