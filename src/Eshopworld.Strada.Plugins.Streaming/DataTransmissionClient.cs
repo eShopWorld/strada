@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Google.Api.Gax.Grpc;
 using Google.Apis.Auth.OAuth2;
@@ -25,14 +24,14 @@ namespace Eshopworld.Strada.Plugins.Streaming
         private TopicName _topicName;
 
         /// <summary>
-        /// Raised when and exception occurs during <see cref="TransmitAsync{T}(string, T, CancellationToken)"/> execution.
-        /// </summary>
-        public event TransmissionFailedEventHandler TransmissionFailed;
-
-        /// <summary>
         ///     Instance is a static instance of <see cref="DataTransmissionClient" />.
         /// </summary>
         public static DataTransmissionClient Instance => InnerDataTransmissionClient.Value;
+
+        /// <summary>
+        ///     Raised when and exception occurs during <see cref="TransmitAsync{T}" /> execution.
+        /// </summary>
+        public event TransmissionFailedEventHandler TransmissionFailed;
 
         /// <summary>
         ///     Init instantiates Cloud Pub/Sub connectivity metadata.
@@ -53,15 +52,15 @@ namespace Eshopworld.Strada.Plugins.Streaming
         }
 
         /// <summary>
-        ///     TransmitAsync persists <see cref="metadata" /> with associated <see cref="brand" /> metadata
+        ///     TransmitAsync persists <see cref="metadata" /> with associated <see cref="brandName" /> metadata
         ///     to the connected Cloud Pub/Sub instance.
         /// </summary>
         /// <param name="brandName">The brand name associated with <see cref="metadata" />.</param>
         /// <param name="metadata">The metadata to transmit to the Cloud Pub/Sub instance.</param>
         public async Task TransmitAsync<T>(string brandName, T metadata) where T : class
         {
-            if (string.IsNullOrEmpty(brandName)) throw new ArgumentNullException("brandName");
-            if (metadata == null) throw new ArgumentNullException("metadata");            
+            if (string.IsNullOrEmpty(brandName)) throw new ArgumentNullException(nameof(brandName));
+            if (metadata == null) throw new ArgumentNullException(nameof(metadata));
 
             try
             {
@@ -78,15 +77,15 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     {
                         Data = ByteString.CopyFromUtf8(payload)
                     }
-                },  CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(3))));
+                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(3))));
             }
             catch (Exception exception)
             {
                 OnTransmissionFailed(new TransmissionFailedEventArgs(exception));
-            }            
+            }
         }
 
-        protected virtual void OnTransmissionFailed(TransmissionFailedEventArgs e)
+        private void OnTransmissionFailed(TransmissionFailedEventArgs e)
         {
             TransmissionFailed?.Invoke(this, e);
         }

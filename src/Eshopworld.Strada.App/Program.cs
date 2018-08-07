@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Eshopworld.Strada.Plugins.Streaming;
 using Google.Apis.Auth.OAuth2;
@@ -9,23 +8,23 @@ using Grpc.Core;
 
 namespace Eshopworld.Strada.App
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
-        {           
+        private static void Main(string[] args)
+        {
             MainAsync(args).GetAwaiter().GetResult();
         }
 
-        static async Task MainAsync(string[] args)
+        private static async Task MainAsync(string[] args)
         {
             BootUp();
 
             DataTransmissionClient.Instance.Init(
-                   Resources.GCPProjectId,
-                   Resources.PubSubTopicId,
-                   "Content/data-analytics-421f476fd5e8.json");
+                Resources.GCPProjectId,
+                Resources.PubSubTopicId,
+                "Content/data-analytics-421f476fd5e8.json");
             // todo: subscribe to error event-handler
-            
+
             await DataTransmissionClient.Instance.TransmitAsync(
                 Resources.BrandName,
                 new PreOrder
@@ -34,8 +33,9 @@ namespace Eshopworld.Strada.App
                     ProductValue = 1.5
                 });
         }
+
         // todo: create shutdown method
-        static void BootUp()
+        private static void BootUp()
         {
             PublisherServiceApiClient publisher;
             SubscriberServiceApiClient subscriber;
@@ -89,7 +89,8 @@ namespace Eshopworld.Strada.App
             }
         }
     }
-    class PreOrder
+
+    internal class PreOrder
     {
         public string ProductName { get; set; }
         public double ProductValue { get; set; }
