@@ -34,7 +34,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public event TransmissionFailedEventHandler TransmissionFailed;
 
         /// <summary>
-        ///     Init instantiates Cloud Pub/Sub connectivity metadata.
+        ///     Init instantiates Cloud Pub/Sub connectivity components.
         /// </summary>
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
@@ -77,7 +77,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     {
                         Data = ByteString.CopyFromUtf8(payload)
                     }
-                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(3))));
+                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(3)))); // introduce as parameter.
             }
             catch (Exception exception)
             {

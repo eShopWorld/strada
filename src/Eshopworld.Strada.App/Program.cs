@@ -23,7 +23,8 @@ namespace Eshopworld.Strada.App
                 Resources.GCPProjectId,
                 Resources.PubSubTopicId,
                 "Content/data-analytics-421f476fd5e8.json");
-            // todo: subscribe to error event-handler
+
+            DataTransmissionClient.Instance.TransmissionFailed += Instance_TransmissionFailed;
 
             await DataTransmissionClient.Instance.TransmitAsync(
                 Resources.BrandName,
@@ -32,6 +33,11 @@ namespace Eshopworld.Strada.App
                     ProductName = "SNKRS",
                     ProductValue = 1.5
                 });
+        }
+
+        private static void Instance_TransmissionFailed(object sender, TransmissionFailedEventArgs e)
+        {
+            Console.WriteLine(e.Exception.Message);
         }
 
         // todo: create shutdown method
