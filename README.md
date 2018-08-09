@@ -9,9 +9,9 @@ The transmission mechanism accepts a generic payload, allowing clients to transm
 
 ````
 DataTransmissionClient.Instance.Init(
-    Resources.GCPProjectId,
-    Resources.PubSubTopicId,
-    "SERVICE CREDENTIALS FILE");
+    "GCP PROJECT ID",
+    "GCP TOPIC ID,
+    "GCP SERVICE CREDENTIALS FILE");
 
 await DataTransmissionClient.Instance.TransmitAsync(
     "BRANDNAME",
