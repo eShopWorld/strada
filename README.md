@@ -28,7 +28,7 @@ await DataTransmissionClient.Instance.TransmitAsync(
     });
 ```
 ### Shutdown
-Shutdown should be called once, during your application **_shutdown_** phase. **WARNING**: If your application executes a shutdown phase as part of a **_restart_** operation during, for example, Application Pool recycling, you must ensure that initialisation occurs in the subsequent **_start-up_** phase.
+Shutdown should be called once, during your application **_shutdown_** phase. **WARNING**: If your application executes a shutdown phase as part of a **_restart_** operation during, for example, Application Pool recycling, you must ensure that [initialisation](https://github.com/eShopWorld/strada/blob/master/README.md#initialisation) occurs in the subsequent **_start-up_** phase.
 ```cs
 await DataTransmissionClient.ShutDownAsync();
 ```
