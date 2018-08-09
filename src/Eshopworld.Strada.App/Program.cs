@@ -40,7 +40,6 @@ namespace Eshopworld.Strada.App
             Console.WriteLine(e.Exception.Message);
         }
 
-        // todo: create shutdown method
         private static void BootUp()
         {
             PublisherServiceApiClient publisher;

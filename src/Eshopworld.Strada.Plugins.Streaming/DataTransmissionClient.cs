@@ -13,7 +13,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
     public delegate void TransmissionFailedEventHandler(object sender, TransmissionFailedEventArgs e);
 
     /// <summary>
-    ///     DataTransmissionClient is a static Cloud Pub/Sub client, providing connectivity and transmission functionality.
+    ///     DataTransmissionClient is a Google Cloud Pub/Sub client, providing connectivity and transmission functionality.
     /// </summary>
     public class DataTransmissionClient
     {
@@ -39,7 +39,10 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
         /// <param name="credentialsFilePath">The GCP Pub/Sub credentials file path.</param>
-        public void Init(string projectId, string topicId, string credentialsFilePath)
+        public void Init(
+            string projectId,
+            string topicId,
+            string credentialsFilePath)
         {
             var publisherCredential = GoogleCredential.FromFile(credentialsFilePath)
                 .CreateScoped(PublisherServiceApiClient.DefaultScopes);
@@ -55,10 +58,15 @@ namespace Eshopworld.Strada.Plugins.Streaming
         ///     TransmitAsync persists <see cref="metadata" /> with associated <see cref="brandName" /> metadata
         ///     to the connected Cloud Pub/Sub instance.
         /// </summary>
-        /// <param name="brandName">The brand name associated with <see cref="metadata" />.</param>
+        /// <param name="brandName">The customer name or reference code.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <param name="metadata">The data model/metadata to transmit to Cloud Pub/Sub.</param>
-        public async Task TransmitAsync<T>(string brandName, string correlationId, T metadata) where T : class
+        /// <param name="timeOut">The number of seconds after which the transmission operation will time out.</param>
+        public async Task TransmitAsync<T>(
+            string brandName,
+            string correlationId,
+            T metadata,
+            double timeOut = 3) where T : class
         {
             if (string.IsNullOrEmpty(brandName)) throw new ArgumentNullException(nameof(brandName));
             if (metadata == null) throw new ArgumentNullException(nameof(metadata));
@@ -68,6 +76,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 var metadataWrapper = new MetadataWrapper<T>
                 {
                     BrandName = brandName,
+                    CorrelationId = correlationId,
                     Metadata = metadata
                 };
 
@@ -78,11 +87,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     {
                         Data = ByteString.CopyFromUtf8(payload)
                     }
-                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(3)))); // introduce as parameter.
+                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(timeOut))));
             }
             catch (Exception exception)
             {
-                OnTransmissionFailed(new TransmissionFailedEventArgs(exception));
+                OnTransmissionFailed(new TransmissionFailedEventArgs(brandName, correlationId, exception));
             }
         }
 
