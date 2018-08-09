@@ -33,4 +33,4 @@ Shutdown should be called once, during your application **_shutdown_** phase. **
 await DataTransmissionClient.ShutDownAsync();
 ```
 ## Overhead
-Crumple zones are built in, so that in case of network failure, or any other issue that results in an unacceptable delay (configurable; default 3 seconds), the transmission request will abort, ensuring a consistent minimal overhead.
+Crumple zones are built in, so that in case of network failure, or any other issue that results in an unacceptable delay (configurable; default 3 seconds), the transmission request will abort, ensuring consistent, minimal overhead.
