@@ -56,7 +56,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
             TopicName topicName;
             SubscriptionName subscriptionName;
 
-            const string credentialsFilePath = "Content/data-analytics-421f476fd5e8.json";
+            const string credentialsFilePath = "Content/data-analytics-421f476fd5e8.json"; // todo: Download through GCP Cloud Function.
 
             try
             {
