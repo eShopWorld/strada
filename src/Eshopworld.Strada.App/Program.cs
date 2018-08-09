@@ -33,11 +33,13 @@ namespace Eshopworld.Strada.App
                     ProductName = "SNKRS",
                     ProductValue = 1.5
                 });
+
+            await DataTransmissionClient.ShutDownAsync();
         }
 
         private static void Instance_TransmissionFailed(object sender, TransmissionFailedEventArgs e)
         {
-            Console.WriteLine(e.Exception.Message);
+            Console.WriteLine(e.Exception.Message); //todo: add new params.
         }
 
         private static void BootUp()

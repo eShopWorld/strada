@@ -12,6 +12,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
 {
     public delegate void TransmissionFailedEventHandler(object sender, TransmissionFailedEventArgs e);
 
+    // todo: add custom errors to init, shutdown.
     /// <summary>
     ///     DataTransmissionClient is a Google Cloud Pub/Sub client, providing connectivity and transmission functionality.
     /// </summary>
@@ -49,9 +50,17 @@ namespace Eshopworld.Strada.Plugins.Streaming
             var publisherChannel = new Channel(
                 PublisherServiceApiClient.DefaultEndpoint.ToString(),
                 publisherCredential.ToChannelCredentials());
-            // todo: shutdown publisherChannel
+
             _publisher = PublisherServiceApiClient.Create(publisherChannel);
             _topicName = new TopicName(projectId, topicId);
+        }
+
+        /// <summary>
+        ///     ShutDownAsync shuts down all active Cloud Pub/Sub channels.
+        /// </summary>
+        public static async Task ShutDownAsync()
+        {
+            await PublisherServiceApiClient.ShutdownDefaultChannelsAsync();
         }
 
         /// <summary>
