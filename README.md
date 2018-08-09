@@ -1,10 +1,10 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://ci.appveyor.com/project/daishisystems/strada)
 [![NuGet](https://img.shields.io/badge/myget-v1.5.7-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming)
 ## Overview
-The **Data Analytics Transmission Component** is a .NET Standard 2.0 library that transmits data to [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).
+The **Data Analytics Transmission Component** is a [.NET Standard 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/08/14/announcing-net-standard-2-0/) library that transmits data to [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).
 
 ## Purpose
-To transmit data to a Data Lake to facilitate reporting services, and to derive business intelligence.
+To transmit data to a Data Lake, facilitating reporting services and business intelligence.
 
 ## Usage
 ### Initialisation
@@ -21,14 +21,14 @@ The transmission mechanism accepts a generic payload, allowing clients to transm
 await DataTransmissionClient.Instance.TransmitAsync(
     "BRANDNAME", // E.g., "NKE", "NIKE". Injected by Autofac
     "CORRELATIONID", // Unique ID. Injected by Autofac. Currently unsupported.
-    new PreOrder
+    new PreOrder // The class instance to be transmitted
     {
         ProductName = "SNKRS",
         ProductValue = 1.5
     });
 ```
 ### Shutdown
-Shutdown should be called once, during your application shutdown phase. **WARNING**: If your application executes a **_shutdown_** phase during, for example, Application Pool recycling, you must ensure that the ```cs DataTransmissionClient.Instance.Init``` method is executed in a subsequent **_start-up_** phase.
+Shutdown should be called once, during your application **_shutdown_** phase. **WARNING**: If your application executes a shutdown phase as part of a **_restart_** operation during, for example, Application Pool recycling, you must ensure that initialisation occurs in the subsequent **_start-up_** phase.
 ```cs
 await DataTransmissionClient.ShutDownAsync();
 ```
