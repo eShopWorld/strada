@@ -4,21 +4,27 @@ namespace Eshopworld.Strada.Plugins.Streaming
 {
     /// <inheritdoc />
     /// <summary>
-    ///     TransmissionFailedEventArgs provides metadata specific to a transmission failure.
+    ///     DataTransmissionException wraps underlying data transmission exceptions to provide more intuitive exception
+    ///     metadata.
     /// </summary>
-    public class TransmissionFailedEventArgs : EventArgs
+    public class DataTransmissionException : Exception
     {
+        /// <inheritdoc />
         /// <summary>
         ///     Default constructor.
         /// </summary>
+        /// <param name="message">An intuitive error message.</param>
         /// <param name="brandName">The customer name or reference code.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
-        /// <param name="exception">The <see cref="Exception" /> instance that describes the transmission failure.</param>
-        public TransmissionFailedEventArgs(string brandName, string correlationId, Exception exception)
+        /// <param name="innerException">The exception instance that caused the error.</param>
+        public DataTransmissionException(
+            string message,
+            string brandName,
+            string correlationId,
+            Exception innerException) : base(message, innerException)
         {
             BrandName = brandName;
             CorrelationId = correlationId;
-            Exception = exception;
         }
 
         /// <summary>
@@ -30,10 +36,5 @@ namespace Eshopworld.Strada.Plugins.Streaming
         ///     CorrelationId is used to link related metadata in the downstream data lake.
         /// </summary>
         public string CorrelationId { get; }
-
-        /// <summary>
-        ///     Exception is the <see cref="Exception" /> instance that describes the transmission failure.
-        /// </summary>
-        public Exception Exception { get; }
     }
 }

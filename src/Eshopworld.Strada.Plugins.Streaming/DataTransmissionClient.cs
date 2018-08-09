@@ -10,9 +10,6 @@ using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public delegate void TransmissionFailedEventHandler(object sender, TransmissionFailedEventArgs e);
-
-    // todo: add custom errors to init, shutdown.
     /// <summary>
     ///     DataTransmissionClient is a Google Cloud Pub/Sub client, providing connectivity and transmission functionality.
     /// </summary>
@@ -30,47 +27,60 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public static DataTransmissionClient Instance => InnerDataTransmissionClient.Value;
 
         /// <summary>
-        ///     Raised when and exception occurs during <see cref="TransmitAsync{T}" /> execution.
-        /// </summary>
-        public event TransmissionFailedEventHandler TransmissionFailed;
-
-        /// <summary>
         ///     Init instantiates Cloud Pub/Sub connectivity components.
         /// </summary>
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
         /// <param name="credentialsFilePath">The GCP Pub/Sub credentials file path.</param>
+        /// <exception cref="DataTransmissionClientException"></exception>
         public void Init(
             string projectId,
             string topicId,
             string credentialsFilePath)
         {
-            var publisherCredential = GoogleCredential.FromFile(credentialsFilePath)
-                .CreateScoped(PublisherServiceApiClient.DefaultScopes);
-            var publisherChannel = new Channel(
-                PublisherServiceApiClient.DefaultEndpoint.ToString(),
-                publisherCredential.ToChannelCredentials());
+            try
+            {
+                var publisherCredential = GoogleCredential.FromFile(credentialsFilePath)
+                    .CreateScoped(PublisherServiceApiClient.DefaultScopes);
+                var publisherChannel = new Channel(
+                    PublisherServiceApiClient.DefaultEndpoint.ToString(),
+                    publisherCredential.ToChannelCredentials());
 
-            _publisher = PublisherServiceApiClient.Create(publisherChannel);
-            _topicName = new TopicName(projectId, topicId);
+                _publisher = PublisherServiceApiClient.Create(publisherChannel);
+                _topicName = new TopicName(projectId, topicId);
+            }
+            catch (Exception exception)
+            {
+                throw new DataTransmissionClientException(
+                    "An error occurred while initializing the data transmission client.", exception);
+            }
         }
 
         /// <summary>
         ///     ShutDownAsync shuts down all active Cloud Pub/Sub channels.
         /// </summary>
+        /// <exception cref="DataTransmissionClientException"></exception>
         public static async Task ShutDownAsync()
         {
-            await PublisherServiceApiClient.ShutdownDefaultChannelsAsync();
+            try
+            {
+                await PublisherServiceApiClient.ShutdownDefaultChannelsAsync();
+            }
+            catch (Exception exception)
+            {
+                throw new DataTransmissionClientException(
+                    "An error occurred while shutting the data transmission client down.", exception);
+            }
         }
 
         /// <summary>
-        ///     TransmitAsync persists <see cref="metadata" /> with associated <see cref="brandName" /> metadata
-        ///     to the connected Cloud Pub/Sub instance.
+        ///     TransmitAsync persists metadata to a connected Cloud Pub/Sub instance.
         /// </summary>
         /// <param name="brandName">The customer name or reference code.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <param name="metadata">The data model/metadata to transmit to Cloud Pub/Sub.</param>
         /// <param name="timeOut">The number of seconds after which the transmission operation will time out.</param>
+        /// <exception cref="DataTransmissionException"></exception>
         public async Task TransmitAsync<T>(
             string brandName,
             string correlationId,
@@ -100,13 +110,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
             }
             catch (Exception exception)
             {
-                OnTransmissionFailed(new TransmissionFailedEventArgs(brandName, correlationId, exception));
+                throw new DataTransmissionException("An error occurred while transmitting metadata.",
+                    brandName, correlationId, exception);
             }
-        }
-
-        private void OnTransmissionFailed(TransmissionFailedEventArgs e)
-        {
-            TransmissionFailed?.Invoke(this, e);
         }
     }
 }

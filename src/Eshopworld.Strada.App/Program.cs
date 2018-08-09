@@ -24,22 +24,24 @@ namespace Eshopworld.Strada.App
                 Resources.PubSubTopicId,
                 "Content/data-analytics-421f476fd5e8.json");
 
-            DataTransmissionClient.Instance.TransmissionFailed += Instance_TransmissionFailed;
-
-            await DataTransmissionClient.Instance.TransmitAsync(
-                Resources.BrandName, string.Empty,
-                new PreOrder
-                {
-                    ProductName = "SNKRS",
-                    ProductValue = 1.5
-                });
+            try
+            {
+                await DataTransmissionClient.Instance.TransmitAsync(
+                    Resources.BrandName, string.Empty,
+                    new PreOrder
+                    {
+                        ProductName = "SNKRS",
+                        ProductValue = 1.5
+                    });
+            }
+            catch (DataTransmissionException exception)
+            {
+                Console.WriteLine(exception.BrandName);
+                Console.WriteLine(exception.CorrelationId);
+                Console.WriteLine(exception.Message);
+            }
 
             await DataTransmissionClient.ShutDownAsync();
-        }
-
-        private static void Instance_TransmissionFailed(object sender, TransmissionFailedEventArgs e)
-        {
-            Console.WriteLine(e.Exception.Message); //todo: add new params.
         }
 
         private static void BootUp()
@@ -95,11 +97,5 @@ namespace Eshopworld.Strada.App
                 // Subscription already exists.
             }
         }
-    }
-
-    internal class PreOrder
-    {
-        public string ProductName { get; set; }
-        public double ProductValue { get; set; }
     }
 }
