@@ -27,7 +27,7 @@ namespace Eshopworld.Strada.App
             DataTransmissionClient.Instance.TransmissionFailed += Instance_TransmissionFailed;
 
             await DataTransmissionClient.Instance.TransmitAsync(
-                Resources.BrandName,
+                Resources.BrandName, string.Empty,
                 new PreOrder
                 {
                     ProductName = "SNKRS",

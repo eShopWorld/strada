@@ -56,8 +56,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
         ///     to the connected Cloud Pub/Sub instance.
         /// </summary>
         /// <param name="brandName">The brand name associated with <see cref="metadata" />.</param>
-        /// <param name="metadata">The metadata to transmit to the Cloud Pub/Sub instance.</param>
-        public async Task TransmitAsync<T>(string brandName, T metadata) where T : class
+        /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
+        /// <param name="metadata">The data model/metadata to transmit to Cloud Pub/Sub.</param>
+        public async Task TransmitAsync<T>(string brandName, string correlationId, T metadata) where T : class
         {
             if (string.IsNullOrEmpty(brandName)) throw new ArgumentNullException(nameof(brandName));
             if (metadata == null) throw new ArgumentNullException(nameof(metadata));

@@ -115,7 +115,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     "Content/data-analytics-421f476fd5e8.json");
 
                 dataTransmissionClient.TransmitAsync(
-                    Resources.BrandName,
+                    Resources.BrandName, string.Empty,
                     new PreOrder
                     {
                         ProductName = "SNKRS",
