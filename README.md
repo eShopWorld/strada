@@ -1,3 +1,4 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://ci.appveyor.com/project/daishisystems/strada)
 ## Overview
 The Data Analytics Transmission Component is a .NET Standard 2.0 library that transmits data to Google Cloud Pub/Sub.
 
