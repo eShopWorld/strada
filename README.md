@@ -19,8 +19,8 @@ DataTransmissionClient.Instance.Init(
 The transmission mechanism accepts a generic payload, allowing clients to transmit any class instance.
 ````
 await DataTransmissionClient.Instance.TransmitAsync(
-    "BRANDNAME",
-    "CORRELATIONID",
+    "BRANDNAME", // E.g., "NKE", "NIKE". Injected by Autofac
+    "CORRELATIONID", // Unique ID. Injected by Autofac. Currently unsupported.
     new PreOrder
     {
         ProductName = "SNKRS",
@@ -29,5 +29,8 @@ await DataTransmissionClient.Instance.TransmitAsync(
 ````
 ### Shutdown
 Shutdown should be called once, during your application shutdown phase. **WARNING**: If your application executes a shutdown phase during, for example, Application Pool recycling, you must ensure that the ````DataTransmissionClient.Instance.Init```` method is executed in a subsequent start-up phase.
+````
+await DataTransmissionClient.ShutDownAsync();
+````
 ## Overhead
 Crumple zones are built in, so that in case of network failure, or any other issue that results in an unacceptable delay (configurable; default 3 seconds), the transmission request will abort, ensuring a consistent minimal overhead.
