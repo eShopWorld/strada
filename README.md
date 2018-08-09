@@ -9,17 +9,15 @@ To transmit data to a Data Lake to facilitate reporting services, and to derive 
 ## Usage
 ### Initialisation
 Initialisation should be executed once, during your **_application start-up_** phase.
-
 ```cs
 DataTransmissionClient.Instance.Init(
     "GCP PROJECT ID",
-    "GCP TOPIC ID,
+    "GCP TOPIC ID",
     "GCP SERVICE CREDENTIALS FILE LOCATION");
 ```
-
 ### Transmission
 The transmission mechanism accepts a generic payload, allowing clients to transmit any class instance.
-```
+```cs
 await DataTransmissionClient.Instance.TransmitAsync(
     "BRANDNAME", // E.g., "NKE", "NIKE". Injected by Autofac
     "CORRELATIONID", // Unique ID. Injected by Autofac. Currently unsupported.
@@ -30,8 +28,8 @@ await DataTransmissionClient.Instance.TransmitAsync(
     });
 ```
 ### Shutdown
-Shutdown should be called once, during your application shutdown phase. **WARNING**: If your application executes a **_shutdown_** phase during, for example, Application Pool recycling, you must ensure that the ``` DataTransmissionClient.Instance.Init``` method is executed in a subsequent **_start-up_** phase.
-```
+Shutdown should be called once, during your application shutdown phase. **WARNING**: If your application executes a **_shutdown_** phase during, for example, Application Pool recycling, you must ensure that the ```cs DataTransmissionClient.Instance.Init``` method is executed in a subsequent **_start-up_** phase.
+```cs
 await DataTransmissionClient.ShutDownAsync();
 ```
 ## Overhead
