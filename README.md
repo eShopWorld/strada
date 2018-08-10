@@ -4,7 +4,7 @@
 The **Data Analytics Transmission Component** is a [.NET Standard 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/08/14/announcing-net-standard-2-0/) library that transmits data to [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).
 
 ## Purpose
-To transmit data to a Data Lake, facilitating reporting services and business intelligence.
+To transmit data models to a Data Lake, facilitating reporting services and business intelligence.
 
 ## Usage
 ### Initialisation
@@ -13,7 +13,7 @@ Initialisation should be executed once, during your **_application start-up_** p
 DataTransmissionClient.Instance.Init(
     "GCP PROJECT ID",
     "GCP TOPIC ID",
-    "GCP SERVICE CREDENTIALS PRIVATE KEY");
+    "GCP SERVICE CREDENTIALS");
 ```
 ### Transmission
 The transmission mechanism accepts a generic payload, allowing clients to transmit any class instance.
