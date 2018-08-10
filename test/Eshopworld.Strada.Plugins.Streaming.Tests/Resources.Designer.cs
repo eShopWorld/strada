@@ -70,7 +70,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to data-analytics-207910.
+        ///   Looks up a localized string similar to eshop-bigdata.
         /// </summary>
         internal static string GCPProjectId {
             get {
@@ -79,7 +79,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to data-analytics-test-subscription.
+        ///   Looks up a localized string similar to pub-sub-integration-testing-subscription.
         /// </summary>
         internal static string PubSubSubscriptionId {
             get {
@@ -88,7 +88,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to data-analytics-test-topic.
+        ///   Looks up a localized string similar to pub-sub-integration-testing-topic.
         /// </summary>
         internal static string PubSubTopicId {
             get {
