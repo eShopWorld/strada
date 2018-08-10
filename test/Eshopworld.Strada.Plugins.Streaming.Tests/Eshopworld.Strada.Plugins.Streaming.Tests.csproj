@@ -7,12 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Content\service-credentials.json" />
-    <None Remove="service-credentials.json" />
+    <None Remove="Content\data-analytics-421f476fd5e8.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Content\service-credentials.json">
+    <Content Include="Content\data-analytics-421f476fd5e8.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

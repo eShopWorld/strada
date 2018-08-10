@@ -121,12 +121,12 @@
     <value>Nike</value>
   </data>
   <data name="GCPProjectId" xml:space="preserve">
-    <value>eshop-bigdata</value>
+    <value>data-analytics-207910</value>
   </data>
   <data name="PubSubSubscriptionId" xml:space="preserve">
-    <value>pub-sub-integration-testing</value>
+    <value>data-analytics-test-subscription</value>
   </data>
   <data name="PubSubTopicId" xml:space="preserve">
-    <value>pub-sub-integration-testing</value>
+    <value>data-analytics-test-topic</value>
   </data>
 </root>

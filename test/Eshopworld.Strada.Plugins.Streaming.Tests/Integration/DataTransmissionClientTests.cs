@@ -56,7 +56,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
             TopicName topicName;
             SubscriptionName subscriptionName;
 
-            const string credentialsFilePath = "Content/service-credentials.json"; // todo: Download through GCP Cloud Function.
+            const string credentialsFilePath = "Content/data-analytics-421f476fd5e8.json"; // todo: Download through GCP Cloud Function.
 
             try
             {
@@ -112,7 +112,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                 dataTransmissionClient.Init(
                     Resources.GCPProjectId,
                     Resources.PubSubTopicId,
-                    "service-credentials.json");
+                    "Content/data-analytics-421f476fd5e8.json");
 
                 dataTransmissionClient.TransmitAsync(
                     Resources.BrandName, string.Empty,
