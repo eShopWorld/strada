@@ -120,13 +120,16 @@
   <data name="BrandName" xml:space="preserve">
     <value>Nike</value>
   </data>
+  <data name="CredentialsFileUri" xml:space="preserve">
+    <value>https://www.googleapis.com/storage/v1/b/pub-sub-integration-tests/o/eshop-bigdata-803e08690482.json?alt=media</value>
+  </data>
   <data name="GCPProjectId" xml:space="preserve">
-    <value>data-analytics-207910</value>
+    <value>eshop-bigdata</value>
   </data>
   <data name="PubSubSubscriptionId" xml:space="preserve">
-    <value>data-analytics-test-subscription</value>
+    <value>pub-sub-integration-test-subscription</value>
   </data>
   <data name="PubSubTopicId" xml:space="preserve">
-    <value>data-analytics-test-topic</value>
+    <value>pub-sub-integration-test-topic</value>
   </data>
 </root>

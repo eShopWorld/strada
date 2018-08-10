@@ -6,16 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Content\data-analytics-421f476fd5e8.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Content\data-analytics-421f476fd5e8.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Eshopworld.Strada.Plugins.Streaming\Eshopworld.Strada.Plugins.Streaming.csproj" />
   </ItemGroup>
 

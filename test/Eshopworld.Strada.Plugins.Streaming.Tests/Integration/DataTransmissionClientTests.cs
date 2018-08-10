@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Text;
 using Google.Api.Gax;
 using Google.Api.Gax.Grpc;
@@ -56,21 +57,24 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
             TopicName topicName;
             SubscriptionName subscriptionName;
 
-            const string credentialsFilePath = "Content/data-analytics-421f476fd5e8.json"; // todo: Download through GCP Cloud Function.
+            string serviceCredentials;
 
             try
             {
+                HttpClient client = new HttpClient();
+                serviceCredentials = client.GetStringAsync(Resources.CredentialsFileUri).Result;
+                
                 topicName = new TopicName(Resources.GCPProjectId, Resources.PubSubTopicId);
                 subscriptionName = new SubscriptionName(Resources.GCPProjectId, Resources.PubSubSubscriptionId);
 
-                var publisherCredential = GoogleCredential.FromFile(credentialsFilePath)
+                var publisherCredential = GoogleCredential.FromJson(serviceCredentials)
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);
                 var publisherChannel = new Channel(
                     PublisherServiceApiClient.DefaultEndpoint.ToString(),
                     publisherCredential.ToChannelCredentials());
                 publisher = PublisherServiceApiClient.Create(publisherChannel);
 
-                var subscriberCredential = GoogleCredential.FromFile(credentialsFilePath)
+                var subscriberCredential = GoogleCredential.FromJson(serviceCredentials)
                     .CreateScoped(SubscriberServiceApiClient.DefaultScopes);
                 var subscriberChannel = new Channel(
                     SubscriberServiceApiClient.DefaultEndpoint.ToString(),
@@ -112,7 +116,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                 dataTransmissionClient.Init(
                     Resources.GCPProjectId,
                     Resources.PubSubTopicId,
-                    "Content/data-analytics-421f476fd5e8.json");
+                    serviceCredentials);
 
                 dataTransmissionClient.TransmitAsync(
                     Resources.BrandName, string.Empty,

@@ -70,7 +70,16 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to data-analytics-207910.
+        ///   Looks up a localized string similar to https://www.googleapis.com/storage/v1/b/pub-sub-integration-tests/o/eshop-bigdata-803e08690482.json?alt=media.
+        /// </summary>
+        internal static string CredentialsFileUri {
+            get {
+                return ResourceManager.GetString("CredentialsFileUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eshop-bigdata.
         /// </summary>
         internal static string GCPProjectId {
             get {
@@ -79,7 +88,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to data-analytics-test-subscription.
+        ///   Looks up a localized string similar to pub-sub-integration-test-subscription.
         /// </summary>
         internal static string PubSubSubscriptionId {
             get {
@@ -88,7 +97,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to data-analytics-test-topic.
+        ///   Looks up a localized string similar to pub-sub-integration-test-topic.
         /// </summary>
         internal static string PubSubTopicId {
             get {

@@ -31,16 +31,16 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// </summary>
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
-        /// <param name="credentialsFilePath">The GCP Pub/Sub credentials file path.</param>
+        /// <param name="serviceCredentials">The GCP Pub/Sub service credentials in JSON format.</param>
         /// <exception cref="DataTransmissionClientException"></exception>
         public void Init(
             string projectId,
             string topicId,
-            string credentialsFilePath)
+            string serviceCredentials)
         {
             try
             {
-                var publisherCredential = GoogleCredential.FromFile(credentialsFilePath)
+                var publisherCredential = GoogleCredential.FromJson(serviceCredentials)
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);
                 var publisherChannel = new Channel(
                     PublisherServiceApiClient.DefaultEndpoint.ToString(),
