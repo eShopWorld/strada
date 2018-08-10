@@ -13,7 +13,7 @@ Initialisation should be executed once, during your **_application start-up_** p
 DataTransmissionClient.Instance.Init(
     "GCP PROJECT ID",
     "GCP TOPIC ID",
-    "GCP SERVICE CREDENTIALS FILE LOCATION");
+    "GCP SERVICE CREDENTIALS PRIVATE KEY");
 ```
 ### Transmission
 The transmission mechanism accepts a generic payload, allowing clients to transmit any class instance.
