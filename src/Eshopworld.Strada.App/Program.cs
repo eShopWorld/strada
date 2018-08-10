@@ -18,12 +18,12 @@ namespace Eshopworld.Strada.App
 
         private static async Task MainAsync(string[] args)
         {
-            HttpClient client = new HttpClient();
+            var client = new HttpClient();
             var serviceCredentials = client.GetStringAsync(Resources.CredentialsFileUri).Result;
             Console.WriteLine("Service credentials downloaded ...");
 
             BootUp(serviceCredentials);
-            Console.WriteLine("Boot-up complete ...");            
+            Console.WriteLine("Boot-up complete ...");
 
             DataTransmissionClient.Instance.Init(
                 Resources.GCPProjectId,

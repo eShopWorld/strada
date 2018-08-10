@@ -61,9 +61,9 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
 
             try
             {
-                HttpClient client = new HttpClient();
+                var client = new HttpClient();
                 serviceCredentials = client.GetStringAsync(Resources.CredentialsFileUri).Result;
-                
+
                 topicName = new TopicName(Resources.GCPProjectId, Resources.PubSubTopicId);
                 subscriptionName = new SubscriptionName(Resources.GCPProjectId, Resources.PubSubSubscriptionId);
 
