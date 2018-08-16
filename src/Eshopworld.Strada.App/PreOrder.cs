@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Google.Protobuf.WellKnownTypes;
 
 namespace Eshopworld.Strada.App
 {

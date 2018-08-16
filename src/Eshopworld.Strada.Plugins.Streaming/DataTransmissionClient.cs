@@ -73,7 +73,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
             }
         }
 
-        // todo: Unit test flattening feature.
         /// <summary>
         ///     TransmitAsync persists metadata to a connected Cloud Pub/Sub instance.
         /// </summary>

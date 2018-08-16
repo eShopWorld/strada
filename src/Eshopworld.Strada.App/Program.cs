@@ -17,7 +17,6 @@ namespace Eshopworld.Strada.App
             MainAsync().GetAwaiter().GetResult();
         }
 
-        // todo: Read the message from BQ ...
         private static async Task MainAsync()
         {
             var client = new HttpClient();
@@ -28,8 +27,8 @@ namespace Eshopworld.Strada.App
             Console.WriteLine(@"Boot-up complete ...");
 
             DataTransmissionClient.Instance.Init(
-                Resources.GCPProjectId,
-                Resources.PubSubTopicId,
+                Resources.GCPProjectId, // Change this resource entry to match your GCP project ID
+                Resources.PubSubTopicId, // Change this resource entry to match your GCP Pub/Sub instance
                 serviceCredentials);
             Console.WriteLine(@"Transmission client initialised ...");
 
