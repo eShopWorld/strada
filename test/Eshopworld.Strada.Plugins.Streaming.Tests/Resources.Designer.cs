@@ -61,11 +61,11 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nike.
+        ///   Looks up a localized string similar to NKE.
         /// </summary>
-        internal static string BrandName {
+        internal static string BrandCode {
             get {
-                return ResourceManager.GetString("BrandName", resourceCulture);
+                return ResourceManager.GetString("BrandCode", resourceCulture);
             }
         }
         
@@ -88,7 +88,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pub-sub-integration-test-subscription.
+        ///   Looks up a localized string similar to pub-sub-integration-test-subscription-1.
         /// </summary>
         internal static string PubSubSubscriptionId {
             get {
@@ -97,11 +97,20 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pub-sub-integration-test-topic.
+        ///   Looks up a localized string similar to pub-sub-integration-test-topic-1.
         /// </summary>
         internal static string PubSubTopicId {
             get {
                 return ResourceManager.GetString("PubSubTopicId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {&quot;Number&quot;:&quot;f830e506-df6d-49f1-881b-51799e799cec&quot;,&quot;Value&quot;:150.99}.
+        /// </summary>
+        internal static string SimpleJson {
+            get {
+                return ResourceManager.GetString("SimpleJson", resourceCulture);
             }
         }
     }

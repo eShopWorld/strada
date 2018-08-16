@@ -61,11 +61,11 @@ namespace Eshopworld.Strada.App {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nike.
+        ///   Looks up a localized string similar to NKE.
         /// </summary>
-        internal static string BrandName {
+        internal static string BrandCode {
             get {
-                return ResourceManager.GetString("BrandName", resourceCulture);
+                return ResourceManager.GetString("BrandCode", resourceCulture);
             }
         }
         
@@ -88,7 +88,7 @@ namespace Eshopworld.Strada.App {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pub-sub-integration-test-subscription.
+        ///   Looks up a localized string similar to preorder-streaming.
         /// </summary>
         internal static string PubSubSubscriptionId {
             get {
@@ -97,7 +97,7 @@ namespace Eshopworld.Strada.App {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pub-sub-integration-test-topic.
+        ///   Looks up a localized string similar to preorder-streaming.
         /// </summary>
         internal static string PubSubTopicId {
             get {

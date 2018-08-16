@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Eshopworld.Strada.Plugins.Streaming;
@@ -9,48 +10,69 @@ using Grpc.Core;
 
 namespace Eshopworld.Strada.App
 {
-    internal class Program
+    internal static class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
-            MainAsync(args).GetAwaiter().GetResult();
+            MainAsync().GetAwaiter().GetResult();
         }
 
-        private static async Task MainAsync(string[] args)
+        // todo: Read the message from BQ ...
+        private static async Task MainAsync()
         {
             var client = new HttpClient();
             var serviceCredentials = client.GetStringAsync(Resources.CredentialsFileUri).Result;
-            Console.WriteLine("Service credentials downloaded ...");
+            Console.WriteLine(@"Service credentials downloaded ...");
 
             BootUp(serviceCredentials);
-            Console.WriteLine("Boot-up complete ...");
+            Console.WriteLine(@"Boot-up complete ...");
 
             DataTransmissionClient.Instance.Init(
                 Resources.GCPProjectId,
                 Resources.PubSubTopicId,
                 serviceCredentials);
-            Console.WriteLine("Transmission client initialised ...");
+            Console.WriteLine(@"Transmission client initialised ...");
 
             try
             {
                 await DataTransmissionClient.Instance.TransmitAsync(
-                    Resources.BrandName, string.Empty,
+                    Resources.BrandCode, Guid.NewGuid().ToString(),
                     new PreOrder
                     {
-                        ProductName = "SNKRS",
-                        ProductValue = 1.5
+                        Number = Guid.NewGuid().ToString(),
+                        Value = 150.99m,
+                        CreatedDate = DateTime.UtcNow,
+                        Addresses = new List<AddressDetails>
+                        {
+                            new AddressDetails
+                            {
+                                Status = "Current",
+                                Address = "1 New Road",
+                                City = "Dublin",
+                                State = "Leinster",
+                                Zip = "DUB-12345"
+                            },
+                            new AddressDetails
+                            {
+                                Status = "Previous",
+                                Address = "2 New Road",
+                                City = "Dublin",
+                                State = "Leinster",
+                                Zip = "DUB-12345"
+                            }
+                        }
                     });
-                Console.WriteLine("Data transmission complete ...");
+                Console.WriteLine(@"Data transmission complete ...");
             }
             catch (DataTransmissionException exception)
             {
-                Console.WriteLine(exception.BrandName);
+                Console.WriteLine(exception.BrandCode);
                 Console.WriteLine(exception.CorrelationId);
                 Console.WriteLine(exception.Message);
             }
 
             await DataTransmissionClient.ShutDownAsync();
-            Console.WriteLine("Shutdown complete. Press any key.");
+            Console.WriteLine(@"Shutdown complete. Press any key.");
             Console.ReadLine();
         }
 

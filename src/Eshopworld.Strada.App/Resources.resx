@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BrandName" xml:space="preserve">
-    <value>Nike</value>
+  <data name="BrandCode" xml:space="preserve">
+    <value>NKE</value>
   </data>
   <data name="CredentialsFileUri" xml:space="preserve">
     <value>https://www.googleapis.com/storage/v1/b/pub-sub-integration-tests/o/eshop-bigdata-803e08690482.json?alt=media</value>
@@ -127,9 +127,9 @@
     <value>eshop-bigdata</value>
   </data>
   <data name="PubSubSubscriptionId" xml:space="preserve">
-    <value>pub-sub-integration-test-subscription</value>
+    <value>preorder-streaming</value>
   </data>
   <data name="PubSubTopicId" xml:space="preserve">
-    <value>pub-sub-integration-test-topic</value>
+    <value>preorder-streaming</value>
   </data>
 </root>

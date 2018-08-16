@@ -14,23 +14,23 @@ namespace Eshopworld.Strada.Plugins.Streaming
         ///     Default constructor.
         /// </summary>
         /// <param name="message">An intuitive error message.</param>
-        /// <param name="brandName">The customer name or reference code.</param>
+        /// <param name="brandCode">The customer reference code.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <param name="innerException">The exception instance that caused the error.</param>
         public DataTransmissionException(
             string message,
-            string brandName,
+            string brandCode,
             string correlationId,
             Exception innerException) : base(message, innerException)
         {
-            BrandName = brandName;
+            BrandCode = brandCode;
             CorrelationId = correlationId;
         }
 
         /// <summary>
-        ///     BrandName is the customer name or reference code.
+        ///     BrandName is the customer reference code.
         /// </summary>
-        public string BrandName { get; }
+        public string BrandCode { get; }
 
         /// <summary>
         ///     CorrelationId is used to link related metadata in the downstream data lake.

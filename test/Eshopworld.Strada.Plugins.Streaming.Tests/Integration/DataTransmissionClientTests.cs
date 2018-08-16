@@ -21,7 +21,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
         }
 
         private static void PullMessage<T>(
-            Action<MetadataWrapper<T>> callback,
+            Action<T> callback,
             SubscriberServiceApiClient subscriber,
             SubscriptionName subscriptionName) where T : class
         {
@@ -36,7 +36,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
             foreach (var message in response.ReceivedMessages)
             {
                 var json = message.Message.Data.ToByteArray();
-                var queueMessage = JsonConvert.DeserializeObject<MetadataWrapper<T>>(Encoding.UTF8.GetString(json));
+                var queueMessage = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(json));
                 callback(queueMessage);
             }
 
@@ -119,19 +119,17 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     serviceCredentials);
 
                 dataTransmissionClient.TransmitAsync(
-                    Resources.BrandName, string.Empty,
+                    Resources.BrandCode, Guid.NewGuid().ToString(),
                     new PreOrder
                     {
                         ProductName = "SNKRS",
                         ProductValue = 1.5
                     }).Wait();
 
-                PullMessage<PreOrder>(metadataWrapper =>
+                PullMessage<PreOrder>(preOrder =>
                     {
-                        var preOrder = metadataWrapper.Metadata;
                         Assert.Equal(productName, preOrder.ProductName);
                         Assert.Equal(productValue, preOrder.ProductValue);
-                        Assert.Equal(Resources.BrandName, metadataWrapper.BrandName);
                     },
                     subscriber,
                     subscriptionName);
