@@ -19,8 +19,8 @@ DataTransmissionClient.Instance.Init(
 The transmission mechanism accepts a generic payload, allowing clients to transmit any class instance.
 ```cs
 await DataTransmissionClient.Instance.TransmitAsync(
-    "BRANDNAME", // E.g., "NKE", "NIKE". Injected by Autofac
-    "CORRELATIONID", // Unique ID. Injected by Autofac. Currently unsupported.
+    "BRANDCODE", // E.g., "ESW". Injected by Autofac
+    "CORRELATIONID", // Unique ID. Injected by Autofac. Currently PENDING implementation.
     new PreOrder // The class instance to be transmitted
     {
         ProductName = "SNKRS",
