@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Eshopworld.Strada.Plugins.Streaming;
@@ -12,62 +12,48 @@ namespace Eshopworld.Strada.App
 {
     internal static class Program
     {
-        private static void Main()
+        private static void Main(string[] args)
         {
-            MainAsync().GetAwaiter().GetResult();
+            MainAsync(args).GetAwaiter().GetResult();
         }
 
-        private static async Task MainAsync()
+        private static async Task MainAsync(string[] args)
         {
+            if (args == null || args.Length.Equals(0))
+                throw new ArgumentNullException(nameof(args));
+            var gcpProjectId = args[0];
+            var pubSubTopicId = args[1];
+            var jsonFilePath = args[2];
+            var brandCode = args[3];
+            var correlationId = args[4];
+
             var client = new HttpClient();
             var serviceCredentials = client.GetStringAsync(Resources.CredentialsFileUri).Result;
             Console.WriteLine(@"Service credentials downloaded ...");
 
-            BootUp(serviceCredentials);
+            BootUp(serviceCredentials, gcpProjectId, pubSubTopicId);
             Console.WriteLine(@"Boot-up complete ...");
-
-            DataTransmissionClient.Instance.Init(
-                Resources.GCPProjectId, // Change this resource entry to match your GCP project ID
-                Resources.PubSubTopicId, // Change this resource entry to match your GCP Pub/Sub instance
-                serviceCredentials);
-            Console.WriteLine(@"Transmission client initialised ...");
 
             try
             {
-                await DataTransmissionClient.Instance.TransmitAsync(
-                    Resources.BrandCode, Guid.NewGuid().ToString(),
-                    new PreOrder
-                    {
-                        Number = Guid.NewGuid().ToString(),
-                        Value = 150.99m,
-                        CreatedDate = DateTime.UtcNow,
-                        Addresses = new List<AddressDetails>
-                        {
-                            new AddressDetails
-                            {
-                                Status = "Current",
-                                Address = "1 New Road",
-                                City = "Dublin",
-                                State = "Leinster",
-                                Zip = "DUB-12345"
-                            },
-                            new AddressDetails
-                            {
-                                Status = "Previous",
-                                Address = "2 New Road",
-                                City = "Dublin",
-                                State = "Leinster",
-                                Zip = "DUB-12345"
-                            }
-                        }
-                    });
+                if (!File.Exists(jsonFilePath))
+                    throw new FileNotFoundException("File not found.");
+                var json = await File.ReadAllTextAsync(jsonFilePath);
+                Console.WriteLine(@"JSON extracted ...");
+
+                DataTransmissionClient.Instance.Init(
+                    gcpProjectId,
+                    pubSubTopicId,
+                    serviceCredentials);
+                Console.WriteLine(@"Transmission client initialised ...");
+
+                await DataTransmissionClient.Instance.TransmitAsync(brandCode, correlationId, json);
                 Console.WriteLine(@"Data transmission complete ...");
             }
-            catch (DataTransmissionException exception)
+            catch (Exception exception)
             {
-                Console.WriteLine(exception.BrandCode);
-                Console.WriteLine(exception.CorrelationId);
                 Console.WriteLine(exception.Message);
+                return;
             }
 
             await DataTransmissionClient.ShutDownAsync();
@@ -75,17 +61,14 @@ namespace Eshopworld.Strada.App
             Console.ReadLine();
         }
 
-        private static void BootUp(string serviceCredentials)
+        private static void BootUp(string serviceCredentials, string gcpProjectId, string pubSubTopicId)
         {
             PublisherServiceApiClient publisher;
-            SubscriberServiceApiClient subscriber;
             TopicName topicName;
-            SubscriptionName subscriptionName;
 
             try
             {
-                topicName = new TopicName(Resources.GCPProjectId, Resources.PubSubTopicId);
-                subscriptionName = new SubscriptionName(Resources.GCPProjectId, Resources.PubSubSubscriptionId);
+                topicName = new TopicName(gcpProjectId, pubSubTopicId);
 
                 var publisherCredential = GoogleCredential.FromJson(serviceCredentials)
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);
@@ -93,17 +76,10 @@ namespace Eshopworld.Strada.App
                     PublisherServiceApiClient.DefaultEndpoint.ToString(),
                     publisherCredential.ToChannelCredentials());
                 publisher = PublisherServiceApiClient.Create(publisherChannel);
-
-                var subscriberCredential = GoogleCredential.FromJson(serviceCredentials)
-                    .CreateScoped(SubscriberServiceApiClient.DefaultScopes);
-                var subscriberChannel = new Channel(
-                    SubscriberServiceApiClient.DefaultEndpoint.ToString(),
-                    subscriberCredential.ToChannelCredentials());
-                subscriber = SubscriberServiceApiClient.Create(subscriberChannel);
             }
             catch (Exception exception)
             {
-                throw new Exception("Failed to initialize Pub/Sub Topic or Subscription.", exception);
+                throw new Exception("Failed to initialize Pub/Sub Topic.", exception);
             }
 
             try
@@ -114,16 +90,6 @@ namespace Eshopworld.Strada.App
                 when (e.Status.StatusCode == StatusCode.AlreadyExists)
             {
                 // Topic already exists. 
-            }
-
-            try
-            {
-                subscriber.CreateSubscription(subscriptionName, topicName, null, 0);
-            }
-            catch (RpcException e)
-                when (e.Status.StatusCode == StatusCode.AlreadyExists)
-            {
-                // Subscription already exists.
             }
         }
     }

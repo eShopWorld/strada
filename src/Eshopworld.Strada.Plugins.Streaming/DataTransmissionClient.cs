@@ -78,7 +78,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// </summary>
         /// <param name="brandCode">The customer reference code.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
-        /// <param name="metadata">The data model/metadata to transmit to Cloud Pub/Sub.</param>
+        /// <param name="metadata">The data model to transmit to Cloud Pub/Sub.</param>
         /// <param name="timeOut">The number of seconds after which the transmission operation will time out.</param>
         /// <exception cref="DataTransmissionException"></exception>
         public async Task TransmitAsync<T>(
@@ -95,6 +95,46 @@ namespace Eshopworld.Strada.Plugins.Streaming
             {
                 var metaDataPayload = Functions.AddCustomJSONMetadata(
                     JsonConvert.SerializeObject(metadata),
+                    brandCode,
+                    correlationId);
+
+                await _publisher.PublishAsync(_topicName, new[]
+                {
+                    new PubsubMessage
+                    {
+                        Data = ByteString.CopyFromUtf8(metaDataPayload)
+                    }
+                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(timeOut))));
+            }
+            catch (Exception exception)
+            {
+                throw new DataTransmissionException("An error occurred while transmitting metadata.",
+                    brandCode, correlationId, exception);
+            }
+        }
+
+        /// <summary>
+        ///     TransmitAsync persists metadata to a connected Cloud Pub/Sub instance.
+        /// </summary>
+        /// <param name="brandCode">The customer reference code.</param>
+        /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
+        /// <param name="json">The JSON-serialised data model to transmit to Cloud Pub/Sub.</param>
+        /// <param name="timeOut">The number of seconds after which the transmission operation will time out.</param>
+        /// <exception cref="DataTransmissionException"></exception>
+        public async Task TransmitAsync(
+            string brandCode,
+            string correlationId,
+            string json,
+            double timeOut = 3)
+        {
+            if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
+            if (string.IsNullOrEmpty(correlationId)) throw new ArgumentNullException(nameof(correlationId));
+            if (string.IsNullOrEmpty(json)) throw new ArgumentNullException(nameof(json));
+
+            try
+            {
+                var metaDataPayload = Functions.AddCustomJSONMetadata(
+                    json,
                     brandCode,
                     correlationId);
 

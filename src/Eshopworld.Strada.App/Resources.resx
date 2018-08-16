@@ -117,19 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BrandCode" xml:space="preserve">
-    <value>ESW</value>
-  </data>
   <data name="CredentialsFileUri" xml:space="preserve">
     <value>https://www.googleapis.com/storage/v1/b/pub-sub-integration-tests/o/eshop-bigdata-803e08690482.json?alt=media</value>
-  </data>
-  <data name="GCPProjectId" xml:space="preserve">
-    <value>eshop-bigdata</value>
-  </data>
-  <data name="PubSubSubscriptionId" xml:space="preserve">
-    <value>preorder-streaming</value>
-  </data>
-  <data name="PubSubTopicId" xml:space="preserve">
-    <value>preorder-streaming</value>
   </data>
 </root>

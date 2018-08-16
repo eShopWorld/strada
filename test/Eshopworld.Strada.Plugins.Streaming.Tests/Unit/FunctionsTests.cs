@@ -15,7 +15,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
             const string correlationId = "447348C4-ED5D-4C40-9167-FE848B198834";
 
             var updatedJSON = Functions.AddCustomJSONMetadata(
-                Resources.SimpleJson,
+                Resources.JSON,
                 brandCode,
                 correlationId);
 

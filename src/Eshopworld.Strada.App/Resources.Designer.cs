@@ -61,47 +61,11 @@ namespace Eshopworld.Strada.App {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ESW.
-        /// </summary>
-        internal static string BrandCode {
-            get {
-                return ResourceManager.GetString("BrandCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to https://www.googleapis.com/storage/v1/b/pub-sub-integration-tests/o/eshop-bigdata-803e08690482.json?alt=media.
         /// </summary>
         internal static string CredentialsFileUri {
             get {
                 return ResourceManager.GetString("CredentialsFileUri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to eshop-bigdata.
-        /// </summary>
-        internal static string GCPProjectId {
-            get {
-                return ResourceManager.GetString("GCPProjectId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to preorder-streaming.
-        /// </summary>
-        internal static string PubSubSubscriptionId {
-            get {
-                return ResourceManager.GetString("PubSubSubscriptionId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to preorder-streaming.
-        /// </summary>
-        internal static string PubSubTopicId {
-            get {
-                return ResourceManager.GetString("PubSubTopicId", resourceCulture);
             }
         }
     }

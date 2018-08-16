@@ -88,6 +88,15 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {&quot;Number&quot;:&quot;f830e506-df6d-49f1-881b-51799e799cec&quot;,&quot;Value&quot;:150.99}.
+        /// </summary>
+        internal static string JSON {
+            get {
+                return ResourceManager.GetString("JSON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to pub-sub-integration-test-subscription-1.
         /// </summary>
         internal static string PubSubSubscriptionId {
@@ -102,15 +111,6 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         internal static string PubSubTopicId {
             get {
                 return ResourceManager.GetString("PubSubTopicId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {&quot;Number&quot;:&quot;f830e506-df6d-49f1-881b-51799e799cec&quot;,&quot;Value&quot;:150.99}.
-        /// </summary>
-        internal static string SimpleJson {
-            get {
-                return ResourceManager.GetString("SimpleJson", resourceCulture);
             }
         }
     }
