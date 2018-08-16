@@ -97,7 +97,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pub-sub-integration-test-subscription-1.
+        ///   Looks up a localized string similar to strada-integration-test-subscription.
         /// </summary>
         internal static string PubSubSubscriptionId {
             get {
@@ -106,7 +106,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pub-sub-integration-test-topic-1.
+        ///   Looks up a localized string similar to strada-integration-test-topic.
         /// </summary>
         internal static string PubSubTopicId {
             get {

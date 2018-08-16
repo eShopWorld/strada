@@ -127,10 +127,10 @@
     <value>eshop-bigdata</value>
   </data>
   <data name="PubSubSubscriptionId" xml:space="preserve">
-    <value>pub-sub-integration-test-subscription-1</value>
+    <value>strada-integration-test-subscription</value>
   </data>
   <data name="PubSubTopicId" xml:space="preserve">
-    <value>pub-sub-integration-test-topic-1</value>
+    <value>strada-integration-test-topic</value>
   </data>
   <data name="JSON" xml:space="preserve">
     <value>{"Number":"f830e506-df6d-49f1-881b-51799e799cec","Value":150.99}</value>
