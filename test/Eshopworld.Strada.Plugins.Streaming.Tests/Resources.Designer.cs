@@ -61,7 +61,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NKE.
+        ///   Looks up a localized string similar to ESW.
         /// </summary>
         internal static string BrandCode {
             get {
