@@ -64,8 +64,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                 topicName = new TopicName(Resources.GCPProjectId, Resources.PubSubTopicId);
                 subscriptionName = new SubscriptionName(Resources.GCPProjectId, Resources.PubSubSubscriptionId);
 
-                var client = new HttpClient(); // todo: dispose
-                serviceCredentialsJson = client.GetStringAsync(Resources.CredentialsFileUri).Result;
+                using (var client = new HttpClient())
+                {
+                    serviceCredentialsJson = client.GetStringAsync(Resources.CredentialsFileUri).Result;
+                }
 
                 var publisherCredential = GoogleCredential.FromJson(serviceCredentialsJson)
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);

@@ -25,8 +25,12 @@ namespace Eshopworld.Strada.App
             var gcpProjectId = args[0];
             var pubSubTopicId = args[1];
 
-            var client = new HttpClient();
-            var serviceCredentials = client.GetStringAsync(Resources.CredentialsFileUri).Result;
+            string serviceCredentials;
+            using (var client = new HttpClient())
+            {
+                serviceCredentials = client.GetStringAsync(Resources.CredentialsFileUri).Result;
+            }
+
             Console.WriteLine(@"Service credentials downloaded ...");
 
             BootUp(serviceCredentials, gcpProjectId, pubSubTopicId);
@@ -106,7 +110,7 @@ namespace Eshopworld.Strada.App
                         : SubscriberClient.Reply.Nack;
                 });
             Thread.Sleep(3000);
-            subscriber.StopAsync(CancellationToken.None).Wait();
+            await subscriber.StopAsync(CancellationToken.None);
         }
     }
 }

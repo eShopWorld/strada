@@ -18,6 +18,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
         private static readonly Lazy<DataTransmissionClient> InnerDataTransmissionClient =
             new Lazy<DataTransmissionClient>(() => new DataTransmissionClient());
 
+        private bool _initialised;
+
         private PublisherServiceApiClient _publisher;
         private TopicName _topicName;
 
@@ -63,11 +65,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
         /// <param name="serviceCredentials">The GCP Pub/Sub service credentials.</param>
         /// <exception cref="DataTransmissionClientException"></exception>
-        public void Init( // todo: prevent multiple calls.
+        public void Init(
             string projectId,
             string topicId,
             ServiceCredentials serviceCredentials)
         {
+            if (_initialised) return;
             try
             {
                 var publisherCredential = GoogleCredential
@@ -79,6 +82,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
                 _publisher = PublisherServiceApiClient.Create(publisherChannel);
                 _topicName = new TopicName(projectId, topicId);
+                _initialised = true;
             }
             catch (Exception exception)
             {
@@ -91,11 +95,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
         ///     ShutDownAsync shuts down all active Cloud Pub/Sub channels.
         /// </summary>
         /// <exception cref="DataTransmissionClientException"></exception>
-        public static async Task ShutDownAsync()
+        public async Task ShutDownAsync()
         {
             try
             {
                 await PublisherServiceApiClient.ShutdownDefaultChannelsAsync();
+                _initialised = false;
             }
             catch (Exception exception)
             {
