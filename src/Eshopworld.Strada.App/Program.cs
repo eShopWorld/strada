@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -19,51 +20,16 @@ namespace Eshopworld.Strada.App
             MainAsync(args).GetAwaiter().GetResult();
         }
 
-        private static async Task MainAsync(string[] args)
+        private static async Task MainAsync(IReadOnlyList<string> args)
         {
-            //if (args == null || args.Length.Equals(0))
-            //    throw new ArgumentNullException(nameof(args));
             var gcpProjectId = args[0];
             var pubSubTopicId = args[1];
-            //var jsonFilePath = args[2];
-            //var brandCode = args[3];
-            //var correlationId = args[4];
 
             var client = new HttpClient();
             var serviceCredentials = client.GetStringAsync(Resources.CredentialsFileUri).Result;
             Console.WriteLine(@"Service credentials downloaded ...");
 
-            //BootUp(serviceCredentials, gcpProjectId, pubSubTopicId);
-            //Console.WriteLine(@"Boot-up complete ...");
-
-            //try
-            //{
-            //    if (!File.Exists(jsonFilePath))
-            //        throw new FileNotFoundException("File not found.");
-            //    var json = await File.ReadAllTextAsync(jsonFilePath);
-            //    Console.WriteLine(@"JSON extracted ...");
-
-            //    DataTransmissionClient.Instance.Init(
-            //        gcpProjectId,
-            //        pubSubTopicId,
-            //        serviceCredentials);
-            //    Console.WriteLine(@"Transmission client initialised ...");
-
-            //    Order order = new Order();
-            //    order.OrderNumber = Guid.NewGuid().ToString();
-            //    order.Value = 200.99m;
-
-            //    await DataTransmissionClient.Instance.TransmitAsync(brandCode, correlationId, order);
-            //    Console.WriteLine(@"Data transmission complete ...");
-            //}
-            //catch (Exception exception)
-            //{
-            //    Console.WriteLine(exception.Message);
-            //    return;
-            //} // todo: Create simple ASP.NET Core app ...
-
-            //await DataTransmissionClient.ShutDownAsync();
-            //Console.WriteLine(@"Shutdown complete. Press any key.");
+            BootUp(serviceCredentials, gcpProjectId, pubSubTopicId);
 
             var subscriberCredential = GoogleCredential.FromJson(serviceCredentials)
                 .CreateScoped(SubscriberServiceApiClient.DefaultScopes);
@@ -88,8 +54,9 @@ namespace Eshopworld.Strada.App
                         10240)
                 });
 
-            PullMessages(subscriber, true);
+            await PullMessages(subscriber, true);
 
+            Console.WriteLine(@"All transmissions received.");
             Console.ReadLine();
         }
 
@@ -125,13 +92,9 @@ namespace Eshopworld.Strada.App
             }
         }
 
-        public static void PullMessages(SubscriberClient subscriber, bool acknowledge)
+        private static async Task PullMessages(SubscriberClient subscriber, bool acknowledge)
         {
-            // [START pubsub_quickstart_subscriber]
-            // [START pubsub_subscriber_flow_settings]
-            // SimpleSubscriber runs your message handle function on multiple
-            // threads to maximize throughput.
-            subscriber.StartAsync(
+            await subscriber.StartAsync(
                 async (message, cancel) =>
                 {
                     var text =
@@ -142,17 +105,8 @@ namespace Eshopworld.Strada.App
                         ? SubscriberClient.Reply.Ack
                         : SubscriberClient.Reply.Nack;
                 });
-            // Run for 3 seconds.
             Thread.Sleep(3000);
             subscriber.StopAsync(CancellationToken.None).Wait();
-            // [END pubsub_subscriber_flow_settings]
-            // [END pubsub_quickstart_subscriber]
         }
-    }
-
-    internal class Order
-    {
-        public string OrderNumber { get; set; }
-        public decimal Value { get; set; }
     }
 }

@@ -57,6 +57,37 @@ namespace Eshopworld.Strada.Plugins.Streaming
         }
 
         /// <summary>
+        ///     Init instantiates Cloud Pub/Sub connectivity components.
+        /// </summary>
+        /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
+        /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
+        /// <param name="serviceCredentials">The GCP Pub/Sub service credentials.</param>
+        /// <exception cref="DataTransmissionClientException"></exception>
+        public void Init( // todo: prevent multiple calls.
+            string projectId,
+            string topicId,
+            ServiceCredentials serviceCredentials)
+        {
+            try
+            {
+                var publisherCredential = GoogleCredential
+                    .FromJson(JsonConvert.SerializeObject(serviceCredentials))
+                    .CreateScoped(PublisherServiceApiClient.DefaultScopes);
+                var publisherChannel = new Channel(
+                    PublisherServiceApiClient.DefaultEndpoint.ToString(),
+                    publisherCredential.ToChannelCredentials());
+
+                _publisher = PublisherServiceApiClient.Create(publisherChannel);
+                _topicName = new TopicName(projectId, topicId);
+            }
+            catch (Exception exception)
+            {
+                throw new DataTransmissionClientException(
+                    "An error occurred while initializing the data transmission client.", exception);
+            }
+        }
+
+        /// <summary>
         ///     ShutDownAsync shuts down all active Cloud Pub/Sub channels.
         /// </summary>
         /// <exception cref="DataTransmissionClientException"></exception>

@@ -57,24 +57,24 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
             TopicName topicName;
             SubscriptionName subscriptionName;
 
-            string serviceCredentials;
+            string serviceCredentialsJson;
 
             try
             {
-                var client = new HttpClient();
-                serviceCredentials = client.GetStringAsync(Resources.CredentialsFileUri).Result;
-
                 topicName = new TopicName(Resources.GCPProjectId, Resources.PubSubTopicId);
                 subscriptionName = new SubscriptionName(Resources.GCPProjectId, Resources.PubSubSubscriptionId);
 
-                var publisherCredential = GoogleCredential.FromJson(serviceCredentials)
+                var client = new HttpClient(); // todo: dispose
+                serviceCredentialsJson = client.GetStringAsync(Resources.CredentialsFileUri).Result;
+
+                var publisherCredential = GoogleCredential.FromJson(serviceCredentialsJson)
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);
                 var publisherChannel = new Channel(
                     PublisherServiceApiClient.DefaultEndpoint.ToString(),
                     publisherCredential.ToChannelCredentials());
                 publisher = PublisherServiceApiClient.Create(publisherChannel);
 
-                var subscriberCredential = GoogleCredential.FromJson(serviceCredentials)
+                var subscriberCredential = GoogleCredential.FromJson(serviceCredentialsJson)
                     .CreateScoped(SubscriberServiceApiClient.DefaultScopes);
                 var subscriberChannel = new Channel(
                     SubscriberServiceApiClient.DefaultEndpoint.ToString(),
@@ -112,6 +112,8 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
             {
                 const string productName = "SNKRS";
                 const double productValue = 1.5;
+
+                var serviceCredentials = JsonConvert.DeserializeObject<ServiceCredentials>(serviceCredentialsJson);
 
                 dataTransmissionClient.Init(
                     Resources.GCPProjectId,
