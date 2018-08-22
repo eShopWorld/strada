@@ -6,15 +6,15 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
     public class FunctionsTests
     {
         /// <summary>
-        ///     Ensures that custom metadata is added to a JSON payload.
+        ///     Ensures that tracking metadata is added to a JSON payload.
         /// </summary>
         [Fact]
-        public void CustomMetadataIsAddedToJSON()
+        public void TrackingMetadataIsAddedToJSON()
         {
             const string brandCode = "ESW";
             const string correlationId = "447348C4-ED5D-4C40-9167-FE848B198834";
 
-            var updatedJSON = Functions.AddCustomJSONMetadata(
+            var updatedJSON = Functions.AddTrackingMetadataToJson(
                 Resources.JSON,
                 brandCode,
                 correlationId);

@@ -15,6 +15,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
     /// </summary>
     public class DataTransmissionClient
     {
+        public delegate void InitialisationFailedEventHandler(object sender, InitialisationFailedEventArgs e);
+
+        public delegate void ShutdownFailedEventHandler(object sender, ShutdownFailedEventArgs e);
+
+        public delegate void TransmissionFailedEventHandler(object sender, TransmissionFailedEventArgs e);
+
         private static readonly Lazy<DataTransmissionClient> InnerDataTransmissionClient =
             new Lazy<DataTransmissionClient>(() => new DataTransmissionClient());
 
@@ -29,19 +35,45 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public static DataTransmissionClient Instance => InnerDataTransmissionClient.Value;
 
         /// <summary>
+        ///     InitialisationFailed is invoked if the <see cref="Init(string,string,string,bool)" /> method fails.
+        /// </summary>
+        public event InitialisationFailedEventHandler InitialisationFailed;
+
+        /// <summary>
+        ///     TransmissionFailed is invoked if the <see cref="TransmitAsync{T}" /> method fails.
+        /// </summary>
+        public event TransmissionFailedEventHandler TransmissionFailed;
+
+        /// <summary>
+        ///     ShutdownFailed is invoked if the <see cref="ShutDownAsync" /> method fails.
+        /// </summary>
+        public event ShutdownFailedEventHandler ShutdownFailed;
+
+        /// <summary>
         ///     Init instantiates Cloud Pub/Sub connectivity components.
         /// </summary>
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
         /// <param name="serviceCredentials">The GCP Pub/Sub service credentials in JSON format.</param>
+        /// <param name="swallowExceptions">
+        ///     If <c>true</c>, invokes the <see cref="InitialisationFailed" /> event on error, persisting the
+        ///     exception. Otherwise, the exception is thrown.
+        /// </param>
         /// <exception cref="DataTransmissionClientException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public void Init(
             string projectId,
             string topicId,
-            string serviceCredentials)
+            string serviceCredentials,
+            bool swallowExceptions = true)
         {
             try
             {
+                if (string.IsNullOrEmpty(projectId)) throw new ArgumentNullException(nameof(projectId));
+                if (string.IsNullOrEmpty(topicId)) throw new ArgumentNullException(nameof(topicId));
+                if (string.IsNullOrEmpty(serviceCredentials))
+                    throw new ArgumentNullException(nameof(serviceCredentials));
+
                 var publisherCredential = GoogleCredential.FromJson(serviceCredentials)
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);
                 var publisherChannel = new Channel(
@@ -53,10 +85,17 @@ namespace Eshopworld.Strada.Plugins.Streaming
             }
             catch (Exception exception)
             {
-                throw new DataTransmissionClientException(
-                    "An error occurred while initializing the data transmission client.", exception);
+                if (swallowExceptions)
+                    OnInitialisationFailed(
+                        new InitialisationFailedEventArgs(
+                            new DataTransmissionClientException(
+                                "An error occurred while initializing the data transmission client.", exception)));
+                else
+                    throw new DataTransmissionClientException(
+                        "An error occurred while initializing the data transmission client.", exception);
             }
         }
+
 
         /// <summary>
         ///     Init instantiates Cloud Pub/Sub connectivity components.
@@ -64,15 +103,25 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
         /// <param name="serviceCredentials">The GCP Pub/Sub service credentials.</param>
+        /// <param name="swallowExceptions">
+        ///     If <c>true</c>, invokes the <see cref="InitialisationFailed" /> event on error, persisting the
+        ///     exception. Otherwise, the exception is thrown.
+        /// </param>
         /// <exception cref="DataTransmissionClientException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public void Init(
             string projectId,
             string topicId,
-            ServiceCredentials serviceCredentials)
+            ServiceCredentials serviceCredentials,
+            bool swallowExceptions = true)
         {
             if (_initialised) return;
             try
             {
+                if (string.IsNullOrEmpty(projectId)) throw new ArgumentNullException(nameof(projectId));
+                if (string.IsNullOrEmpty(topicId)) throw new ArgumentNullException(nameof(topicId));
+                if (serviceCredentials == null) throw new ArgumentNullException(nameof(serviceCredentials));
+
                 var publisherCredential = GoogleCredential
                     .FromJson(JsonConvert.SerializeObject(serviceCredentials))
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);
@@ -86,26 +135,43 @@ namespace Eshopworld.Strada.Plugins.Streaming
             }
             catch (Exception exception)
             {
-                throw new DataTransmissionClientException(
-                    "An error occurred while initializing the data transmission client.", exception);
+                if (swallowExceptions)
+                    OnInitialisationFailed(
+                        new InitialisationFailedEventArgs(
+                            new DataTransmissionClientException(
+                                "An error occurred while initializing the data transmission client.", exception)));
+                else
+                    throw new DataTransmissionClientException(
+                        "An error occurred while initializing the data transmission client.", exception);
             }
         }
 
         /// <summary>
         ///     ShutDownAsync shuts down all active Cloud Pub/Sub channels.
         /// </summary>
+        /// <param name="swallowExceptions">
+        ///     If <c>true</c>, invokes the <see cref="InitialisationFailed" /> event on error, persisting the
+        ///     exception. Otherwise, the exception is thrown.
+        /// </param>
         /// <exception cref="DataTransmissionClientException"></exception>
-        public async Task ShutDownAsync()
+        public async Task ShutDownAsync(bool swallowExceptions = true)
         {
             try
             {
-                await PublisherServiceApiClient.ShutdownDefaultChannelsAsync();
-                _initialised = false;
+                if (_initialised)
+                {
+                    await PublisherServiceApiClient.ShutdownDefaultChannelsAsync();
+                    _initialised = false;
+                }
             }
             catch (Exception exception)
             {
-                throw new DataTransmissionClientException(
-                    "An error occurred while shutting the data transmission client down.", exception);
+                if (swallowExceptions)
+                    OnShutdownFailed(new ShutdownFailedEventArgs(new DataTransmissionClientException(
+                        "An error occurred while shutting the data transmission client down.", exception)));
+                else
+                    throw new DataTransmissionClientException(
+                        "An error occurred while shutting the data transmission client down.", exception);
             }
         }
 
@@ -116,12 +182,18 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <param name="metadata">The data model to transmit to Cloud Pub/Sub.</param>
         /// <param name="timeOut">The number of seconds after which the transmission operation will time out.</param>
+        /// <param name="swallowExceptions">
+        ///     If <c>true</c>, invokes the <see cref="TransmissionFailed" /> event on error, persisting the
+        ///     exception. Otherwise, the exception is thrown.
+        /// </param>
         /// <exception cref="DataTransmissionException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public async Task TransmitAsync<T>(
             string brandCode,
             string correlationId,
             T metadata,
-            double timeOut = 3) where T : class
+            double timeOut = 3,
+            bool swallowExceptions = true) where T : class
         {
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
             if (string.IsNullOrEmpty(correlationId)) throw new ArgumentNullException(nameof(correlationId));
@@ -129,7 +201,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
             try
             {
-                var metaDataPayload = Functions.AddCustomJSONMetadata(
+                var metaDataPayload = Functions.AddTrackingMetadataToJson(
                     JsonConvert.SerializeObject(metadata),
                     brandCode,
                     correlationId);
@@ -144,8 +216,14 @@ namespace Eshopworld.Strada.Plugins.Streaming
             }
             catch (Exception exception)
             {
-                throw new DataTransmissionException("An error occurred while transmitting metadata.",
-                    brandCode, correlationId, exception);
+                if (swallowExceptions)
+                    OnTransmissionFailed(
+                        new TransmissionFailedEventArgs(
+                            new DataTransmissionException("An error occurred while transmitting metadata.",
+                                brandCode, correlationId, exception)));
+                else
+                    throw new DataTransmissionException("An error occurred while transmitting metadata.",
+                        brandCode, correlationId, exception);
             }
         }
 
@@ -156,12 +234,18 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <param name="json">The JSON-serialised data model to transmit to Cloud Pub/Sub.</param>
         /// <param name="timeOut">The number of seconds after which the transmission operation will time out.</param>
+        /// <param name="swallowExceptions">
+        ///     If <c>true</c>, invokes the <see cref="TransmissionFailed" /> event on error, persisting the
+        ///     exception. Otherwise, the exception is thrown.
+        /// </param>
         /// <exception cref="DataTransmissionException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public async Task TransmitAsync(
             string brandCode,
             string correlationId,
             string json,
-            double timeOut = 3)
+            double timeOut = 3,
+            bool swallowExceptions = true)
         {
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
             if (string.IsNullOrEmpty(correlationId)) throw new ArgumentNullException(nameof(correlationId));
@@ -169,7 +253,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
             try
             {
-                var metaDataPayload = Functions.AddCustomJSONMetadata(
+                var metaDataPayload = Functions.AddTrackingMetadataToJson(
                     json,
                     brandCode,
                     correlationId);
@@ -184,9 +268,30 @@ namespace Eshopworld.Strada.Plugins.Streaming
             }
             catch (Exception exception)
             {
-                throw new DataTransmissionException("An error occurred while transmitting metadata.",
-                    brandCode, correlationId, exception);
+                if (swallowExceptions)
+                    OnTransmissionFailed(
+                        new TransmissionFailedEventArgs(
+                            new DataTransmissionException("An error occurred while transmitting metadata.",
+                                brandCode, correlationId, exception)));
+                else
+                    throw new DataTransmissionException("An error occurred while transmitting metadata.",
+                        brandCode, correlationId, exception);
             }
+        }
+
+        private void OnTransmissionFailed(TransmissionFailedEventArgs e)
+        {
+            TransmissionFailed?.Invoke(this, e);
+        }
+
+        private void OnInitialisationFailed(InitialisationFailedEventArgs e)
+        {
+            InitialisationFailed?.Invoke(this, e);
+        }
+
+        private void OnShutdownFailed(ShutdownFailedEventArgs e)
+        {
+            ShutdownFailed?.Invoke(this, e);
         }
     }
 }
