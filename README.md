@@ -8,9 +8,18 @@ To transmit data models to a Data Lake, facilitating reporting services and busi
 
 ## Usage
 ### Initialisation
-Initialisation should be executed once, during your **_application start-up_** phase.
+Initialisation should be executed once, during your **_application start-up_** phase
 ```cs
 DataTransmissionClient.Instance.Init(
+    "GCP PROJECT ID",
+    "GCP TOPIC ID",
+    "GCP SERVICE CREDENTIALS");
+```
+Note that the this code initialises the library as a [Singleton](http://csharpindepth.com/Articles/General/Singleton.aspx) instance. It can also be initialised as a transient instance
+```
+var dataTransmissionClient = new DataTransmissionClient();
+
+dataTransmissionClient.Init(
     "GCP PROJECT ID",
     "GCP TOPIC ID",
     "GCP SERVICE CREDENTIALS");
@@ -38,6 +47,30 @@ await DataTransmissionClient.Instance.TransmitAsync(
 Shutdown should be called once, during your application **_shutdown_** phase. **WARNING**: If your application executes a shutdown phase as part of a **_restart_** operation during, for example, Application Pool recycling, you must ensure that [initialisation](https://github.com/eShopWorld/strada/blob/master/README.md#initialisation) occurs in the subsequent **_start-up_** phase.
 ```cs
 await DataTransmissionClient.ShutDownAsync();
+```
+## Exception Handling
+Exceptions are swallowed by default. Your app can subscribe to swallowed exceptions as follows
+```
+var dataTransmissionClient = new DataTransmissionClient();
+dataTransmissionClient.InitialisationFailed += DataTransmissionClient_InitialisationFailed;
+dataTransmissionClient.Init("GCP PROJECT ID", "GCP TOPIC ID", "GCP SERVICE CREDENTIALS");
+
+private static void DataTransmissionClient_InitialisationFailed(object sender, InitialisationFailedEventArgs e)
+{
+    // todo: Log the exception ...
+}
+```
+Alternatively, you can configure each method to throw any exceptions in the traditional manner
+```
+var dataTransmissionClient = new DataTransmissionClient();
+try
+{
+    dataTransmissionClient.Init("GCP PROJECT ID", "GCP TOPIC ID", "GCP SERVICE CREDENTIALS", false);
+}
+catch (Exception e)
+{
+    // todo: Log the exception ...
+}
 ```
 ## Overhead
 Crumple zones are built in, so that in case of network failure, or any other issue that results in an unacceptable delay (configurable; default 3 seconds), the transmission request will abort, ensuring consistent, minimal overhead.
