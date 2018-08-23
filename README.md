@@ -7,6 +7,8 @@ The **Data Analytics Transmission Component** is a [.NET Standard 2.0](https://b
 To transmit data models to a Data Lake, facilitating reporting services and business intelligence.
 
 ## Usage
+### Authentication
+Authentication is facilitated through a JSON-formatted [Service Credentials file](https://cloud.google.com/docs/authentication/). This file contains metadata pertaining to a Google Cloud Service Account with sufficient access to Cloud Pub/Sub. You can include the file itself, as raw text, when [initialising](https://github.com/eShopWorld/strada/blob/master/README.md#initialisation), or you can instantiate a ```cs ServiceCredentials``` instance, passing it to the ```cs Init``` method.
 ### Initialisation
 Initialisation should be executed once, during your **_application start-up_** phase
 ```cs
