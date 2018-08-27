@@ -8,7 +8,7 @@ using Grpc.Auth;
 using Grpc.Core;
 using Newtonsoft.Json;
 
-namespace Eshopworld.Strada.Plugins.Streaming
+namespace Eshopworld.Strada.Plugins.Streaming // todo: Create Autofac module to extract UUID ...
 {
     /// <summary>
     ///     DataTransmissionClient is a Google Cloud Pub/Sub client, providing connectivity and transmission functionality.
