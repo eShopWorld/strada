@@ -24,6 +24,28 @@ dataTransmissionClient.Init(
     "GCP TOPIC ID",
     "GCP SERVICE CREDENTIALS");
 ```
+### Authentication
+Authentication is facilitated through a JSON-formatted [Service Credentials file](https://cloud.google.com/docs/authentication/). This file contains metadata pertaining to a **Google Cloud Service Account** with sufficient access to **Cloud Pub/Sub**. You can include the file itself, as raw text, when [initialising](https://github.com/eShopWorld/strada/blob/master/README.md#initialisation)
+```cs
+string serviceCredentials;
+using (var client = new HttpClient())
+{
+    serviceCredentials = client.GetStringAsync(Resources.CredentialsFileUri).Result;
+}
+var dataTransmissionClient = new DataTransmissionClient();
+dataTransmissionClient.Init("GCP PROJECT ID", "GCP TOPIC ID", serviceCredentials);
+```
+or you can instantiate a ```ServiceCredentials``` instance, passing it to the ```Init``` method
+```cs
+var serviceCredentials = new ServiceCredentials
+{
+    ProjectId = "GCP PROJECT ID",
+    ClientId = "MY CLIENT ID"
+    etc ...
+};
+var dataTransmissionClient = new DataTransmissionClient();
+dataTransmissionClient.Init("GCP PROJECT ID", "GCP TOPIC ID", serviceCredentials);
+```
 ### Transmission
 The transmission mechanism accepts a generic payload, allowing clients to transmit any class instance
 ```cs
