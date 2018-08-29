@@ -312,6 +312,9 @@ const correlation = (function () {
         },
         iframeChrome: () => {
             const iframe = document.createElement("iframe");
+            iframe.width = 1;
+            iframe.height = 1;
+            iframe.style.display = 'none';
             iframe.srcdoc = "blank page";
             document.body.appendChild(iframe);
             return typeof iframe.contentWindow.chrome;
