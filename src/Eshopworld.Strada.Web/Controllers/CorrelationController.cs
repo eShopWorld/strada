@@ -6,10 +6,18 @@ namespace Eshopworld.Strada.Web.Controllers
     [ApiController]
     public class CorrelationController : ControllerBase
     {
+        private readonly HttpRequestFunctions _httpRequestFunctions;
+
+        public CorrelationController(HttpRequestFunctions httpRequestFunctions)
+        {
+            _httpRequestFunctions = httpRequestFunctions;
+        }
+
         [HttpGet]
         public string Get()
         {
-            var gotCorrelationId = Request.GetCorrelationId("correlationid", out var correlationId);
+            var gotCorrelationId = _httpRequestFunctions
+                .TryGetCorrelationId(Request, "correlationid", out var correlationId);
             return gotCorrelationId ? correlationId : string.Empty;
         }
 

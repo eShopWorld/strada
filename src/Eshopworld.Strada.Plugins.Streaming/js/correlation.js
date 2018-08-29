@@ -425,7 +425,6 @@ const correlation = (function () {
     const init = function () {
         generatecorrelationVector().then(function (correlationVector) {
             sha256.getDigest(JSON.stringify(correlationVector)).then(function (digest) {
-                console.log(digest);
                 document.cookie = `correlationId=${digest}`;
             });
         });
@@ -433,7 +432,6 @@ const correlation = (function () {
 
     const waitInit = function () {
         setTimeout(init, 3000);
-        console.log("Correlation-ID set.");
     };
 
     return {

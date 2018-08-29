@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Eshopworld.Strada.Web
 {
-    /// <summary>
-    ///     HttpRequestExtensions provides a means of retrieving domain-specific metadata from HTTP requests.
-    /// </summary>
-    public static class HttpRequestExtensions
+    public class HttpRequestFunctions : IHttpRequestFunctions
     {
         /// <summary>
         ///     TryGetBrandCode returns <c>true</c> if the HTTP request contains a header with header-key equal to
@@ -15,8 +12,8 @@ namespace Eshopworld.Strada.Web
         /// <param name="httpRequest">The underlying HTTP request</param>
         /// <param name="brandCodeHeaderKey">The header-key associated with the brand-code</param>
         /// <param name="brandCode">The brand-code</param>
-        public static bool TryGetBrandCode(
-            this HttpRequest httpRequest,
+        public bool TryGetBrandCode(
+            HttpRequest httpRequest,
             string brandCodeHeaderKey,
             out string brandCode)
         {
@@ -40,8 +37,8 @@ namespace Eshopworld.Strada.Web
         /// <param name="correlationIdCookieKey">The header-key associated with the brand-code</param>
         /// <param name="correlationId">The correlation-id</param>
         /// <returns></returns>
-        public static bool TryGetCorrelationId(
-            this HttpRequest httpRequest,
+        public bool TryGetCorrelationId(
+            HttpRequest httpRequest,
             string correlationIdCookieKey,
             out string correlationId)
         {
