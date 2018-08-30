@@ -1,4 +1,4 @@
-const correlation = (function () {
+const correlation = (function () { // this file is modified for Edge browser
     const UNKNOWN = "unknown";
     const ERROR = "error";
 
@@ -270,7 +270,6 @@ const correlation = (function () {
 
             iWillBetrayYouWithMyLongName();
             return {
-                depth: depth,
                 errorMessage: errorMessage,
                 errorName: errorName,
                 errorStacklength: errorStacklength
@@ -298,16 +297,20 @@ const correlation = (function () {
         },
         permissions: () => {
             return new Promise(resolve => {
-                navigator.permissions
-                    .query({
-                        name: "notifications"
-                    })
-                    .then(val => {
-                        resolve({
-                            state: val.state,
-                            permission: Notification.permission
-                        });
-                    });
+                try {
+                    navigator.permissions
+                        .query({
+                            name: "notifications"
+                        })
+                        .then(val => {
+                            resolve({
+                                state: val.state,
+                                permission: Notification.permission
+                            });
+                        })
+                } catch (error) {
+                    resolve(false);
+                }
             });
         },
         iframeChrome: () => {
