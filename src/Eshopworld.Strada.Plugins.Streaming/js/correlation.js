@@ -1,4 +1,4 @@
-const correlation = (function () { // this file is modified for Edge browser
+const correlation = (function () {
     const UNKNOWN = "unknown";
     const ERROR = "error";
 
@@ -297,20 +297,16 @@ const correlation = (function () { // this file is modified for Edge browser
         },
         permissions: () => {
             return new Promise(resolve => {
-                try {
-                    navigator.permissions
-                        .query({
-                            name: "notifications"
-                        })
-                        .then(val => {
-                            resolve({
-                                state: val.state,
-                                permission: Notification.permission
-                            });
-                        })
-                } catch (error) {
-                    resolve(false);
-                }
+                navigator.permissions
+                    .query({
+                        name: "notifications"
+                    })
+                    .then(val => {
+                        resolve({
+                            state: val.state,
+                            permission: Notification.permission
+                        });
+                    });
             });
         },
         iframeChrome: () => {
