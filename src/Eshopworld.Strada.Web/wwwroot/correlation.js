@@ -270,7 +270,6 @@ const correlation = (function () {
 
             iWillBetrayYouWithMyLongName();
             return {
-                depth: depth,
                 errorMessage: errorMessage,
                 errorName: errorName,
                 errorStacklength: errorStacklength
