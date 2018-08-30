@@ -123,4 +123,4 @@ await DataTransmissionClient.Instance.TransmitAsync(
         ProductValue = 1.5
     });
 ```
-Once transmitted, data models that share the same correlation-id are aggregated to facilitate reporting and to accurately calculate order-conversion.
+Once transmitted, data models that share the same correlation-id are aggregated to facilitate reporting and to accurately calculate order-conversion. Click [here](https://github.com/eShopWorld/strada/tree/master/src/Eshopworld.Strada.Web) to view the sample ASP.NET Core 2.0 implementation.
