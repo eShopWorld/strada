@@ -50,8 +50,8 @@ dataTransmissionClient.Init("GCP PROJECT ID", "GCP TOPIC ID", serviceCredentials
 The transmission mechanism accepts a generic payload, allowing clients to transmit any class instance
 ```cs
 await DataTransmissionClient.Instance.TransmitAsync(
-    "BRANDCODE", // E.g., "ESW". Injected by Autofac
-    "CORRELATIONID", // Unique ID. Injected by Autofac. Currently PENDING implementation.
+    "BRANDCODE", // E.g., "ESW". Contained within a custom HTTP header (at time of writing)
+    "CORRELATIONID", // Unique ID transmitted by a custom JavaScript component (correlation.js)
     new PreOrder // The class instance to be transmitted
     {
         ProductName = "SNKRS",
@@ -61,9 +61,9 @@ await DataTransmissionClient.Instance.TransmitAsync(
 Or, simply load an already-serialised JSON payload
 ```cs
 await DataTransmissionClient.Instance.TransmitAsync(
-    "BRANDCODE", // E.g., "ESW". Injected by Autofac
-    "CORRELATIONID", // Unique ID. Injected by Autofac. Currently PENDING implementation.
-    "[My serialised JSON]");
+    "BRANDCODE", // E.g., "ESW". Contained within a custom HTTP header (at time of writing)
+    "CORRELATIONID", // Unique ID transmitted by a custom JavaScript component (correlation.js)
+    "[My serialised JSON]"); // The serialised class instance to be transmitted
 ```
 ### Shutdown
 Shutdown should be called once, during your application **_shutdown_** phase. **WARNING**: If your application executes a shutdown phase as part of a **_restart_** operation during, for example, Application Pool recycling, you must ensure that [initialisation](https://github.com/eShopWorld/strada/blob/master/README.md#initialisation) occurs in the subsequent **_start-up_** phase.
@@ -96,3 +96,31 @@ catch (Exception e)
 ```
 ## Overhead
 Crumple zones are built in, so that in case of network failure, or any other issue that results in an unacceptable delay (configurable; default 3 seconds), the transmission request will abort, ensuring consistent, minimal overhead.
+
+## Correlating Transmissions
+Data models transmitted to Cloud Pub/Sub are tagged with a unique correlation-id, specific to each user's web browser. This correlation-id is persisted across all HTTP requests and remains intact for the duration of the user's session, and for an indeterminate (at time of writing) length of time thereafter. The correlation-id is generated 3 seconds after loading the following script
+```js
+<script language="javascript" src="correlation.js"></script>
+```
+Once set, the correlation-id is retrieved on the server-side API
+```cs
+[HttpGet]
+public string Get()
+{
+    var gotCorrelationId = _httpRequestFunctions
+        .TryGetCorrelationId(Request, "correlationid", out var correlationId);
+    return gotCorrelationId ? correlationId : string.Empty;
+}
+```
+Finally, the correlation-id is set as input parameter when transmitting the data model
+```cs
+await DataTransmissionClient.Instance.TransmitAsync(
+    "BRANDCODE",
+    correlationId, 
+    new PreOrder
+    {
+        ProductName = "SNKRS",
+        ProductValue = 1.5
+    });
+```
+Once transmitted, data models that share the same correlation-id are aggregated to facilitate reporting and to accurately calculate order-conversion.
