@@ -424,7 +424,12 @@ const correlation = (function () {
     const init = function () {
         generatecorrelationVector().then(function (correlationVector) {
             sha256.getDigest(JSON.stringify(correlationVector)).then(function (digest) {
-                document.cookie = `correlationId=${digest}`;
+                XMLHttpRequest.prototype.realSend = XMLHttpRequest.prototype.send;
+                const newSend = function (vData) {
+                    this.setRequestHeader('correlationid', digest);
+                    this.realSend(vData);
+                };
+                XMLHttpRequest.prototype.send = newSend;
             });
         });
     };

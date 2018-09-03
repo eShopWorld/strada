@@ -21,4 +21,8 @@
     <None Include="wwwroot\index.html" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Eshopworld.Strada.Plugins.Streaming\Eshopworld.Strada.Plugins.Streaming.csproj" />
+  </ItemGroup>
+
 </Project>
