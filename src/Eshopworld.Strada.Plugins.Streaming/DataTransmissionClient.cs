@@ -65,7 +65,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// </param>
         /// <exception cref="DataTransmissionClientException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public virtual void Init(
+        public void Init(
             string projectId,
             string topicId,
             string gcpServiceCredentials,
@@ -113,7 +113,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// </param>
         /// <exception cref="DataTransmissionClientException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public virtual void Init(
+        public void Init(
             string projectId,
             string topicId,
             GcpServiceCredentials gcpServiceCredentials,
@@ -179,7 +179,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
             }
         }
 
-        // todo: timeout should be ms
         /// <summary>
         ///     TransmitAsync persists metadata to a connected Cloud Pub/Sub instance.
         /// </summary>
