@@ -26,18 +26,18 @@ namespace Eshopworld.Strada.App
             var gcpProjectId = args[0];
             var pubSubTopicId = args[1];
 
-            var serviceCredentials = new ServiceCredentials
+            var serviceCredentials = new GcpServiceCredentials
             {
                 Type = "service_account",
                 ProjectId = "eshop-bigdata",
-                PrivateKeyId = "{PRIVATE KEY ID}",  // todo: Enter appropriate value
-                PrivateKey = "{PRIVATE KEY}",       // todo: Enter appropriate value
-                ClientEmail = "{CLIENT EMAIL}",     // todo: Enter appropriate value
-                ClientId = "{CLIENT ID}",           // todo: Enter appropriate value
+                PrivateKeyId = "{PRIVATE KEY ID}", // todo: Enter appropriate value
+                PrivateKey = "{PRIVATE KEY}", // todo: Enter appropriate value
+                ClientEmail = "{CLIENT EMAIL}", // todo: Enter appropriate value
+                ClientId = "{CLIENT ID}", // todo: Enter appropriate value
                 AuthUri = "https://accounts.google.com/o/oauth2/auth",
                 TokenUri = "https://oauth2.googleapis.com/token",
                 AuthProviderX509CertUrl = "https://www.googleapis.com/oauth2/v1/certs",
-                ClientX509CertUrl = ""
+                ClientX509CertUrl = "{CLIENT X509 CERT URL}" // todo: Enter appropriate value
             };
 
             var jsonServiceCredentials = JsonConvert.SerializeObject(serviceCredentials);
