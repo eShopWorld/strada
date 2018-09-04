@@ -9,11 +9,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="HttpRequestExtensions.cs" />
+    <Content Include="DataAnalyticsMeta.cs" />
+    <Content Include="DataAnalyticsMiddleware.cs" />
+    <Content Include="DomainServiceLayer.cs" />
+    <Content Include="Order.cs" />
+    <Content Include="OrderRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>

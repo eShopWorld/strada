@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Eshopworld.Strada.Web.Controllers
 {
@@ -6,19 +8,27 @@ namespace Eshopworld.Strada.Web.Controllers
     [ApiController]
     public class CorrelationController : ControllerBase
     {
-        private readonly DataAnalytics _dataAnalytics;
+        private readonly DomainServiceLayer _domainServiceLayer;
 
-
-        public CorrelationController(DataAnalytics dataAnalytics)
+        public CorrelationController(DomainServiceLayer domainServiceLayer)
         {
-            _dataAnalytics = dataAnalytics;
+            _domainServiceLayer = domainServiceLayer;
         }
 
+        /// <summary>
+        ///     Saves an <see cref="Order" /> instance to DB, transmits to data analytics systems, and returns the correlation-id
+        ///     pertaining to the HTTP context.
+        /// </summary>
         [HttpGet]
-        public string Get()
+        public async Task<string> Get()
         {
-            var correlationId = _dataAnalytics.GetCorrelationId(Request);
-            return correlationId ?? "???";
+            var order = new Order
+            {
+                Number = Guid.NewGuid().ToString(),
+                Value = 10.00m
+            };
+            await _domainServiceLayer.SaveOrder(order);
+            return _domainServiceLayer.CorrelationId;
         }
 
         [HttpGet("{id}")]
