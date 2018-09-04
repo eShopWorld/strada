@@ -115,7 +115,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                 const string productName = "SNKRS";
                 const double productValue = 1.5;
 
-                var serviceCredentials = JsonConvert.DeserializeObject<ServiceCredentials>(serviceCredentialsJson);
+                var serviceCredentials = JsonConvert.DeserializeObject<GCPServiceCredentials>(serviceCredentialsJson);
 
                 dataTransmissionClient.Init(
                     Resources.GCPProjectId,

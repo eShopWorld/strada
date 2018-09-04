@@ -24,8 +24,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
         private static readonly Lazy<DataTransmissionClient> InnerDataTransmissionClient =
             new Lazy<DataTransmissionClient>(() => new DataTransmissionClient());
 
-        private bool _initialised;
-
         private PublisherServiceApiClient _publisher;
         private TopicName _topicName;
 
@@ -33,6 +31,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
         ///     Instance is a static instance of <see cref="DataTransmissionClient" />.
         /// </summary>
         public static DataTransmissionClient Instance => InnerDataTransmissionClient.Value;
+
+        /// <summary>
+        ///     Indicates whether or not this instance has been initialised by calling
+        ///     <see cref="Init(string,string,string,bool)" />.
+        /// </summary>
+        public bool Initialised { get; private set; }
 
         /// <summary>
         ///     InitialisationFailed is invoked if the <see cref="Init(string,string,string,bool)" /> method fails.
@@ -54,27 +58,27 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// </summary>
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
-        /// <param name="serviceCredentials">The GCP Pub/Sub service credentials in JSON format.</param>
+        /// <param name="gcpServiceCredentials">The GCP Pub/Sub service credentials in JSON format.</param>
         /// <param name="swallowExceptions">
         ///     If <c>true</c>, invokes the <see cref="InitialisationFailed" /> event on error, persisting the
         ///     exception. Otherwise, the exception is thrown.
         /// </param>
         /// <exception cref="DataTransmissionClientException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public void Init(
+        public virtual void Init(
             string projectId,
             string topicId,
-            string serviceCredentials,
+            string gcpServiceCredentials,
             bool swallowExceptions = true)
         {
             try
             {
                 if (string.IsNullOrEmpty(projectId)) throw new ArgumentNullException(nameof(projectId));
                 if (string.IsNullOrEmpty(topicId)) throw new ArgumentNullException(nameof(topicId));
-                if (string.IsNullOrEmpty(serviceCredentials))
-                    throw new ArgumentNullException(nameof(serviceCredentials));
+                if (string.IsNullOrEmpty(gcpServiceCredentials))
+                    throw new ArgumentNullException(nameof(gcpServiceCredentials));
 
-                var publisherCredential = GoogleCredential.FromJson(serviceCredentials)
+                var publisherCredential = GoogleCredential.FromJson(gcpServiceCredentials)
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);
                 var publisherChannel = new Channel(
                     PublisherServiceApiClient.DefaultEndpoint.ToString(),
@@ -102,28 +106,28 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// </summary>
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
-        /// <param name="serviceCredentials">The GCP Pub/Sub service credentials.</param>
+        /// <param name="gcpServiceCredentials">The GCP Pub/Sub service credentials.</param>
         /// <param name="swallowExceptions">
         ///     If <c>true</c>, invokes the <see cref="InitialisationFailed" /> event on error, persisting the
         ///     exception. Otherwise, the exception is thrown.
         /// </param>
         /// <exception cref="DataTransmissionClientException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public void Init(
+        public virtual void Init(
             string projectId,
             string topicId,
-            ServiceCredentials serviceCredentials,
+            GCPServiceCredentials gcpServiceCredentials,
             bool swallowExceptions = true)
         {
-            if (_initialised) return;
+            if (Initialised) return;
             try
             {
                 if (string.IsNullOrEmpty(projectId)) throw new ArgumentNullException(nameof(projectId));
                 if (string.IsNullOrEmpty(topicId)) throw new ArgumentNullException(nameof(topicId));
-                if (serviceCredentials == null) throw new ArgumentNullException(nameof(serviceCredentials));
+                if (gcpServiceCredentials == null) throw new ArgumentNullException(nameof(gcpServiceCredentials));
 
                 var publisherCredential = GoogleCredential
-                    .FromJson(JsonConvert.SerializeObject(serviceCredentials))
+                    .FromJson(JsonConvert.SerializeObject(gcpServiceCredentials))
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);
                 var publisherChannel = new Channel(
                     PublisherServiceApiClient.DefaultEndpoint.ToString(),
@@ -131,7 +135,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
                 _publisher = PublisherServiceApiClient.Create(publisherChannel);
                 _topicName = new TopicName(projectId, topicId);
-                _initialised = true;
+                Initialised = true;
             }
             catch (Exception exception)
             {
@@ -158,10 +162,10 @@ namespace Eshopworld.Strada.Plugins.Streaming
         {
             try
             {
-                if (_initialised)
+                if (Initialised)
                 {
                     await PublisherServiceApiClient.ShutdownDefaultChannelsAsync();
-                    _initialised = false;
+                    Initialised = false;
                 }
             }
             catch (Exception exception)
@@ -175,6 +179,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             }
         }
 
+        // todo: timeout should be ms
         /// <summary>
         ///     TransmitAsync persists metadata to a connected Cloud Pub/Sub instance.
         /// </summary>
