@@ -44,7 +44,7 @@ namespace Eshopworld.Strada.Web
             dataTransmissionClient.TransmissionFailed += DataTransmissionClient_TransmissionFailed;
 
             // Read GCP service credentials from app.config
-            var gcpServiceCredentials = new GCPServiceCredentials();
+            var gcpServiceCredentials = new GcpServiceCredentials();
             Configuration.GetSection("gcpServiceCredentials").Bind(gcpServiceCredentials);
             // Establish a persistent connection to GCP Pub/Sub
             dataTransmissionClient.Init("eshop-bigdata", "checkout-dev", gcpServiceCredentials);

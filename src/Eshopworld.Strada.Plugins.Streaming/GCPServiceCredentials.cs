@@ -5,7 +5,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
     /// <summary>
     ///     GCPServiceCredentials encapsulates Google Cloud Pub/Sub authentication metadata.
     /// </summary>
-    public class GCPServiceCredentials
+    public class GcpServiceCredentials
     {
         public string Type { get; set; }
 

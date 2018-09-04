@@ -116,7 +116,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public virtual void Init(
             string projectId,
             string topicId,
-            GCPServiceCredentials gcpServiceCredentials,
+            GcpServiceCredentials gcpServiceCredentials,
             bool swallowExceptions = true)
         {
             if (Initialised) return;
@@ -197,7 +197,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string brandCode,
             string correlationId,
             T metadata,
-            double timeOut = 3,
+            double timeOut = 3000,
             bool swallowExceptions = true) where T : class
         {
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
@@ -217,7 +217,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     {
                         Data = ByteString.CopyFromUtf8(metaDataPayload)
                     }
-                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(timeOut))));
+                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromMilliseconds(timeOut))));
             }
             catch (Exception exception)
             {
@@ -249,7 +249,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string brandCode,
             string correlationId,
             string json,
-            double timeOut = 3,
+            double timeOut = 3000,
             bool swallowExceptions = true)
         {
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
@@ -269,7 +269,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     {
                         Data = ByteString.CopyFromUtf8(metaDataPayload)
                     }
-                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromSeconds(timeOut))));
+                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromMilliseconds(timeOut))));
             }
             catch (Exception exception)
             {

@@ -12,7 +12,6 @@
     <Content Include="DataAnalyticsMeta.cs" />
     <Content Include="DataAnalyticsMiddleware.cs" />
     <Content Include="DomainServiceLayer.cs" />
-    <Content Include="Order.cs" />
     <Content Include="OrderRepository.cs" />
   </ItemGroup>
 
