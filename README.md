@@ -1,5 +1,5 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://ci.appveyor.com/project/daishisystems/strada)
-[![NuGet](https://img.shields.io/badge/myget-v1.6.4-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming)
+[![NuGet](https://img.shields.io/badge/myget-v1.6.5-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming)
 ## Overview
 The **Data Analytics Transmission Component** is a [.NET Standard 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/08/14/announcing-net-standard-2-0/) library that transmits data to [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).
 
@@ -124,3 +124,148 @@ await DataTransmissionClient.Instance.TransmitAsync(
     });
 ```
 Once transmitted, data models that share the same correlation-id are aggregated to facilitate reporting and to accurately calculate order-conversion. Click [here](https://github.com/eShopWorld/strada/tree/master/src/Eshopworld.Strada.Web) to view the sample [ASP.NET Core 2.0](https://docs.microsoft.com/en-us/aspnet/core/getting-started/?view=aspnetcore-2.1&tabs=windows) implementation.
+
+## ASP.NET Core Sample App
+The [sample app](https://github.com/eShopWorld/strada/tree/master/src/Eshopworld.Strada.Web) is an end-to-end solution that begins with the generation of a correlation-id at the UI layer. The correlation-id is bound to a simulated Order, which is persisted through the application API until it reaches a simulated data repository. At this point, the Order is transmitted to GCP Pub/Sub.
+
+### Step 1  Create simulated ESW domain models
+These classes are simplified domain models used as example
+```cs
+public class Order
+{
+    public string Number { get; set; }
+    public decimal Value { get; set; }
+}
+
+public class OrderRepository
+{    
+    public bool Save(Order order)
+    {
+        return true;
+    }
+}
+```
+### Step 2  Create simulated Domain-Service layer
+This class is a simulated service layer that controls database-persistence and data-transmission
+```cs
+public class DomainServiceLayer
+{
+    private readonly DataAnalyticsMeta _dataAnalyticsMeta;
+    private readonly DataTransmissionClient _dataTransmissionClient;
+    private readonly OrderRepository _orderRepository;
+
+    public DomainServiceLayer(
+        OrderRepository orderRepository,
+        DataAnalyticsMeta dataAnalyticsMeta,
+        DataTransmissionClient dataTransmissionClient)
+    {
+        _orderRepository = orderRepository;
+        _dataAnalyticsMeta = dataAnalyticsMeta;
+        _dataTransmissionClient = dataTransmissionClient;
+    }
+
+    public async Task SaveOrder(Order order)
+    {
+        var orderSaved = _orderRepository.Save(order);
+
+        if (orderSaved)
+            await _dataTransmissionClient.TransmitAsync("MAX", _dataAnalyticsMeta.CorrelationId, order);
+        else
+            throw new DataException("Something went wrong while saving the order.");
+    }
+}
+```
+### Step 3  Retain the correlation-id
+The correlation-id is generated at the UI layer. We need to retain this value throughout the HTTP request scope
+```cs
+public class DataAnalyticsMeta
+{
+    public string CorrelationId { get; set; }
+}
+```
+### Step 4  Add custom services to Dependency Injection pipeline
+The following service instances exist within the scope of the HTTP request
+```cs
+services.AddScoped<DataAnalyticsMeta>();
+services.AddScoped<OrderRepository>();
+services.AddScoped<DomainServiceLayer>();
+```
+The ```DataTransmissionClient``` instance must remain intact, as a [Singleton](http://csharpindepth.com/Articles/General/Singleton.aspx) instance, throughout the application lifecycle in order to maintain a persistent connection with GCP Pub/Sub
+```cs
+services.AddSingleton<DataTransmissionClient>();
+```
+### Step 5  Initialise the connection to GCP Pub/Sub
+Instantiate a Singleton ```DataTransmissionClient``` instance and load GCP Pub/Sub credentials from ```appsettings.json```
+```cs
+var dataTransmissionClient = app.ApplicationServices.GetService<DataTransmissionClient>();
+
+var gcpServiceCredentials = new GcpServiceCredentials();
+Configuration.GetSection("gcpServiceCredentials").Bind(gcpServiceCredentials);
+dataTransmissionClient.Init("eshop-bigdata", "checkout-dev", gcpServiceCredentials);
+```
+### Step 6  Subscribe to error events
+Attach the following methods to the ```DataTransmissionClient``` instance in order to process errors
+```cs
+dataTransmissionClient.InitialisationFailed += DataTransmissionClient_InitialisationFailed;
+dataTransmissionClient.TransmissionFailed += DataTransmissionClient_TransmissionFailed;
+
+private static void DataTransmissionClient_InitialisationFailed(object sender, InitialisationFailedEventArgs e)
+{
+    Console.WriteLine(e.Exception.Message);
+    throw new Exception("Start-up error.", e.Exception);
+}
+
+private static void DataTransmissionClient_TransmissionFailed(object sender, TransmissionFailedEventArgs e)
+{
+    Console.WriteLine(e.Exception.Message);
+    throw new Exception("Start-up error.", e.Exception);
+}
+```
+### Step 7  Read the correlation-id and persist through the HTTP request pipeline
+The following middleware reads the correlatation-id from a custom HTTP header, and loads the value to a scoped ```DataAnalyticsMeta``` instance
+```cs
+public class DataAnalyticsMiddleware
+{
+    private readonly RequestDelegate _next;
+
+    public DataAnalyticsMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+
+    public async Task Invoke(HttpContext context, DataAnalyticsMeta dataAnalyticsMeta)
+    {
+        try
+        {                
+            dataAnalyticsMeta.CorrelationId = GetCorrelationId(context.Request);
+        }
+        catch (Exception exception)
+        {
+            await context.Response.WriteAsync(exception.Message);
+        }
+
+        await _next(context);
+    }
+   
+    private string GetCorrelationId(HttpRequest httpRequest, string correlationIdHeaderName = "correlationid")
+    {
+        if (httpRequest == null) throw new ArgumentNullException(nameof(httpRequest));
+
+        var gotCorrelationId = httpRequest.Headers.TryGetValue(correlationIdHeaderName, out var headerValues);
+        var correlationId =
+            headerValues.LastOrDefault();
+
+        return gotCorrelationId ? correlationId : null;
+    }
+}
+```
+### Step 8  Transmit an Order instance to GCP Pub/Sub after persisting to DB
+The ```DomainServiceLayer``` instance simulates the transmission of an Order to DB, after which the Order is transmitted to GCP Pub/Sub
+```cs
+var order = new Order
+{
+    Number = Guid.NewGuid().ToString(),
+    Value = 10.00m
+};
+await _domainServiceLayer.SaveOrder(order);
+```
