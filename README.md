@@ -175,15 +175,21 @@ public class DomainServiceLayer
     }
 }
 ```
-### Step 3  Retain the correlation-id
-The correlation-id is generated at the UI layer. We need to retain this value throughout the HTTP request scope
+### Step 3  Get and retain the correlation-id
+The correlation-id is generated at the UI layer. Add the following markup to generate the correlation-id
+```js
+<script language="javascript" src="correlation.js"></script>
+```
+*Note* Add this toward the end of the HTML page to ensure that the DOM initialisation process is not unduly interrupted
+
+Add a class to retain the correlation-id value as it progresses through the HTTP request pipeline
 ```cs
 public class DataAnalyticsMeta
 {
     public string CorrelationId { get; set; }
 }
 ```
-### Step 4  Add custom services to Dependency Injection pipeline
+### Step 4  Add custom services to the Dependency Injection pipeline
 The following service instances exist within the scope of the HTTP request
 ```cs
 services.AddScoped<DataAnalyticsMeta>();
