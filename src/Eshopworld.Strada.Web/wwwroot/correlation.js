@@ -435,7 +435,7 @@ const correlation = (function () {
     };
 
     const waitInit = function () {
-        setTimeout(init, 5000);
+        setTimeout(init, 3000);
     };
 
     return {
