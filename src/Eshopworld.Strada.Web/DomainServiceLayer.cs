@@ -38,7 +38,11 @@ namespace Eshopworld.Strada.Web
             var orderSaved = _orderRepository.Save(order);
 
             if (orderSaved)
-                await _dataTransmissionClient.TransmitAsync("MAX", _dataAnalyticsMeta.CorrelationId, order);
+                await _dataTransmissionClient.TransmitAsync(
+                    "MAX",
+                    "PAGE-LOAD",
+                    _dataAnalyticsMeta.CorrelationId,
+                    order);
             else
                 throw new DataException("Something went wrong while saving the order.");
         }

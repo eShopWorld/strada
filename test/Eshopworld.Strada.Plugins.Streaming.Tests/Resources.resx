@@ -135,4 +135,7 @@
   <data name="JSON" xml:space="preserve">
     <value>{"Number":"f830e506-df6d-49f1-881b-51799e799cec","Value":150.99}</value>
   </data>
+  <data name="EventName" xml:space="preserve">
+    <value>PAGE-LOAD</value>
+  </data>
 </root>

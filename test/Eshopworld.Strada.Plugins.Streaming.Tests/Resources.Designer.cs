@@ -79,6 +79,15 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PAGE-LOAD.
+        /// </summary>
+        internal static string EventName {
+            get {
+                return ResourceManager.GetString("EventName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to eshop-bigdata.
         /// </summary>
         internal static string GCPProjectId {

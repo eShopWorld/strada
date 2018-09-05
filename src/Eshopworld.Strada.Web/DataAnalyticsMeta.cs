@@ -1,7 +1,7 @@
 ﻿namespace Eshopworld.Strada.Web
 {
     /// <summary>
-    ///     DataAnalyticsMeta privides metadata necessary for downstream analysis.
+    ///     DataAnalyticsMeta provides metadata necessary for downstream analysis.
     /// </summary>
     public class DataAnalyticsMeta
     {

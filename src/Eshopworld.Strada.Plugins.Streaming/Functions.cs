@@ -12,16 +12,19 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// </summary>
         /// <param name="json">The JSON to add to the metadata.</param>
         /// <param name="brandCode">The customer reference code.</param>
+        /// <param name="eventName">The name of the upstream event in which the JSON payload was raised.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <returns>The original JSON suffixed with <see cref="brandCode" /> and <see cref="correlationId" />.</returns>
         public static string AddTrackingMetadataToJson(
             string json,
             string brandCode,
+            string eventName,
             string correlationId)
         {
             var jsonObject = JObject.Parse(json);
-            jsonObject.Add(new JProperty("correlationId", correlationId));
             jsonObject.Add(new JProperty("brandCode", brandCode));
+            jsonObject.Add(new JProperty("eventName", eventName));
+            jsonObject.Add(new JProperty("correlationId", correlationId));
             return jsonObject.ToString();
         }
     }

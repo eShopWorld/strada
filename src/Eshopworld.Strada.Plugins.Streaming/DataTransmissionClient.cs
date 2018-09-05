@@ -183,6 +183,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         ///     TransmitAsync persists metadata to a connected Cloud Pub/Sub instance.
         /// </summary>
         /// <param name="brandCode">The customer reference code.</param>
+        /// <param name="eventName">The name of the upstream event in which the domain model was raised.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <param name="metadata">The data model to transmit to Cloud Pub/Sub.</param>
         /// <param name="timeOut">The number of seconds after which the transmission operation will time out.</param>
@@ -194,6 +195,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <exception cref="ArgumentNullException"></exception>
         public async Task TransmitAsync<T>(
             string brandCode,
+            string eventName,
             string correlationId,
             T metadata,
             double timeOut = 3000,
@@ -208,6 +210,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 var metaDataPayload = Functions.AddTrackingMetadataToJson(
                     JsonConvert.SerializeObject(metadata),
                     brandCode,
+                    eventName,
                     correlationId);
 
                 await _publisher.PublishAsync(_topicName, new[]
@@ -235,6 +238,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         ///     TransmitAsync persists metadata to a connected Cloud Pub/Sub instance.
         /// </summary>
         /// <param name="brandCode">The customer reference code.</param>
+        /// <param name="eventName">The name of the upstream event in which the domain model was raised.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <param name="json">The JSON-serialised data model to transmit to Cloud Pub/Sub.</param>
         /// <param name="timeOut">The number of seconds after which the transmission operation will time out.</param>
@@ -246,6 +250,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <exception cref="ArgumentNullException"></exception>
         public async Task TransmitAsync(
             string brandCode,
+            string eventName,
             string correlationId,
             string json,
             double timeOut = 3000,
@@ -260,6 +265,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 var metaDataPayload = Functions.AddTrackingMetadataToJson(
                     json,
                     brandCode,
+                    eventName,
                     correlationId);
 
                 await _publisher.PublishAsync(_topicName, new[]

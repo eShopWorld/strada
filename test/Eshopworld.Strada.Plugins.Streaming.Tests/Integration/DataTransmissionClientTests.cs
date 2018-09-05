@@ -123,7 +123,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     serviceCredentials);
 
                 dataTransmissionClient.TransmitAsync(
-                    Resources.BrandCode, Guid.NewGuid().ToString(),
+                    Resources.BrandCode, Resources.EventName, Guid.NewGuid().ToString(),
                     new PreOrder
                     {
                         ProductName = "SNKRS",
