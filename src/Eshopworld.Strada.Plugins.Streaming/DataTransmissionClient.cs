@@ -202,6 +202,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             bool swallowExceptions = true) where T : class
         {
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
+            if (string.IsNullOrEmpty(eventName)) throw new ArgumentNullException(nameof(eventName));
             if (string.IsNullOrEmpty(correlationId)) throw new ArgumentNullException(nameof(correlationId));
             if (metadata == null) throw new ArgumentNullException(nameof(metadata));
 
@@ -257,6 +258,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             bool swallowExceptions = true)
         {
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
+            if (string.IsNullOrEmpty(eventName)) throw new ArgumentNullException(nameof(eventName));
             if (string.IsNullOrEmpty(correlationId)) throw new ArgumentNullException(nameof(correlationId));
             if (string.IsNullOrEmpty(json)) throw new ArgumentNullException(nameof(json));
 
