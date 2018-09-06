@@ -70,7 +70,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://www.googleapis.com/storage/v1/b/pub-sub-integration-tests/o/eshop-bigdata-803e08690482.json?alt=media.
+        ///   Looks up a localized string similar to https://www.googleapis.com/storage/v1/b/pub-sub-service-accounts/o/pubsub-dev.json?alt=media.
         /// </summary>
         internal static string CredentialsFileUri {
             get {
@@ -88,7 +88,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to eshop-bigdata.
+        ///   Looks up a localized string similar to eshop-puddle.
         /// </summary>
         internal static string GCPProjectId {
             get {
