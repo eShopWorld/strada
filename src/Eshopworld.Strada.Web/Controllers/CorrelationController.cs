@@ -20,21 +20,21 @@ namespace Eshopworld.Strada.Web.Controllers
         ///     pertaining to the HTTP context.
         /// </summary>
         [HttpGet]
-        public async Task<string> Get()
+        public async Task<string> Get(string eventName)
         {
-            var order = new Order
+            while (true)
             {
-                Number = Guid.NewGuid().ToString(),
-                Value = 10.00m
-            };
-            await _domainServiceLayer.SaveOrder(order);
-            return _domainServiceLayer.CorrelationId;
-        }
+                var order = new Order
+                {
+                    Number = Guid.NewGuid().ToString(),
+                    Value = 10.00m,
+                    EmailAddress = "somebody@somewhere.com"
+                };
+                await _domainServiceLayer.SaveOrder(order, eventName);
+                await Task.Delay(350);
+            }
 
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
+            return _domainServiceLayer.CorrelationId;
         }
 
         [HttpPost]
