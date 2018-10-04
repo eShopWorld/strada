@@ -13,7 +13,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
     /// <summary>
     ///     DataTransmissionClient is a Google Cloud Pub/Sub client, providing connectivity and transmission functionality.
     /// </summary>
-    public class DataTransmissionClient
+    public sealed class DataTransmissionClient
     {
         public delegate void InitialisationFailedEventHandler(object sender, InitialisationFailedEventArgs e);
 
@@ -26,6 +26,10 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         private PublisherServiceApiClient _publisher;
         private TopicName _topicName;
+
+        private DataTransmissionClient()
+        {
+        }
 
         /// <summary>
         ///     Instance is a static instance of <see cref="DataTransmissionClient" />.
