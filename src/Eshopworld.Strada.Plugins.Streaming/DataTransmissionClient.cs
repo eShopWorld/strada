@@ -208,18 +208,22 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
             try
             {
+                var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
+
                 var metaDataPayload = Functions.AddTrackingMetadataToJson(
                     JsonConvert.SerializeObject(metadata),
                     brandCode,
                     eventName,
-                    correlationId);
+                    correlationId,
+                    eventTimestamp.ToString());
+
+                var pubsubMessage = new PubsubMessage();
+                pubsubMessage.Attributes.Add("EventTimestamp", eventTimestamp.ToString());
+                pubsubMessage.Data = ByteString.CopyFromUtf8(metaDataPayload); //todo: Apply to overloaded.
 
                 await _publisher.PublishAsync(_topicName, new[]
                 {
-                    new PubsubMessage
-                    {
-                        Data = ByteString.CopyFromUtf8(metaDataPayload)
-                    }
+                    pubsubMessage
                 }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromMilliseconds(timeOut))));
             }
             catch (Exception exception)
@@ -264,18 +268,22 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
             try
             {
+                var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
+
                 var metaDataPayload = Functions.AddTrackingMetadataToJson(
                     json,
                     brandCode,
                     eventName,
-                    correlationId);
+                    correlationId,
+                    eventTimestamp.ToString());
+
+                var pubsubMessage = new PubsubMessage();
+                pubsubMessage.Attributes.Add("EventTimestamp", eventTimestamp.ToString());
+                pubsubMessage.Data = ByteString.CopyFromUtf8(metaDataPayload);
 
                 await _publisher.PublishAsync(_topicName, new[]
                 {
-                    new PubsubMessage
-                    {
-                        Data = ByteString.CopyFromUtf8(metaDataPayload)
-                    }
+                    pubsubMessage
                 }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromMilliseconds(timeOut))));
             }
             catch (Exception exception)
