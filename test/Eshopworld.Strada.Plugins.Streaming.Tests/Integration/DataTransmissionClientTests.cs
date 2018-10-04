@@ -108,8 +108,6 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                 // Subscription already exists.
             }
 
-            var dataTransmissionClient = new DataTransmissionClient();
-
             try
             {
                 const string productName = "SNKRS";
@@ -117,12 +115,12 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
 
                 var serviceCredentials = JsonConvert.DeserializeObject<GcpServiceCredentials>(serviceCredentialsJson);
 
-                dataTransmissionClient.Init(
+                DataTransmissionClient.Instance.Init(
                     Resources.GCPProjectId,
                     Resources.PubSubTopicId,
                     serviceCredentials);
 
-                dataTransmissionClient.TransmitAsync(
+                DataTransmissionClient.Instance.TransmitAsync(
                     Resources.BrandCode, Resources.EventName, Guid.NewGuid().ToString(),
                     new PreOrder
                     {
