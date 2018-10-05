@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Cloud.PubSub.V1" Version="1.0.0-beta18" />
+    <PackageReference Include="Google.Cloud.PubSub.V1" Version="1.0.0-beta21" />
   </ItemGroup>
 
 </Project>

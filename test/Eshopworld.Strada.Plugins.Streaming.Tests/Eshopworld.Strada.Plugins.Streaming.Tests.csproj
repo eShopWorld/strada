@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Cloud.PubSub.V1" Version="1.0.0-beta18" />
+    <PackageReference Include="Google.Cloud.PubSub.V1" Version="1.0.0-beta21" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
     <PackageReference Include="Moq" Version="4.9.0" />
     <PackageReference Include="xunit" Version="2.3.1" />

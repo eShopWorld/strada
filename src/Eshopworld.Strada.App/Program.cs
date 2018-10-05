@@ -54,13 +54,12 @@ namespace Eshopworld.Strada.App
                 gcpProjectId,
                 pubSubTopicId);
 
-            var subscriber = SubscriberClient.Create(
-                subscriptionName, new[] {subscriberClient},
-                new SubscriberClient.Settings
+            var subscriber = await SubscriberClient.CreateAsync(
+                subscriptionName, null, new SubscriberClient.Settings
                 {
                     AckExtensionWindow = TimeSpan.FromSeconds(4),
                     Scheduler = SystemScheduler.Instance,
-                    StreamAckDeadline = TimeSpan.FromSeconds(10),
+                    AckDeadline = TimeSpan.FromSeconds(10),
                     FlowControlSettings = new FlowControlSettings(
                         100,
                         10240)
