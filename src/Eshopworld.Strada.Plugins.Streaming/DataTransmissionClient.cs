@@ -25,17 +25,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             new Lazy<DataTransmissionClient>(() => new DataTransmissionClient());
 
         private PublisherServiceApiClient _publisher;
-        private TopicName _topicName;
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        /// <remarks>
-        /// Fully-lazy instantiation to optimise compilation.
-        /// </remarks>
-        private DataTransmissionClient()
-        {
-        }
+        private TopicName _topicName;        
 
         /// <summary>
         ///     Instance is a static instance of <see cref="DataTransmissionClient" />.
