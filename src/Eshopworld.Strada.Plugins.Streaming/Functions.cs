@@ -27,7 +27,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             jsonObject.Add(new JProperty("brandCode", brandCode));
             jsonObject.Add(new JProperty("eventName", eventName));
             jsonObject.Add(new JProperty("correlationId", correlationId));
-            jsonObject.Add(new JProperty("created", timestamp)); // todo: Lowercase.
+            jsonObject.Add(new JProperty("created", timestamp));
             return jsonObject.ToString();
         }
     }

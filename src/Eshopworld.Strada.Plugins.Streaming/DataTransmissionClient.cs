@@ -223,7 +223,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
                 var pubsubMessage = new PubsubMessage();
                 pubsubMessage.Attributes.Add("EventTimestamp", eventTimestamp.ToString());
-                pubsubMessage.Data = ByteString.CopyFromUtf8(metaDataPayload); //todo: Apply to overloaded.
+                pubsubMessage.Data = ByteString.CopyFromUtf8(metaDataPayload);
 
                 await _publisher.PublishAsync(_topicName, new[]
                 {
