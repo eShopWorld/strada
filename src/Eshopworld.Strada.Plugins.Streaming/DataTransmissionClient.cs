@@ -27,6 +27,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
         private PublisherServiceApiClient _publisher;
         private TopicName _topicName;
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <remarks>
+        /// Fully-lazy instantiation to optimise compilation.
+        /// </remarks>
         private DataTransmissionClient()
         {
         }
