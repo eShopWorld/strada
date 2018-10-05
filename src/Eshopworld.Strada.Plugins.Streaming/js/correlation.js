@@ -325,7 +325,6 @@ const correlation = (function () {
                 cpt++;
                 return "spooky";
             };
-            console.debug(regexp);
             return cpt > 1;
         },
         battery: () => {
@@ -400,7 +399,6 @@ const correlation = (function () {
             const promises = [];
             const correlation = {};
             Object.keys(DEFAULT_ATTRIBUTES_ASYNC).forEach(attribute => {
-                console.log(attribute);
                 correlation[attribute] = {};
                 if (DEFAULT_ATTRIBUTES_ASYNC[attribute]) {
                     promises.push(
