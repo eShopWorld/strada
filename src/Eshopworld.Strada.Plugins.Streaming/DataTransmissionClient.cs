@@ -113,13 +113,17 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// </param>
         /// <exception cref="DataTransmissionClientException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public void Init(
+        public Task InitAsync(
             string projectId,
             string topicId,
             GcpServiceCredentials gcpServiceCredentials,
             bool swallowExceptions = true)
         {
-            if (Initialised) return;
+            if (Initialised)
+            {
+                return Task.FromResult(0);
+            }
+
             try
             {
                 if (string.IsNullOrEmpty(projectId)) throw new ArgumentNullException(nameof(projectId));
@@ -132,18 +136,22 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 var publisherChannel = new Channel(
                     PublisherServiceApiClient.DefaultEndpoint.ToString(),
                     publisherCredential.ToChannelCredentials());
-
+               
                 _publisher = PublisherServiceApiClient.Create(publisherChannel);
                 _topicName = new TopicName(projectId, topicId);
                 Initialised = true;
+                return Task.FromResult(0);
             }
             catch (Exception exception)
             {
                 if (swallowExceptions)
+                {
                     OnInitialisationFailed(
                         new InitialisationFailedEventArgs(
                             new DataTransmissionClientException(
                                 "An error occurred while initializing the data transmission client.", exception)));
+                    return Task.FromResult(0);
+                }
                 else
                     throw new DataTransmissionClientException(
                         "An error occurred while initializing the data transmission client.", exception);
@@ -220,6 +228,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 var pubsubMessage = new PubsubMessage();
                 pubsubMessage.Attributes.Add("EventTimestamp", eventTimestamp.ToString());
                 pubsubMessage.Data = ByteString.CopyFromUtf8(metaDataPayload);
+
+
+                TopicName topicName = new TopicName("", "");
+                var p = await PublisherClient.CreateAsync(topicName);
+                await p.PublishAsync(pubsubMessage);
 
                 await _publisher.PublishAsync(_topicName, new[]
                 {

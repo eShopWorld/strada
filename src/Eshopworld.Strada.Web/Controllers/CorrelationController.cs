@@ -20,14 +20,19 @@ namespace Eshopworld.Strada.Web.Controllers
         ///     pertaining to the HTTP context.
         /// </summary>
         [HttpGet]
-        public async Task<string> Get()
+        public async Task<string> Get() // todo: add eventName param
         {
-            var order = new Order
+            while(true)
             {
-                Number = Guid.NewGuid().ToString(),
-                Value = 10.00m
-            };
-            await _domainServiceLayer.SaveOrder(order);
+                var order = new Order
+                {
+                    Number = Guid.NewGuid().ToString(),
+                    Value = 10.00m,
+                    EmailAddress = "test@test.com"
+                };
+                
+                await _domainServiceLayer.SaveOrder(order); // todo: add eventName param
+            }
             return _domainServiceLayer.CorrelationId;
         }
 

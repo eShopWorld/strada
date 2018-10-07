@@ -115,7 +115,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
 
                 var serviceCredentials = JsonConvert.DeserializeObject<GcpServiceCredentials>(serviceCredentialsJson);
 
-                DataTransmissionClient.Instance.Init(
+                DataTransmissionClient.Instance.InitAsync(
                     Resources.GCPProjectId,
                     Resources.PubSubTopicId,
                     serviceCredentials);
