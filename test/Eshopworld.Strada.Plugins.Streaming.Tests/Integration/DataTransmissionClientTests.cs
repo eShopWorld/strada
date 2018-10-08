@@ -118,7 +118,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                 DataTransmissionClient.Instance.InitAsync(
                     Resources.GCPProjectId,
                     Resources.PubSubTopicId,
-                    serviceCredentials);
+                    serviceCredentials).Wait();
 
                 DataTransmissionClient.Instance.TransmitAsync(
                     Resources.BrandCode, Resources.EventName, Guid.NewGuid().ToString(),
@@ -135,6 +135,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     },
                     subscriber,
                     subscriptionName);
+            }
+            catch (Exception)
+            {
+                // Fail
             }
             finally
             {

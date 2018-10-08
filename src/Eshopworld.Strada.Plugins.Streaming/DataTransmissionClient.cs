@@ -5,7 +5,6 @@ using Google.Apis.Auth.OAuth2;
 using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
 using Grpc.Auth;
-using Grpc.Core;
 using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming
@@ -24,8 +23,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
         private static readonly Lazy<DataTransmissionClient> InnerDataTransmissionClient =
             new Lazy<DataTransmissionClient>(() => new DataTransmissionClient());
 
-        private PublisherServiceApiClient _publisher;
-        private TopicName _topicName;        
+        private PublisherClient _publisher;
+        private TopicName _topicName;
 
         /// <summary>
         ///     Instance is a static instance of <see cref="DataTransmissionClient" />.
@@ -34,12 +33,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         /// <summary>
         ///     Indicates whether or not this instance has been initialised by calling
-        ///     <see cref="Init(string,string,string,bool)" />.
+        ///     <see cref="InitAsync(string,string,string,double,bool)" />.
         /// </summary>
         public bool Initialised { get; private set; }
 
         /// <summary>
-        ///     InitialisationFailed is invoked if the <see cref="Init(string,string,string,bool)" /> method fails.
+        ///     InitialisationFailed is invoked if the <see cref="InitAsync(string,string,string,double,bool)" /> method fails.
         /// </summary>
         public event InitialisationFailedEventHandler InitialisationFailed;
 
@@ -54,38 +53,55 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public event ShutdownFailedEventHandler ShutdownFailed;
 
         /// <summary>
-        ///     Init instantiates Cloud Pub/Sub connectivity components.
+        ///     InitAsync instantiates Cloud Pub/Sub connectivity components.
         /// </summary>
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
         /// <param name="gcpServiceCredentials">The GCP Pub/Sub service credentials in JSON format.</param>
+        /// <param name="transmitAbortTimeout">The time after which the <see cref="TransmitAsync{T}" /> method will abort.</param>
         /// <param name="swallowExceptions">
         ///     If <c>true</c>, invokes the <see cref="InitialisationFailed" /> event on error, persisting the
         ///     exception. Otherwise, the exception is thrown.
         /// </param>
+        /// <remarks><see cref="transmitAbortTimeout" /> minimum value is 100 ms. Default is 3000 ms.</remarks>
         /// <exception cref="DataTransmissionClientException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public void Init(
+        /// <exception cref="IndexOutOfRangeException"></exception>
+        public async Task InitAsync(
             string projectId,
             string topicId,
             string gcpServiceCredentials,
+            double transmitAbortTimeout = 3000,
             bool swallowExceptions = true)
         {
             try
             {
                 if (string.IsNullOrEmpty(projectId)) throw new ArgumentNullException(nameof(projectId));
                 if (string.IsNullOrEmpty(topicId)) throw new ArgumentNullException(nameof(topicId));
-                if (string.IsNullOrEmpty(gcpServiceCredentials))
-                    throw new ArgumentNullException(nameof(gcpServiceCredentials));
+                if (gcpServiceCredentials == null) throw new ArgumentNullException(nameof(gcpServiceCredentials));
+                if (transmitAbortTimeout < 100) throw new ArgumentOutOfRangeException(nameof(transmitAbortTimeout));
 
-                var publisherCredential = GoogleCredential.FromJson(gcpServiceCredentials)
-                    .CreateScoped(PublisherServiceApiClient.DefaultScopes);
-                var publisherChannel = new Channel(
-                    PublisherServiceApiClient.DefaultEndpoint.ToString(),
-                    publisherCredential.ToChannelCredentials());
+                if (!Initialised)
+                {
+                    var credential = GoogleCredential
+                        .FromJson(gcpServiceCredentials)
+                        .CreateScoped(PublisherServiceApiClient.DefaultScopes);
 
-                _publisher = PublisherServiceApiClient.Create(publisherChannel);
-                _topicName = new TopicName(projectId, topicId);
+                    var publishSettings = CallSettings.FromCallTiming(
+                        CallTiming.FromTimeout(TimeSpan.FromMilliseconds(transmitAbortTimeout)));
+
+                    var apiSettings = new PublisherServiceApiSettings {PublishSettings = publishSettings};
+                    var clientCreationSettings =
+                        new PublisherClient.ClientCreationSettings(
+                            null,
+                            apiSettings,
+                            credential.ToChannelCredentials());
+
+                    _topicName = new TopicName(projectId, topicId);
+                    _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings);
+
+                    Initialised = true;
+                }
             }
             catch (Exception exception)
             {
@@ -102,59 +118,65 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
 
         /// <summary>
-        ///     Init instantiates Cloud Pub/Sub connectivity components.
+        ///     InitAsync instantiates Cloud Pub/Sub connectivity components.
         /// </summary>
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
         /// <param name="gcpServiceCredentials">The GCP Pub/Sub service credentials.</param>
+        /// <param name="transmitAbortTimeout">The time after which the <see cref="TransmitAsync{T}" /> method will abort.</param>
         /// <param name="swallowExceptions">
         ///     If <c>true</c>, invokes the <see cref="InitialisationFailed" /> event on error, persisting the
         ///     exception. Otherwise, the exception is thrown.
         /// </param>
+        /// <remarks><see cref="transmitAbortTimeout" /> minimum value is 100 ms. Default is 3000 ms.</remarks>
         /// <exception cref="DataTransmissionClientException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public Task InitAsync(
+        /// <exception cref="IndexOutOfRangeException"></exception>
+        public async Task InitAsync(
             string projectId,
             string topicId,
             GcpServiceCredentials gcpServiceCredentials,
+            double transmitAbortTimeout = 3000,
             bool swallowExceptions = true)
         {
-            if (Initialised)
-            {
-                return Task.FromResult(0);
-            }
-
             try
             {
                 if (string.IsNullOrEmpty(projectId)) throw new ArgumentNullException(nameof(projectId));
                 if (string.IsNullOrEmpty(topicId)) throw new ArgumentNullException(nameof(topicId));
                 if (gcpServiceCredentials == null) throw new ArgumentNullException(nameof(gcpServiceCredentials));
+                if (transmitAbortTimeout < 100) throw new ArgumentOutOfRangeException(nameof(transmitAbortTimeout));
 
-                var publisherCredential = GoogleCredential
-                    .FromJson(JsonConvert.SerializeObject(gcpServiceCredentials))
-                    .CreateScoped(PublisherServiceApiClient.DefaultScopes);
-                var publisherChannel = new Channel(
-                    PublisherServiceApiClient.DefaultEndpoint.ToString(),
-                    publisherCredential.ToChannelCredentials());
-               
-                _publisher = PublisherServiceApiClient.Create(publisherChannel);
-                _topicName = new TopicName(projectId, topicId);
-                Initialised = true;
-                return Task.FromResult(0);
+                if (!Initialised)
+                {
+                    var credential = GoogleCredential
+                        .FromJson(JsonConvert.SerializeObject(gcpServiceCredentials))
+                        .CreateScoped(PublisherServiceApiClient.DefaultScopes);
+
+                    var publishSettings = CallSettings.FromCallTiming(
+                        CallTiming.FromTimeout(TimeSpan.FromMilliseconds(transmitAbortTimeout)));
+
+                    var apiSettings = new PublisherServiceApiSettings {PublishSettings = publishSettings};
+                    var clientCreationSettings =
+                        new PublisherClient.ClientCreationSettings(
+                            null,
+                            apiSettings,
+                            credential.ToChannelCredentials());
+
+                    _topicName = new TopicName(projectId, topicId);
+                    _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings);
+
+                    Initialised = true;
+                }
             }
             catch (Exception exception)
             {
                 if (swallowExceptions)
-                {
                     OnInitialisationFailed(
                         new InitialisationFailedEventArgs(
                             new DataTransmissionClientException(
                                 "An error occurred while initializing the data transmission client.", exception)));
-                    return Task.FromResult(0);
-                }
-                else
-                    throw new DataTransmissionClientException(
-                        "An error occurred while initializing the data transmission client.", exception);
+                throw new DataTransmissionClientException(
+                    "An error occurred while initializing the data transmission client.", exception);
             }
         }
 
@@ -172,7 +194,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             {
                 if (Initialised)
                 {
-                    await PublisherServiceApiClient.ShutdownDefaultChannelsAsync();
+                    await _publisher.ShutdownAsync(TimeSpan.Zero);
                     Initialised = false;
                 }
             }
@@ -194,7 +216,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="eventName">The name of the upstream event in which the domain model was raised.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <param name="metadata">The data model to transmit to Cloud Pub/Sub.</param>
-        /// <param name="timeOut">The number of seconds after which the transmission operation will time out.</param>
         /// <param name="swallowExceptions">
         ///     If <c>true</c>, invokes the <see cref="TransmissionFailed" /> event on error, persisting the
         ///     exception. Otherwise, the exception is thrown.
@@ -206,7 +227,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string eventName,
             string correlationId,
             T metadata,
-            double timeOut = 3000,
             bool swallowExceptions = true) where T : class
         {
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
@@ -228,16 +248,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 var pubsubMessage = new PubsubMessage();
                 pubsubMessage.Attributes.Add("EventTimestamp", eventTimestamp.ToString());
                 pubsubMessage.Data = ByteString.CopyFromUtf8(metaDataPayload);
-
-
-                TopicName topicName = new TopicName("", "");
-                var p = await PublisherClient.CreateAsync(topicName);
-                await p.PublishAsync(pubsubMessage);
-
-                await _publisher.PublishAsync(_topicName, new[]
-                {
-                    pubsubMessage
-                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromMilliseconds(timeOut))));
+                await _publisher.PublishAsync(pubsubMessage);
             }
             catch (Exception exception)
             {
@@ -259,7 +270,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="eventName">The name of the upstream event in which the domain model was raised.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <param name="json">The JSON-serialised data model to transmit to Cloud Pub/Sub.</param>
-        /// <param name="timeOut">The number of seconds after which the transmission operation will time out.</param>
         /// <param name="swallowExceptions">
         ///     If <c>true</c>, invokes the <see cref="TransmissionFailed" /> event on error, persisting the
         ///     exception. Otherwise, the exception is thrown.
@@ -271,7 +281,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string eventName,
             string correlationId,
             string json,
-            double timeOut = 3000,
             bool swallowExceptions = true)
         {
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
@@ -293,11 +302,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 var pubsubMessage = new PubsubMessage();
                 pubsubMessage.Attributes.Add("EventTimestamp", eventTimestamp.ToString());
                 pubsubMessage.Data = ByteString.CopyFromUtf8(metaDataPayload);
-
-                await _publisher.PublishAsync(_topicName, new[]
-                {
-                    pubsubMessage
-                }, CallSettings.FromCallTiming(CallTiming.FromTimeout(TimeSpan.FromMilliseconds(timeOut))));
+                await _publisher.PublishAsync(pubsubMessage);
             }
             catch (Exception exception)
             {

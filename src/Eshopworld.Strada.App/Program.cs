@@ -59,7 +59,7 @@ namespace Eshopworld.Strada.App
             });
 
             Console.ReadLine();
-            await subscriber.StopAsync(TimeSpan.FromSeconds(15));
+            await subscriber.StopAsync(TimeSpan.Zero);
         }
     }
 }

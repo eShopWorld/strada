@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Eshopworld.Strada.Plugins.Streaming</PackageId>
-    <version>1.6.6</version>
+    <version>1.7.0</version>
   </PropertyGroup>
 
   <ItemGroup>

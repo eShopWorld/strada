@@ -32,15 +32,16 @@ namespace Eshopworld.Strada.Web
         ///     SaveOrder persists an <see cref="Order" /> instance to DB.
         /// </summary>
         /// <param name="order">The <see cref="Order" /> to persist to DB.</param>
+        /// <param name="eventName">The name of the upstream event from which this HTTP request originated.</param>
         /// <returns><c>True</c> if the <see cref="Order" /> has been successfully persisted to DB.</returns>
-        public async Task SaveOrder(Order order)
+        public async Task SaveOrder(Order order, string eventName)
         {
             var orderSaved = _orderRepository.Save(order);
 
             if (orderSaved)
                 await _dataTransmissionClient.TransmitAsync(
                     "MAX",
-                    "PAGE-LOAD",
+                    eventName,
                     _dataAnalyticsMeta.CorrelationId,
                     order);
             else
