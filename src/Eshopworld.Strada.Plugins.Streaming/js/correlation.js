@@ -424,7 +424,7 @@ const correlation = (function () {
             sha256.getDigest(JSON.stringify(correlationVector)).then(function (digest) {
                 XMLHttpRequest.prototype.realSend = XMLHttpRequest.prototype.send;
                 const newSend = function (vData) {
-                    this.setRequestHeader('correlationid', digest);
+                    this.setRequestHeader('FingerprintId', digest);
                     this.realSend(vData);
                 };
                 XMLHttpRequest.prototype.send = newSend;

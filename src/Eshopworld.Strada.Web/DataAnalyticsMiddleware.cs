@@ -38,7 +38,7 @@ namespace Eshopworld.Strada.Web
         /// </summary>
         /// <param name="httpRequest">The current HTTP context</param>
         /// <param name="correlationIdHeaderName">The HTTP header in which the correlation-id is present.</param>
-        private string GetCorrelationId(HttpRequest httpRequest, string correlationIdHeaderName = "correlationid")
+        private string GetCorrelationId(HttpRequest httpRequest, string correlationIdHeaderName = "FingerprintId")
         {
             if (httpRequest == null) throw new ArgumentNullException(nameof(httpRequest));
 
