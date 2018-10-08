@@ -22,6 +22,9 @@ namespace Eshopworld.Strada.Web.Controllers
         [HttpGet]
         public async Task<string> Get(string eventName)
         {
+            var userAgentHeaders = HttpContext.Request.Headers["User-Agent"];
+            var userAgent = Convert.ToString(userAgentHeaders[0]);
+
             var order = new Order
             {
                 Number = Guid.NewGuid().ToString(),
@@ -29,7 +32,11 @@ namespace Eshopworld.Strada.Web.Controllers
                 EmailAddress = "test@test.com"
             };
 
-            await _domainServiceLayer.SaveOrder(order, eventName);
+            await _domainServiceLayer.SaveOrder(
+                order,
+                eventName,
+                userAgent,
+                HttpContext.Request.QueryString.Value);
             return _domainServiceLayer.CorrelationId;
         }
 

@@ -33,17 +33,22 @@ namespace Eshopworld.Strada.Web
         /// </summary>
         /// <param name="order">The <see cref="Order" /> to persist to DB.</param>
         /// <param name="eventName">The name of the upstream event from which this HTTP request originated.</param>
+        /// <param name="userAgent">The HTTP request User Agent header value.</param>
+        /// <param name="queryString">The HTTP request Query string.</param>
         /// <returns><c>True</c> if the <see cref="Order" /> has been successfully persisted to DB.</returns>
-        public async Task SaveOrder(Order order, string eventName)
-        {
+        public async Task SaveOrder(Order order, string eventName, string userAgent, string queryString)
+         {
             var orderSaved = _orderRepository.Save(order);
+            const string brandCode = "MAX";
 
             if (orderSaved)
                 await _dataTransmissionClient.TransmitAsync(
-                    "MAX",
+                    brandCode,
                     eventName,
                     _dataAnalyticsMeta.CorrelationId,
-                    order);
+                    order,
+                    userAgent,
+                    queryString);
             else
                 throw new DataException("Something went wrong while saving the order.");
         }

@@ -126,7 +126,9 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     {
                         ProductName = "SNKRS",
                         ProductValue = 1.5
-                    }).Wait();
+                    },
+                    string.Empty,
+                    string.Empty).Wait();
 
                 PullMessage<PreOrder>(preOrder =>
                     {

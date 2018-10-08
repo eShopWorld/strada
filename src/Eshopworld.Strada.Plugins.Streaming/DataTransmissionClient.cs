@@ -216,10 +216,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="eventName">The name of the upstream event in which the domain model was raised.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <param name="metadata">The data model to transmit to Cloud Pub/Sub.</param>
+        /// <param name="queryString">The HTTP request Query string.</param>
         /// <param name="swallowExceptions">
         ///     If <c>true</c>, invokes the <see cref="TransmissionFailed" /> event on error, persisting the
         ///     exception. Otherwise, the exception is thrown.
         /// </param>
+        /// <param name="userAgent">The HTTP request User Agent header value.</param>
         /// <exception cref="DataTransmissionException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         public async Task TransmitAsync<T>(
@@ -227,12 +229,15 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string eventName,
             string correlationId,
             T metadata,
+            string userAgent,
+            string queryString,
             bool swallowExceptions = true) where T : class
         {
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
             if (string.IsNullOrEmpty(eventName)) throw new ArgumentNullException(nameof(eventName));
             if (string.IsNullOrEmpty(correlationId)) throw new ArgumentNullException(nameof(correlationId));
             if (metadata == null) throw new ArgumentNullException(nameof(metadata));
+            if (string.IsNullOrEmpty(userAgent)) throw new ArgumentNullException(nameof(userAgent));
 
             try
             {
@@ -243,6 +248,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     brandCode,
                     eventName,
                     correlationId,
+                    userAgent,
+                    queryString,
                     eventTimestamp.ToString());
 
                 var pubsubMessage = new PubsubMessage();
@@ -270,10 +277,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="eventName">The name of the upstream event in which the domain model was raised.</param>
         /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
         /// <param name="json">The JSON-serialised data model to transmit to Cloud Pub/Sub.</param>
+        /// <param name="queryString">The HTTP request Query string.</param>
         /// <param name="swallowExceptions">
         ///     If <c>true</c>, invokes the <see cref="TransmissionFailed" /> event on error, persisting the
         ///     exception. Otherwise, the exception is thrown.
         /// </param>
+        /// <param name="userAgent">The HTTP request User Agent header value.</param>
         /// <exception cref="DataTransmissionException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         public async Task TransmitAsync(
@@ -281,12 +290,15 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string eventName,
             string correlationId,
             string json,
+            string userAgent,
+            string queryString,
             bool swallowExceptions = true)
         {
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
             if (string.IsNullOrEmpty(eventName)) throw new ArgumentNullException(nameof(eventName));
             if (string.IsNullOrEmpty(correlationId)) throw new ArgumentNullException(nameof(correlationId));
             if (string.IsNullOrEmpty(json)) throw new ArgumentNullException(nameof(json));
+            if (string.IsNullOrEmpty(userAgent)) throw new ArgumentNullException(nameof(userAgent));
 
             try
             {
@@ -297,6 +309,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     brandCode,
                     eventName,
                     correlationId,
+                    userAgent,
+                    queryString,
                     eventTimestamp.ToString());
 
                 var pubsubMessage = new PubsubMessage();
