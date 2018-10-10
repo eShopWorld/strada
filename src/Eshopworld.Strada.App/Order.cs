@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Eshopworld.Strada.Web
+namespace Eshopworld.Strada.App
 {
     /// <summary>
     ///     Order is a simulated ESW Order.
