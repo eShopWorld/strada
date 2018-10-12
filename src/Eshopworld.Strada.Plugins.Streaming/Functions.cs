@@ -48,18 +48,17 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="httpRequest">The current HTTP context</param>
         /// <param name="correlationIdHeaderName">The HTTP header in which the correlation-id is present.</param>
         /// <remarks>Compatible with ASP.NET Core only.</remarks>
+        /// <remarks>Does not throw exceptions when correlation-id is not found, to ensure early-stage middleware is not impeded.</remarks>
         public static string GetCorrelationId(HttpRequest httpRequest, string correlationIdHeaderName = "FingerprintId")
         {
             if (httpRequest == null) throw new ArgumentNullException(nameof(httpRequest));
 
             var gotCorrelationId = httpRequest.Headers.TryGetValue(correlationIdHeaderName, out var headerValues);
-            if (!gotCorrelationId) throw new Exception("Unable to read correlation-id from HTTP header.");
+            if (!gotCorrelationId) return null;
 
-            string correlationId;
+            string correlationId = null;
             if (!StringValues.IsNullOrEmpty(headerValues))
                 correlationId = headerValues.LastOrDefault();
-            else
-                throw new Exception("Unable to read correlation-id from HTTP header.");
 
             return correlationId;
         }
