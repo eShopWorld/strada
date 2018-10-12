@@ -1,10 +1,27 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
 {
     public class FunctionsTests
     {
+        /// <summary>
+        ///     Ensures that Fingerprint/Correlation headers are retrieved from HTTP requests.
+        /// </summary>
+        [Fact]
+        public void CorrelationIdValueIsDeterminedFromHttpRequest()
+        {
+            var expectedCorrelationId = Guid.NewGuid().ToString();
+
+            HttpContext httpContext = new DefaultHttpContext();
+            httpContext.Request.Headers.Add("FingerprintId", expectedCorrelationId);
+
+            var actualCorrelationId = Functions.GetCorrelationId(httpContext.Request);
+            Assert.Equal(expectedCorrelationId, actualCorrelationId);
+        }
+
         /// <summary>
         ///     Ensures that tracking metadata is added to a JSON payload.
         /// </summary>

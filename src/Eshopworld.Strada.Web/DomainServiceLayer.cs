@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using Eshopworld.Strada.Plugins.Streaming;
 
@@ -37,15 +38,18 @@ namespace Eshopworld.Strada.Web
         /// <param name="queryString">The HTTP request Query string.</param>
         /// <returns><c>True</c> if the <see cref="Order" /> has been successfully persisted to DB.</returns>
         public async Task SaveOrder(Order order, string eventName, string userAgent, string queryString)
-         {
+        {
             var orderSaved = _orderRepository.Save(order);
             const string brandCode = "MAX";
+
+            var correlationId = Guid.NewGuid().ToString();
 
             if (orderSaved)
                 await _dataTransmissionClient.TransmitAsync(
                     brandCode,
                     eventName,
                     _dataAnalyticsMeta.CorrelationId,
+                    //correlationId,
                     order,
                     userAgent,
                     queryString);
