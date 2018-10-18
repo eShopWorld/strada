@@ -37,19 +37,17 @@ namespace Eshopworld.Strada.Web
         /// <param name="userAgent">The HTTP request User Agent header value.</param>
         /// <param name="queryString">The HTTP request Query string.</param>
         /// <returns><c>True</c> if the <see cref="Order" /> has been successfully persisted to DB.</returns>
-        public async Task SaveOrder(Order order, string eventName, string userAgent, string queryString)
+        public async Task SaveOrder(Order order, string eventName, string userAgent, string queryString, string correlationId)
         {
             var orderSaved = _orderRepository.Save(order);
             const string brandCode = "MAX";
-
-            var correlationId = Guid.NewGuid().ToString();
 
             if (orderSaved)
                 await _dataTransmissionClient.TransmitAsync(
                     brandCode,
                     eventName,
-                    _dataAnalyticsMeta.CorrelationId,
-                    //correlationId,
+                    //_dataAnalyticsMeta.CorrelationId,
+                    correlationId,
                     order,
                     userAgent,
                     queryString);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,19 +25,58 @@ namespace Eshopworld.Strada.Web.Controllers
         {
             var userAgentHeaders = HttpContext.Request.Headers["User-Agent"];
             var userAgent = Convert.ToString(userAgentHeaders[0]);
-
-            var order = new Order
+            Random random = new Random();
+            List<string> orderStages = new List<string>
             {
-                Number = Guid.NewGuid().ToString(),
-                Value = 10.00m,
-                EmailAddress = "test@test.com"
+                "CreateOrder",
+                "UpdateOrder",
+                "PaymentAttempted",
+                "PaymentFailed",
+                "PaymentSuccessful",
+                "UpdateDeliveryOption",
+                "ConfirmOrder",
+                "OrderConfirmationFailed",
+                "COMPLETE"
             };
 
-            await _domainServiceLayer.SaveOrder(
-                order,
-                eventName,
-                userAgent,
-                HttpContext.Request.QueryString.Value);
+            while (true)
+            {
+                int orderStagesLength;
+                bool isComplete = random.NextDouble() >= 0.5;
+                if (isComplete)
+                {
+                    orderStagesLength = orderStages.Count;
+                }
+                else
+                {
+                    orderStagesLength = random.Next(2, orderStages.Count); // Needs to be at least 2 events to avoid order-summary bug
+                }
+
+                var correlationId = Guid.NewGuid().ToString();
+                var orderNumber = Guid.NewGuid().ToString();
+                for (int i = 0; i < orderStagesLength; i++)
+                {
+                    eventName = orderStages[i];
+                    var euros = random.Next(50, 201);
+                    var cents = random.Next(0, 100);
+                    var amount = euros.ToString() + "." + cents.ToString();
+                    var order = new Order
+                    {
+                        Number = orderNumber,
+                        Value = decimal.Parse(amount)
+                    };
+                    await _domainServiceLayer.SaveOrder(
+                        order,
+                        eventName,
+                        userAgent,
+                        HttpContext.Request.QueryString.Value,
+                        correlationId);
+
+                    int delay = random.Next(1, 6) * 1000;
+                    await Task.Delay(delay);
+                }
+                await Task.Delay(500);
+            }
             return _domainServiceLayer.CorrelationId;
         }
 
