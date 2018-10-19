@@ -14,5 +14,9 @@ namespace Eshopworld.Strada.Web
         [JsonProperty("emailAddress")] public string EmailAddress { get; set; }
 
         [JsonProperty("complete")] public bool Complete { get; set; }
+
+        [JsonProperty("country")] public string Country { get; set; }
+
+        [JsonProperty("unitsPerOrder")] public int UnitsPerOrder { get; set; }
     }
 }
