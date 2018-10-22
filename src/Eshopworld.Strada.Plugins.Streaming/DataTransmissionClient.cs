@@ -231,7 +231,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
             T metadata,
             string userAgent,
             string queryString,
-            DateTime dateTime = default(DateTime),
             bool swallowExceptions = true) where T : class
         {
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
@@ -242,8 +241,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
             try
             {
-                var eventTimestamp = new DateTimeOffset(dateTime).ToUnixTimeMilliseconds();
-                //var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
+                var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
 
                 var metaDataPayload = Functions.AddTrackingMetadataToJson(
                     JsonConvert.SerializeObject(metadata),
