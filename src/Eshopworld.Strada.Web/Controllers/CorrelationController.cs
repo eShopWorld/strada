@@ -36,6 +36,7 @@ namespace Eshopworld.Strada.Web.Controllers
                 "UpdateDeliveryOption",
                 "ConfirmOrder",
                 "OrderConfirmationFailed",
+                "Processing",
                 "COMPLETE"
             };
 
@@ -48,48 +49,83 @@ namespace Eshopworld.Strada.Web.Controllers
                 "Australia"
             };
 
-            var dateTime = DateTime.Parse("2018-10-19 17:30:00").ToUniversalTime();
+            var dateTime = DateTime.Parse("2018-10-01 08:00:00").ToUniversalTime();
+            DateTime endDate = DateTime.MinValue;
 
-            while (true)
+            while (endDate < DateTime.UtcNow)
             {
-                dateTime = dateTime.AddMinutes(random.Next(1, 11));
-                var isComplete = random.NextDouble() >= 0.5;
-                var orderStagesLength = isComplete ? orderStages.Count : random.Next(2, orderStages.Count);
-                var country = countries[random.Next(0, countries.Count)];
-                var unitsPerOrder = random.Next(1, 8);
-
-                var correlationId = Guid.NewGuid().ToString();
-                var orderNumber = Guid.NewGuid().ToString();
-                for (var i = 0; i < orderStagesLength; i++)
+                try
                 {
-                    dateTime = dateTime.AddSeconds(random.Next(1, 10));
-                    eventName = orderStages[i];
+                    dateTime = dateTime.AddMinutes(random.Next(1, 11));
+                    var isComplete = random.NextDouble() >= 0.5;
+                    var orderStagesLength = isComplete ? orderStages.Count : random.Next(2, orderStages.Count - 1);
+                    var country = countries[random.Next(0, countries.Count)];
+                    var unitsPerOrder = random.Next(1, 8);
+
+                    var correlationId = Guid.NewGuid().ToString();
+                    var orderNumber = Guid.NewGuid().ToString();
+                    DateTime startDate = dateTime.AddSeconds(random.Next(1, 10));
+
+                    endDate = startDate.AddMinutes(random.Next(1, 6));
                     var euros = random.Next(50, 201);
                     var cents = random.Next(0, 100);
                     var amount = euros + "." + cents;
-                    var order = new Order
+
+                    OrderSummary orderSummary = new OrderSummary
                     {
-                        Number = orderNumber,
-                        Value = decimal.Parse(amount),
-                        Country = country,
-                        UnitsPerOrder = unitsPerOrder
+                        MinTimeDelay = random.Next(1000, 6000)
                     };
+                    orderSummary.MaxTimeDelay = random.Next((int)orderSummary.MinTimeDelay, (int)orderSummary.MinTimeDelay + 500);
+                    orderSummary.AvgTimeDelay = (orderSummary.MinTimeDelay + orderSummary.MaxTimeDelay) / 2;
+                    var minFirstEventNameIndex = random.Next(0, orderStagesLength);
+                    orderSummary.MinFirstEventName = orderStages[minFirstEventNameIndex];
+                    var minSecondEventNameIndex = minFirstEventNameIndex < orderStagesLength - 2 ? minFirstEventNameIndex + 1 : minFirstEventNameIndex;
+                    orderSummary.MinSecondEventName = orderStages[minSecondEventNameIndex];
+                    var maxFirstEventNameIndex = random.Next(0, orderStagesLength);
+                    orderSummary.MaxFirstEventName = orderStages[maxFirstEventNameIndex];
+                    var maxSecondEventNameIndex = maxFirstEventNameIndex < orderStagesLength - 2 ? maxFirstEventNameIndex + 1 : maxFirstEventNameIndex;
+                    orderSummary.MaxSecondEventName = orderStages[maxSecondEventNameIndex];
+                    orderSummary.LastEventName = orderStages[orderStagesLength - 1];
+                    orderSummary.Complete = isComplete;
+                    orderSummary.OrderNumber = orderNumber;
+                    orderSummary.StartDate = new DateTimeOffset(startDate).ToUnixTimeMilliseconds();
+                    orderSummary.EndDate = new DateTimeOffset(endDate).ToUnixTimeMilliseconds();
+                    orderSummary.OrderValue = float.Parse(amount);
+                    orderSummary.TotalTime = (long)(endDate - startDate).TotalMilliseconds;
+                    orderSummary.Country = country;
+                    orderSummary.UnitsPerOrder = unitsPerOrder;
+                    eventName = "EVENT";
+                    //var order = new Order
+                    //{
+                    //    Number = orderNumber,
+                    //    Value = decimal.Parse(amount),
+                    //    Country = country,
+                    //    UnitsPerOrder = unitsPerOrder
+                    //};
                     await _domainServiceLayer.SaveOrder(
-                        order,
+                        orderSummary,
                         eventName,
                         userAgent,
                         HttpContext.Request.QueryString.Value,
                         correlationId, dateTime);
 
-                    //var delay = random.Next(1, 6) * 1000;
-                    //await Task.Delay(delay);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    //throw;
                 }
 
-                //await Task.Delay(500);
+                //var delay = random.Next(1, 6) * 1000;
+                //await Task.Delay(delay);
             }
 
-            return _domainServiceLayer.CorrelationId;
+            return null;
+            //await Task.Delay(500);
         }
+
+        //return _domainServiceLayer.CorrelationId;
+
 
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)

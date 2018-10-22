@@ -47,7 +47,7 @@ namespace Eshopworld.Strada.Web
             var gcpServiceCredentials = new GcpServiceCredentials();
             Configuration.GetSection("gcpServiceCredentials").Bind(gcpServiceCredentials);
             // Establish a persistent connection to GCP Pub/Sub
-            dataTransmissionClient.InitAsync("eshop-bigdata", "apache_beam_input_2", gcpServiceCredentials).Wait();
+            dataTransmissionClient.InitAsync("eshop-bigdata", "synthetic-data-load", gcpServiceCredentials).Wait();
             // Configure custom middleware to handle correlation-id meta
             app.UseMiddleware<DataAnalyticsMiddleware>();
             app.UseMvc();

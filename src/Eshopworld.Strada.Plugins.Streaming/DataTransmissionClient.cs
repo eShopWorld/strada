@@ -242,8 +242,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
             try
             {
-                var eventTimestamp = new DateTimeOffset(dateTime).ToUnixTimeMilliseconds();
-                //var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
+                var dataTimestamp = new DateTimeOffset(dateTime).ToUnixTimeMilliseconds();
+                var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
 
                 var metaDataPayload = Functions.AddTrackingMetadataToJson(
                     JsonConvert.SerializeObject(metadata),
@@ -252,10 +252,10 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     correlationId,
                     userAgent,
                     queryString,
-                    eventTimestamp.ToString());
+                    dataTimestamp.ToString());
 
                 var pubsubMessage = new PubsubMessage();
-                pubsubMessage.Attributes.Add("EventTimestamp", eventTimestamp.ToString());
+                //pubsubMessage.Attributes.Add("EventTimestamp", eventTimestamp.ToString());
                 pubsubMessage.Data = ByteString.CopyFromUtf8(metaDataPayload);
                 await _publisher.PublishAsync(pubsubMessage);
             }

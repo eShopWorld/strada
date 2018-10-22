@@ -32,12 +32,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string timestamp)
         {
             var jsonObject = JObject.Parse(json);
-            jsonObject.Add(new JProperty("brandCode", brandCode));
-            jsonObject.Add(new JProperty("eventName", eventName));
+            //jsonObject.Add(new JProperty("brandCode", brandCode));
+            //jsonObject.Add(new JProperty("eventName", eventName));
             jsonObject.Add(new JProperty("correlationId", correlationId));
             jsonObject.Add(new JProperty("userAgent", userAgent));
-            jsonObject.Add(new JProperty("queryString", queryString));
-            jsonObject.Add(new JProperty("created", timestamp));
+            //jsonObject.Add(new JProperty("queryString", queryString));
+            //jsonObject.Add(new JProperty("created", timestamp));
             return jsonObject.ToString();
         }
 
