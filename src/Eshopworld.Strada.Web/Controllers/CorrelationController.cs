@@ -48,8 +48,11 @@ namespace Eshopworld.Strada.Web.Controllers
                 "Australia"
             };
 
+            var dateTime = DateTime.Parse("2018-10-19 17:30:00").ToUniversalTime();
+
             while (true)
             {
+                dateTime = dateTime.AddMinutes(random.Next(1, 11));
                 var isComplete = random.NextDouble() >= 0.5;
                 var orderStagesLength = isComplete ? orderStages.Count : random.Next(2, orderStages.Count);
                 var country = countries[random.Next(0, countries.Count)];
@@ -59,6 +62,7 @@ namespace Eshopworld.Strada.Web.Controllers
                 var orderNumber = Guid.NewGuid().ToString();
                 for (var i = 0; i < orderStagesLength; i++)
                 {
+                    dateTime = dateTime.AddSeconds(random.Next(1, 10));
                     eventName = orderStages[i];
                     var euros = random.Next(50, 201);
                     var cents = random.Next(0, 100);
@@ -75,13 +79,13 @@ namespace Eshopworld.Strada.Web.Controllers
                         eventName,
                         userAgent,
                         HttpContext.Request.QueryString.Value,
-                        correlationId);
+                        correlationId, dateTime);
 
-                    var delay = random.Next(1, 6) * 1000;
-                    await Task.Delay(delay);
+                    //var delay = random.Next(1, 6) * 1000;
+                    //await Task.Delay(delay);
                 }
 
-                await Task.Delay(500);
+                //await Task.Delay(500);
             }
 
             return _domainServiceLayer.CorrelationId;

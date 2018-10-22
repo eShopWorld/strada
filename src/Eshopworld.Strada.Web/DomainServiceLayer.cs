@@ -37,7 +37,7 @@ namespace Eshopworld.Strada.Web
         /// <param name="userAgent">The HTTP request User Agent header value.</param>
         /// <param name="queryString">The HTTP request Query string.</param>
         /// <returns><c>True</c> if the <see cref="Order" /> has been successfully persisted to DB.</returns>
-        public async Task SaveOrder(Order order, string eventName, string userAgent, string queryString, string correlationId)
+        public async Task SaveOrder(Order order, string eventName, string userAgent, string queryString, string correlationId, DateTime dateTime)
         {
             var orderSaved = _orderRepository.Save(order);
             const string brandCode = "MAX";
@@ -50,7 +50,8 @@ namespace Eshopworld.Strada.Web
                     correlationId,
                     order,
                     userAgent,
-                    queryString);
+                    queryString,
+                    dateTime);
             else
                 throw new DataException("Something went wrong while saving the order.");
         }
