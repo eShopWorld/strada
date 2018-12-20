@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Google.Api.Gax;
 using Google.Api.Gax.Grpc;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.PubSub.V1;
@@ -87,15 +88,19 @@ namespace Eshopworld.Strada.Plugins.Streaming
                         .FromJson(gcpServiceCredentials)
                         .CreateScoped(PublisherServiceApiClient.DefaultScopes);
 
-                    var publishSettings = CallSettings.FromCallTiming(
-                        CallTiming.FromTimeout(TimeSpan.FromMilliseconds(transmitAbortTimeout)));
+                    var retryBackoff = new BackoffSettings(
+                        TimeSpan.FromMilliseconds(750),
+                        TimeSpan.FromMilliseconds(3000), 2);
+                    var expiration = Expiration.FromTimeout(TimeSpan.FromMilliseconds(3000));
+
+                    var retrySettings = new RetrySettings(retryBackoff, retryBackoff, expiration);
+                    var publishSettings = CallSettings.FromCallTiming(CallTiming.FromRetry(retrySettings));
 
                     var apiSettings = new PublisherServiceApiSettings {PublishSettings = publishSettings};
-                    var clientCreationSettings =
-                        new PublisherClient.ClientCreationSettings(
-                            null,
-                            apiSettings,
-                            credential.ToChannelCredentials());
+                    var clientCreationSettings = new PublisherClient.ClientCreationSettings(
+                        null,
+                        apiSettings,
+                        credential.ToChannelCredentials());
 
                     _topicName = new TopicName(projectId, topicId);
                     _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings);
@@ -152,15 +157,19 @@ namespace Eshopworld.Strada.Plugins.Streaming
                         .FromJson(JsonConvert.SerializeObject(gcpServiceCredentials))
                         .CreateScoped(PublisherServiceApiClient.DefaultScopes);
 
-                    var publishSettings = CallSettings.FromCallTiming(
-                        CallTiming.FromTimeout(TimeSpan.FromMilliseconds(transmitAbortTimeout)));
+                    var retryBackoff = new BackoffSettings(
+                        TimeSpan.FromMilliseconds(750),
+                        TimeSpan.FromMilliseconds(3000), 2);
+                    var expiration = Expiration.FromTimeout(TimeSpan.FromMilliseconds(3000));
+
+                    var retrySettings = new RetrySettings(retryBackoff, retryBackoff, expiration);
+                    var publishSettings = CallSettings.FromCallTiming(CallTiming.FromRetry(retrySettings));
 
                     var apiSettings = new PublisherServiceApiSettings {PublishSettings = publishSettings};
-                    var clientCreationSettings =
-                        new PublisherClient.ClientCreationSettings(
-                            null,
-                            apiSettings,
-                            credential.ToChannelCredentials());
+                    var clientCreationSettings = new PublisherClient.ClientCreationSettings(
+                        null,
+                        apiSettings,
+                        credential.ToChannelCredentials());
 
                     _topicName = new TopicName(projectId, topicId);
                     _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings);
