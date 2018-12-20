@@ -252,9 +252,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     queryString,
                     eventTimestamp.ToString());
 
-                var pubsubMessage = new PubsubMessage();
-                pubsubMessage.Attributes.Add("EventTimestamp", eventTimestamp.ToString());
-                pubsubMessage.Data = ByteString.CopyFromUtf8(metaDataPayload);
+                var pubsubMessage = new PubsubMessage {Data = ByteString.CopyFromUtf8(metaDataPayload)};
                 await _publisher.PublishAsync(pubsubMessage);
             }
             catch (Exception exception)
@@ -313,9 +311,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     queryString,
                     eventTimestamp.ToString());
 
-                var pubsubMessage = new PubsubMessage();
-                pubsubMessage.Attributes.Add("EventTimestamp", eventTimestamp.ToString());
-                pubsubMessage.Data = ByteString.CopyFromUtf8(metaDataPayload);
+                var pubsubMessage = new PubsubMessage {Data = ByteString.CopyFromUtf8(metaDataPayload)};
                 await _publisher.PublishAsync(pubsubMessage);
             }
             catch (Exception exception)
