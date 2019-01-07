@@ -89,9 +89,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
                         .CreateScoped(PublisherServiceApiClient.DefaultScopes);
 
                     var retryBackoff = new BackoffSettings(
-                        TimeSpan.FromMilliseconds(750),
-                        TimeSpan.FromMilliseconds(3000), 2);
-                    var expiration = Expiration.FromTimeout(TimeSpan.FromMilliseconds(3000));
+                        TimeSpan.FromSeconds(10),
+                        TimeSpan.FromSeconds(15), 1.5);
+                    var expiration = Expiration.FromTimeout(TimeSpan.FromSeconds(35));
 
                     var retrySettings = new RetrySettings(retryBackoff, retryBackoff, expiration);
                     var publishSettings = CallSettings.FromCallTiming(CallTiming.FromRetry(retrySettings));
@@ -158,9 +158,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
                         .CreateScoped(PublisherServiceApiClient.DefaultScopes);
 
                     var retryBackoff = new BackoffSettings(
-                        TimeSpan.FromMilliseconds(750),
-                        TimeSpan.FromMilliseconds(3000), 2);
-                    var expiration = Expiration.FromTimeout(TimeSpan.FromMilliseconds(3000));
+                        TimeSpan.FromSeconds(10),
+                        TimeSpan.FromSeconds(15), 1.5);
+                    var expiration = Expiration.FromTimeout(TimeSpan.FromSeconds(35));
 
                     var retrySettings = new RetrySettings(retryBackoff, retryBackoff, expiration);
                     var publishSettings = CallSettings.FromCallTiming(CallTiming.FromRetry(retrySettings));
