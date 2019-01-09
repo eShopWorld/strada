@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Google.Api.Gax;
-using Google.Api.Gax.Grpc;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
@@ -88,18 +86,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
                         .FromJson(gcpServiceCredentials)
                         .CreateScoped(PublisherServiceApiClient.DefaultScopes);
 
-                    var retryBackoff = new BackoffSettings(
-                        TimeSpan.FromSeconds(10),
-                        TimeSpan.FromSeconds(15), 1.5);
-                    var expiration = Expiration.FromTimeout(TimeSpan.FromSeconds(35));
-
-                    var retrySettings = new RetrySettings(retryBackoff, retryBackoff, expiration);
-                    var publishSettings = CallSettings.FromCallTiming(CallTiming.FromRetry(retrySettings));
-
-                    var apiSettings = new PublisherServiceApiSettings {PublishSettings = publishSettings};
                     var clientCreationSettings = new PublisherClient.ClientCreationSettings(
                         null,
-                        apiSettings,
+                        null,
                         credential.ToChannelCredentials());
 
                     _topicName = new TopicName(projectId, topicId);
@@ -157,18 +146,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
                         .FromJson(JsonConvert.SerializeObject(gcpServiceCredentials))
                         .CreateScoped(PublisherServiceApiClient.DefaultScopes);
 
-                    var retryBackoff = new BackoffSettings(
-                        TimeSpan.FromSeconds(10),
-                        TimeSpan.FromSeconds(15), 1.5);
-                    var expiration = Expiration.FromTimeout(TimeSpan.FromSeconds(35));
-
-                    var retrySettings = new RetrySettings(retryBackoff, retryBackoff, expiration);
-                    var publishSettings = CallSettings.FromCallTiming(CallTiming.FromRetry(retrySettings));
-
-                    var apiSettings = new PublisherServiceApiSettings {PublishSettings = publishSettings};
                     var clientCreationSettings = new PublisherClient.ClientCreationSettings(
                         null,
-                        apiSettings,
+                        null,
                         credential.ToChannelCredentials());
 
                     _topicName = new TopicName(projectId, topicId);
