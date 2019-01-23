@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshopworld.Strada.Plugins.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshopworld.Strada.App", "src\Eshopworld.Strada.App\Eshopworld.Strada.App.csproj", "{0C93DF30-7A11-4022-9D07-85CFCE800562}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShopworld.Strada.Plugins.Web", "src\EShopworld.Strada.Plugins.Web\EShopworld.Strada.Plugins.Web.csproj", "{37DDDA60-3318-42EE-AB7C-30A279E7E544}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{0C93DF30-7A11-4022-9D07-85CFCE800562}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C93DF30-7A11-4022-9D07-85CFCE800562}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C93DF30-7A11-4022-9D07-85CFCE800562}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37DDDA60-3318-42EE-AB7C-30A279E7E544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37DDDA60-3318-42EE-AB7C-30A279E7E544}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37DDDA60-3318-42EE-AB7C-30A279E7E544}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37DDDA60-3318-42EE-AB7C-30A279E7E544}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
