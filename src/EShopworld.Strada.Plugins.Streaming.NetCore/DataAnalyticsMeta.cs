@@ -1,4 +1,4 @@
-﻿namespace Eshopworld.Strada.Plugins.Streaming
+﻿namespace EShopworld.Strada.Plugins.Streaming.NetCore
 {
     /// <summary>
     ///     DataAnalyticsMeta provides metadata necessary for downstream analysis.

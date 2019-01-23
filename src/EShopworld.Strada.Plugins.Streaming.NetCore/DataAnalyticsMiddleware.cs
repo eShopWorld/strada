@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Eshopworld.Strada.Plugins.Streaming
+namespace EShopworld.Strada.Plugins.Streaming.NetCore
 {
     /// <summary>
     ///     DataAnalyticsMiddleware applies data analytics metadata to the HTTP context.
