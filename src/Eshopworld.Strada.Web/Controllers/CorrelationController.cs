@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,68 +20,12 @@ namespace Eshopworld.Strada.Web.Controllers
         ///     pertaining to the HTTP context.
         /// </summary>
         [HttpGet]
-        public async Task<string> Get(string eventName)
+        public async Task<string> Get()
         {
             var userAgentHeaders = HttpContext.Request.Headers["User-Agent"];
             var userAgent = Convert.ToString(userAgentHeaders[0]);
-            var random = new Random();
-            var orderStages = new List<string>
-            {
-                "CreateOrder",
-                "UpdateOrder",
-                "PaymentAttempted",
-                "PaymentFailed",
-                "PaymentSuccessful",
-                "UpdateDeliveryOption",
-                "ConfirmOrder",
-                "OrderConfirmationFailed",
-                "COMPLETE"
-            };
-
-            var countries = new List<string>
-            {
-                "Ireland",
-                "UK",
-                "United States",
-                "Canada",
-                "Australia"
-            };
-
-            while (true)
-            {
-                var isComplete = random.NextDouble() >= 0.5;
-                var orderStagesLength = isComplete ? orderStages.Count : random.Next(2, orderStages.Count);
-                var country = countries[random.Next(0, countries.Count)];
-                var unitsPerOrder = random.Next(1, 8);
-
-                var correlationId = Guid.NewGuid().ToString();
-                var orderNumber = Guid.NewGuid().ToString();
-                for (var i = 0; i < orderStagesLength; i++)
-                {
-                    eventName = orderStages[i];
-                    var euros = random.Next(50, 201);
-                    var cents = random.Next(0, 100);
-                    var amount = euros + "." + cents;
-                    var order = new Order
-                    {
-                        Number = orderNumber,
-                        Value = decimal.Parse(amount),
-                        Country = country,
-                        UnitsPerOrder = unitsPerOrder
-                    };
-                    await _domainServiceLayer.SaveOrder(
-                        order,
-                        eventName,
-                        userAgent,
-                        HttpContext.Request.QueryString.Value,
-                        correlationId);
-
-                    var delay = random.Next(1, 6) * 1000;
-                    await Task.Delay(delay);
-                }
-
-                await Task.Delay(500);
-            }
+            
+            
 
             return _domainServiceLayer.CorrelationId;
         }
