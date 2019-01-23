@@ -1,0 +1,3651 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MasterOrder" xml:space="preserve">
+    <value>{
+	"ShopperCurrencyPaymentAmount": {
+		"CurrencyCodeIso": "EUR",
+		"Currency": {
+			"Iso": "EUR",
+			"Name": "Euro",
+			"Exponent": 2,
+			"Id": 1
+		},
+		"Value": 104.0
+	},
+	"RetailerCurrencyPaymentAmount": {
+		"CurrencyCodeIso": "EUR",
+		"Currency": {
+			"Iso": "EUR",
+			"Name": "Euro",
+			"Exponent": 2,
+			"Id": 1
+		},
+		"Value": 104.0
+	},
+	"EShopWorldCurrencyPaymentAmount": {
+		"CurrencyCodeIso": "EUR",
+		"Currency": {
+			"Iso": "EUR",
+			"Name": "Euro",
+			"Exponent": 2,
+			"Id": 1
+		},
+		"Value": 104.0
+	},
+	"OrderCode": "08d22af2-6337-4115-8e40-859c0c843e24",
+	"RetailerCartId": "EVO_20181106162638795",
+	"OrderItemsAll": [{
+			"OrderArticlesAll": [{
+				"Charges": [{
+						"Name": "InputItem",
+						"ExactValue": {
+							"CurrencyCodeIso": "RON",
+							"Currency": {
+								"Iso": "RON",
+								"Name": "Romanian new leu",
+								"Exponent": 2,
+								"Id": 18
+							},
+							"Value": 5977.8633333333
+						}
+					},
+					{
+						"Name": "InputDelivery",
+						"ExactValue": {
+							"CurrencyCodeIso": "RON",
+							"Currency": {
+								"Iso": "RON",
+								"Name": "Romanian new leu",
+								"Exponent": 2,
+								"Id": 18
+							},
+							"Value": 8.6733333333333333333333333333333333
+						}
+					},
+					{
+						"Name": "Items",
+						"ExactValue": {
+							"CurrencyCodeIso": "RON",
+							"Currency": {
+								"Iso": "RON",
+								"Name": "Romanian new leu",
+								"Exponent": 2,
+								"Id": 18
+							},
+							"Value": 5023.41
+						}
+					},
+					{
+						"Name": "Delivery",
+						"ExactValue": {
+							"CurrencyCodeIso": "RON",
+							"Currency": {
+								"Iso": "RON",
+								"Name": "Romanian new leu",
+								"Exponent": 2,
+								"Id": 18
+							},
+							"Value": 7.2933333333333333333333333333333333
+						}
+					},
+					{
+						"Name": "ItemTaxes",
+						"ExactValue": {
+							"CurrencyCodeIso": "RON",
+							"Currency": {
+								"Iso": "RON",
+								"Name": "Romanian new leu",
+								"Exponent": 2,
+								"Id": 18
+							},
+							"Value": 954.45
+						}
+					},
+					{
+						"Name": "DeliveryTaxes",
+						"ExactValue": {
+							"CurrencyCodeIso": "RON",
+							"Currency": {
+								"Iso": "RON",
+								"Name": "Romanian new leu",
+								"Exponent": 2,
+								"Id": 18
+							},
+							"Value": 1.38
+						}
+					},
+					{
+						"Name": "InputItem",
+						"ExactValue": {
+							"CurrencyCodeIso": "EUR",
+							"Currency": {
+								"Iso": "EUR",
+								"Name": "Euro",
+								"Exponent": 2,
+								"Id": 1
+							},
+							"Value": 1240.14
+						}
+					},
+					{
+						"Name": "InputDelivery",
+						"ExactValue": {
+							"CurrencyCodeIso": "EUR",
+							"Currency": {
+								"Iso": "EUR",
+								"Name": "Euro",
+								"Exponent": 2,
+								"Id": 1
+							},
+							"Value": 1.79
+						}
+					},
+					{
+						"Name": "Items",
+						"ExactValue": {
+							"CurrencyCodeIso": "EUR",
+							"Currency": {
+								"Iso": "EUR",
+								"Name": "Euro",
+								"Exponent": 2,
+								"Id": 1
+							},
+							"Value": 1042.13
+						}
+					},
+					{
+						"Name": "Delivery",
+						"ExactValue": {
+							"CurrencyCodeIso": "EUR",
+							"Currency": {
+								"Iso": "EUR",
+								"Name": "Euro",
+								"Exponent": 2,
+								"Id": 1
+							},
+							"Value": 1.51
+						}
+					},
+					{
+						"Name": "ItemTaxes",
+						"ExactValue": {
+							"CurrencyCodeIso": "EUR",
+							"Currency": {
+								"Iso": "EUR",
+								"Name": "Euro",
+								"Exponent": 2,
+								"Id": 1
+							},
+							"Value": 198.00
+						}
+					},
+					{
+						"Name": "DeliveryTaxes",
+						"ExactValue": {
+							"CurrencyCodeIso": "EUR",
+							"Currency": {
+								"Iso": "EUR",
+								"Name": "Euro",
+								"Exponent": 2,
+								"Id": 1
+							},
+							"Value": 0.28
+						}
+					},
+					{
+						"Name": "DeliveryRounding",
+						"ExactValue": {
+							"CurrencyCodeIso": "RON",
+							"Currency": {
+								"Iso": "RON",
+								"Name": "Romanian new leu",
+								"Exponent": 2,
+								"Id": 18
+							},
+							"Value": -0.01
+						}
+					}
+				],
+				"Package": {
+					"ChargeTargets": [{
+						"Name": "DeliveryTotal",
+						"TargetValue": {
+							"CurrencyCodeIso": "RON",
+							"Currency": {
+								"Iso": "RON",
+								"Name": "Romanian new leu",
+								"Exponent": 2,
+								"Id": 18
+							},
+							"Value": 26.0
+						}
+					}]
+				},
+				"ChargeTargets": []
+			}],
+			"Available": true,
+			"CalculationRates": {
+				"ItemVatRateApplied": 0.19,
+				"DeliveryVatRateApplied": 0.19,
+				"ItemDutyRateApplied": 0.0,
+				"DeliveryDutyRateApplied": 0.0,
+				"ItemFeeRateApplied": 0.0,
+				"DeliveryFeeRateApplied": 0.0,
+				"ItemReverseCalculationRate": 0.19,
+				"DeliveryReverseCalculationRate": 0.19
+			},
+			"VatRate": 0.19,
+			"DutyRate": 0.0,
+			"Weight": 0.697,
+			"WeightUnit": 0,
+			"CountryOfOriginIso": "CN",
+			"HsCode": "62021210",
+			"EstimatedDeliveryDate": "2019-05-30T10:38:26.35Z",
+			"Quantity": 1,
+			"Product": {
+				"ProductCode": "10230170040741",
+				"Upc": "UPC",
+				"Title": "Black Dress",
+				"Description": "Black Striped Dress",
+				"RetailerCurrencyProductPriceInfo": {
+					"Title": "Shopper price",
+					"Description": "Shopper price info",
+					"Price": {
+						"CurrencyCodeIso": "EUR",
+						"Currency": {
+							"Iso": "EUR",
+							"Name": "Euro",
+							"Exponent": 2,
+							"Id": 1
+						},
+						"Value": 1240.14
+					},
+					"DiscountAmount": {
+						"CurrencyCodeIso": "EUR",
+						"Currency": {
+							"Iso": "EUR",
+							"Name": "Euro",
+							"Exponent": 2,
+							"Id": 1
+						},
+						"Value": 20.86
+					},
+					"BeforeDiscount": {
+						"CurrencyCodeIso": "EUR",
+						"Currency": {
+							"Iso": "EUR",
+							"Name": "Euro",
+							"Exponent": 2,
+							"Id": 1
+						},
+						"Value": 1261.00
+					},
+					"DiscountPercentage": 0.1
+				},
+				"ShopperCurrencyProductPriceInfo": {
+					"Title": "Shopper price",
+					"Description": "Shopper price info",
+					"Price": {
+						"CurrencyCodeIso": "RON",
+						"Currency": {
+							"Iso": "RON",
+							"Name": "Romanian new leu",
+							"Exponent": 2,
+							"Id": 18
+						},
+						"Value": 5977.86
+					},
+					"DiscountAmount": {
+						"CurrencyCodeIso": "RON",
+						"Currency": {
+							"Iso": "RON",
+							"Name": "Romanian new leu",
+							"Exponent": 2,
+							"Id": 18
+						},
+						"Value": 100.56
+					},
+					"BeforeDiscount": {
+						"CurrencyCodeIso": "RON",
+						"Currency": {
+							"Iso": "RON",
+							"Name": "Romanian new leu",
+							"Exponent": 2,
+							"Id": 18
+						},
+						"Value": 6078.42
+					},
+					"DiscountPercentage": 0.1
+				},
+				"ImageUrl": "assets/images/cart/cart-item1.png",
+				"Color": "Black",
+				"Size": "M",
+				"IsRestrictedForCountry": false,
+				"OverridePrice": false,
+				"Dimension5": "Dimension5",
+				"Dimension6": "Dimension6",
+				"IsNonStandardCatalogItem": true,
+				"MetadataItems": []
+			},
+			"LineItemId": "1",
+			"CartGrouping": "Group 1",
+			"MetadataItems": [{
+					"Name": "Color",
+					"Value": "Green"
+				},
+				{
+					"Name": "Size",
+					"Value": "XL"
+				}
+			],
+			"IsCountryDefault": false,
+			"ChargeTargets": [{
+				"Name": "ItemTotal",
+				"TargetValue": {
+					"CurrencyCodeIso": "RON",
+					"Currency": {
+						"Iso": "RON",
+						"Name": "Romanian new leu",
+						"Exponent": 2,
+						"Id": 18
+					},
+					"Value": 5977.86
+				}
+			}]
+		},
+		{
+			"OrderArticlesAll": [{
+					"Charges": [{
+							"Name": "InputItem",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 5977.86
+							}
+						},
+						{
+							"Name": "InputDelivery",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 8.66
+							}
+						},
+						{
+							"Name": "Items",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 5023.41
+							}
+						},
+						{
+							"Name": "Delivery",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 7.28
+							}
+						},
+						{
+							"Name": "ItemTaxes",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 954.45
+							}
+						},
+						{
+							"Name": "DeliveryTaxes",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 1.39
+							}
+						},
+						{
+							"Name": "InputItem",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 1240.14
+							}
+						},
+						{
+							"Name": "InputDelivery",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 1.79
+							}
+						},
+						{
+							"Name": "Items",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 1042.13
+							}
+						},
+						{
+							"Name": "Delivery",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 1.51
+							}
+						},
+						{
+							"Name": "ItemTaxes",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 198.00
+							}
+						},
+						{
+							"Name": "DeliveryTaxes",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 0.28
+							}
+						}
+					],
+					"Package": {
+						"ChargeTargets": [{
+							"Name": "DeliveryTotal",
+							"TargetValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 26.0
+							}
+						}]
+					},
+					"ChargeTargets": []
+				},
+				{
+					"Charges": [{
+							"Name": "InputItem",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 5977.86
+							}
+						},
+						{
+							"Name": "InputDelivery",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 8.67
+							}
+						},
+						{
+							"Name": "Items",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 5023.41
+							}
+						},
+						{
+							"Name": "Delivery",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 7.28
+							}
+						},
+						{
+							"Name": "ItemTaxes",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 954.45
+							}
+						},
+						{
+							"Name": "DeliveryTaxes",
+							"ExactValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 1.38
+							}
+						},
+						{
+							"Name": "InputItem",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 1240.14
+							}
+						},
+						{
+							"Name": "InputDelivery",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 1.79
+							}
+						},
+						{
+							"Name": "Items",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 1042.13
+							}
+						},
+						{
+							"Name": "Delivery",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 1.51
+							}
+						},
+						{
+							"Name": "ItemTaxes",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 198.00
+							}
+						},
+						{
+							"Name": "DeliveryTaxes",
+							"ExactValue": {
+								"CurrencyCodeIso": "EUR",
+								"Currency": {
+									"Iso": "EUR",
+									"Name": "Euro",
+									"Exponent": 2,
+									"Id": 1
+								},
+								"Value": 0.28
+							}
+						}
+					],
+					"Package": {
+						"ChargeTargets": [{
+							"Name": "DeliveryTotal",
+							"TargetValue": {
+								"CurrencyCodeIso": "RON",
+								"Currency": {
+									"Iso": "RON",
+									"Name": "Romanian new leu",
+									"Exponent": 2,
+									"Id": 18
+								},
+								"Value": 26.0
+							}
+						}]
+					},
+					"ChargeTargets": []
+				}
+			],
+			"Available": true,
+			"CalculationRates": {
+				"ItemVatRateApplied": 0.19,
+				"DeliveryVatRateApplied": 0.19,
+				"ItemDutyRateApplied": 0.0,
+				"DeliveryDutyRateApplied": 0.0,
+				"ItemFeeRateApplied": 0.0,
+				"DeliveryFeeRateApplied": 0.0,
+				"ItemReverseCalculationRate": 0.19,
+				"DeliveryReverseCalculationRate": 0.19
+			},
+			"VatRate": 0.19,
+			"DutyRate": 0.0,
+			"Weight": 0.697,
+			"WeightUnit": 0,
+			"CountryOfOriginIso": "CN",
+			"HsCode": "62021210",
+			"EstimatedDeliveryDate": "2019-05-30T10:38:26.35Z",
+			"Quantity": 2,
+			"Product": {
+				"ProductCode": "10230170040742",
+				"Upc": "UPC",
+				"Title": "Red Dress",
+				"Description": "Red Striped Dress",
+				"RetailerCurrencyProductPriceInfo": {
+					"Title": "Shopper price",
+					"Description": "Shopper price info",
+					"Price": {
+						"CurrencyCodeIso": "EUR",
+						"Currency": {
+							"Iso": "EUR",
+							"Name": "Euro",
+							"Exponent": 2,
+							"Id": 1
+						},
+						"Value": 1240.14
+					},
+					"DiscountAmount": {
+						"CurrencyCodeIso": "EUR",
+						"Currency": {
+							"Iso": "EUR",
+							"Name": "Euro",
+							"Exponent": 2,
+							"Id": 1
+						},
+						"Value": 20.86
+					},
+					"BeforeDiscount": {
+						"CurrencyCodeIso": "EUR",
+						"Currency": {
+							"Iso": "EUR",
+							"Name": "Euro",
+							"Exponent": 2,
+							"Id": 1
+						},
+						"Value": 1261.00
+					},
+					"DiscountPercentage": 0.1
+				},
+				"ShopperCurrencyProductPriceInfo": {
+					"Title": "Shopper price",
+					"Description": "Shopper price info",
+					"Price": {
+						"CurrencyCodeIso": "RON",
+						"Currency": {
+							"Iso": "RON",
+							"Name": "Romanian new leu",
+							"Exponent": 2,
+							"Id": 18
+						},
+						"Value": 5977.86
+					},
+					"DiscountAmount": {
+						"CurrencyCodeIso": "RON",
+						"Currency": {
+							"Iso": "RON",
+							"Name": "Romanian new leu",
+							"Exponent": 2,
+							"Id": 18
+						},
+						"Value": 100.56
+					},
+					"BeforeDiscount": {
+						"CurrencyCodeIso": "RON",
+						"Currency": {
+							"Iso": "RON",
+							"Name": "Romanian new leu",
+							"Exponent": 2,
+							"Id": 18
+						},
+						"Value": 6078.42
+					},
+					"DiscountPercentage": 0.1
+				},
+				"ImageUrl": "assets/images/cart/cart-item1.png",
+				"Color": "Red",
+				"Size": "38",
+				"IsRestrictedForCountry": false,
+				"OverridePrice": false,
+				"Dimension5": "Dimension5",
+				"Dimension6": "Dimension6",
+				"IsNonStandardCatalogItem": true,
+				"MetadataItems": []
+			},
+			"LineItemId": "2",
+			"CartGrouping": "Group 2",
+			"MetadataItems": [],
+			"IsCountryDefault": false,
+			"ChargeTargets": [{
+				"Name": "ItemTotal",
+				"TargetValue": {
+					"CurrencyCodeIso": "RON",
+					"Currency": {
+						"Iso": "RON",
+						"Name": "Romanian new leu",
+						"Exponent": 2,
+						"Id": 18
+					},
+					"Value": 11955.72
+				}
+			}]
+		}
+	],
+	"RetailerPromoCodes": [{
+		"PromoCode": "PROMO1",
+		"Title": "Promo 1",
+		"Description": "Promo code #1"
+	}],
+	"OrderDiscounts": [{
+		"Title": "DISCOUNT20",
+		"Description": "Discount 20%",
+		"RetailerCurrencyOrderDiscountAmount": {
+			"Title": "Discount title",
+			"Description": "Retailer discount title",
+			"Price": {
+				"CurrencyCodeIso": "EUR",
+				"Currency": {
+					"Iso": "EUR",
+					"Name": "Euro",
+					"Exponent": 2,
+					"Id": 1
+				},
+				"Value": 20.0
+			},
+			"DiscountAmount": {
+				"CurrencyCodeIso": "EUR",
+				"Currency": {
+					"Iso": "EUR",
+					"Name": "Euro",
+					"Exponent": 2,
+					"Id": 1
+				},
+				"Value": 1.0
+			},
+			"BeforeDiscount": {
+				"CurrencyCodeIso": "EUR",
+				"Currency": {
+					"Iso": "EUR",
+					"Name": "Euro",
+					"Exponent": 2,
+					"Id": 1
+				},
+				"Value": 21.0
+			},
+			"DiscountPercentage": 0.1
+		},
+		"ShopperCurrencyOrderDiscountAmount": {
+			"Title": "Bonus Offer",
+			"Description": "Bonus reduction off your order total",
+			"Price": {
+				"CurrencyCodeIso": "RON",
+				"Currency": {
+					"Iso": "RON",
+					"Name": "Romanian new leu",
+					"Exponent": 2,
+					"Id": 18
+				},
+				"Value": 22.0
+			},
+			"DiscountAmount": {
+				"CurrencyCodeIso": "RON",
+				"Currency": {
+					"Iso": "RON",
+					"Name": "Romanian new leu",
+					"Exponent": 2,
+					"Id": 18
+				},
+				"Value": 2.0
+			},
+			"BeforeDiscount": {
+				"CurrencyCodeIso": "RON",
+				"Currency": {
+					"Iso": "RON",
+					"Name": "Romanian new leu",
+					"Exponent": 2,
+					"Id": 18
+				},
+				"Value": 2.0
+			},
+			"DiscountPercentage": 0.1
+		}
+	}],
+	"DeliveryDetails": [{
+			"Id": 3,
+			"ContactDetailsNickName": "ContactDetailsNickName",
+			"Address1": "Auto Street 1",
+			"Address2": "Auto Street 2",
+			"Address3": "Address 3",
+			"City": "Auto City 1",
+			"PostalCode": "80544",
+			"Region": "Leinster",
+			"Country": "RO",
+			"Email": "delivery@eshopworld.com",
+			"FirstName": "Auto",
+			"LastName": "Test",
+			"Gender": 0,
+			"Telephone": "+40712034888",
+			"PoBox": "PO-BOX",
+			"MetadataItems": []
+		},
+		{
+			"Id": 2,
+			"ContactDetailsNickName": "ContactDetailsNickName",
+			"Address1": "Auto Street 1",
+			"Address2": "Auto Street 2",
+			"Address3": "Address 3",
+			"City": "Auto City 1",
+			"PostalCode": "80544",
+			"Region": "Leinster",
+			"Country": "RO",
+			"Email": "delivery@eshopworld.com",
+			"FirstName": "Auto",
+			"LastName": "Test",
+			"Gender": 0,
+			"Telephone": "+40712034888",
+			"PoBox": "PO-BOX",
+			"MetadataItems": []
+		},
+		{
+			"Id": 1,
+			"ContactDetailsNickName": "ContactDetailsNickName",
+			"Address1": "Address 1",
+			"Address2": "Address 2",
+			"Address3": "Address3",
+			"City": "Bucharest",
+			"PostalCode": "07710",
+			"Region": "Region",
+			"Country": "RO",
+			"Email": "test@eshopworld.com",
+			"FirstName": "Joe",
+			"LastName": "Bloggs",
+			"Gender": 0,
+			"Telephone": "+40311051555",
+			"PoBox": "PO-BOX",
+			"MetadataItems": []
+		}
+	],
+	"PaymentDetails": [{
+			"Id": 3,
+			"ContactDetailsNickName": "",
+			"Address1": "Auto Street 1",
+			"Address2": "Auto Street 2",
+			"Address3": "Address3",
+			"City": "Auto City 1",
+			"PostalCode": "80544",
+			"Region": "Region",
+			"Country": "RO",
+			"Email": "delivery@eshopworld.com",
+			"FirstName": "Auto",
+			"LastName": "Test",
+			"Gender": 0,
+			"Telephone": "+40712034888",
+			"PoBox": "PO-BOX",
+			"MetadataItems": []
+		},
+		{
+			"Id": 2,
+			"ContactDetailsNickName": "",
+			"Address1": "Auto Street 1",
+			"Address2": "Auto Street 2",
+			"Address3": "Address3",
+			"City": "Auto City 1",
+			"PostalCode": "80544",
+			"Region": "Region",
+			"Country": "RO",
+			"Email": "delivery@eshopworld.com",
+			"FirstName": "Auto",
+			"LastName": "Test",
+			"Gender": 0,
+			"Telephone": "+40712034888",
+			"PoBox": "PO-BOX",
+			"MetadataItems": []
+		},
+		{
+			"Id": 1,
+			"ContactDetailsNickName": "ContactDetailsNickName",
+			"Address1": "Address 1",
+			"Address2": "Address 2",
+			"Address3": "Address3",
+			"City": "Bucharest",
+			"PostalCode": "07710",
+			"Region": "Region",
+			"Country": "RO",
+			"Email": "test@eshopworld.com",
+			"FirstName": "Joe",
+			"LastName": "Bloggs",
+			"Gender": 0,
+			"Telephone": "+40311051555",
+			"PoBox": "PO-BOX",
+			"MetadataItems": []
+		}
+	],
+	"DeliveryOption": {
+		"Option": 1,
+		"IsExpressDelivery": false
+	},
+	"Errors": [{
+		"Code": 1,
+		"Message": "Error"
+	}],
+	"RetailerCheckoutExperience": {
+		"RetailerCheckoutExperienceId": "EXP001",
+		"BackToCartUrl": "https://cart.url/",
+		"ContinueShoppingUrl": "https://shopping.url/",
+		"MetadataItems": []
+	},
+	"ShopperCurrencyIso": "RON",
+	"RetailerCurrencyIso": "EUR",
+	"RetailerFxGroupId": 1617,
+	"SourceCountryIso": "IT",
+	"DeliveryCountryIso": "RO",
+	"ShopperCheckoutExperience": {
+		"UseDeliveryContactDetailsForPaymentContactDetails": true,
+		"EmailMarketingOptIn": true,
+		"RegisteredProfileId": "PROF 0001",
+		"ShopperCultureLanguageIso": "en-IE",
+		"ExpressPaymentMethod": "Paypal",
+		"MetadataItems": []
+	},
+	"DeliveryOptions": [{
+		"DeliveryOption": "POST",
+		"EstimatedDeliveryDate": "2019-06-06T10:38:26.35Z",
+		"RetailerCurrencyOveridePriceInfo": {
+			"Title": "RCOPI_Title",
+			"Description": "RCOPI_Description",
+			"Price": {
+				"CurrencyCodeIso": "EUR",
+				"Currency": {
+					"Iso": "EUR",
+					"Name": "Euro",
+					"Exponent": 2,
+					"Id": 1
+				},
+				"Value": 100.0
+			},
+			"DiscountAmount": {
+				"CurrencyCodeIso": "EUR",
+				"Currency": {
+					"Iso": "EUR",
+					"Name": "Euro",
+					"Exponent": 2,
+					"Id": 1
+				},
+				"Value": 101.0
+			},
+			"BeforeDiscount": {
+				"CurrencyCodeIso": "EUR",
+				"Currency": {
+					"Iso": "EUR",
+					"Name": "Euro",
+					"Exponent": 2,
+					"Id": 1
+				},
+				"Value": 102.0
+			},
+			"DiscountPercentage": 0.1
+		},
+		"ShopperCurrencyOveridePriceInfo": {
+			"Title": "Title 2",
+			"Description": "Description 2",
+			"Price": {
+				"CurrencyCodeIso": "AUD",
+				"Currency": {
+					"Iso": "AUD",
+					"Name": "Australian dollar",
+					"Exponent": 2,
+					"Id": 4
+				},
+				"Value": 100.0
+			},
+			"DiscountAmount": {
+				"CurrencyCodeIso": "AUD",
+				"Currency": {
+					"Iso": "AUD",
+					"Name": "Australian dollar",
+					"Exponent": 2,
+					"Id": 4
+				},
+				"Value": 20.0
+			},
+			"BeforeDiscount": {
+				"CurrencyCodeIso": "AUD",
+				"Currency": {
+					"Iso": "AUD",
+					"Name": "Australian dollar",
+					"Exponent": 2,
+					"Id": 4
+				},
+				"Value": 120.0
+			},
+			"DiscountPercentage": 0.1
+		},
+		"MetadataItems": []
+	}],
+	"RetailerDeliveryOptions": [{
+		"Title": "RetailerDeliveryOption_Title",
+		"Description": "RetailerDeliveryOption_Description",
+		"EstimatedDeliveryDate": null,
+		"RetailerCurrencyDeliveryOptionPriceInfo": {
+			"Title": "Title 1",
+			"Description": "Description 1",
+			"Price": {
+				"CurrencyCodeIso": "EUR",
+				"Currency": {
+					"Iso": "EUR",
+					"Name": "Euro",
+					"Exponent": 2,
+					"Id": 1
+				},
+				"Value": 100.0
+			},
+			"DiscountAmount": null,
+			"BeforeDiscount": {
+				"CurrencyCodeIso": "EUR",
+				"Currency": {
+					"Iso": "EUR",
+					"Name": "Euro",
+					"Exponent": 2,
+					"Id": 1
+				},
+				"Value": 120.0
+			},
+			"DiscountPercentage": 0.2
+		},
+		"ShopperCurrencyDeliveryOptionPriceInfo": {
+			"Title": "Title 2",
+			"Description": "Description 2",
+			"Price": {
+				"CurrencyCodeIso": "AUD",
+				"Currency": {
+					"Iso": "AUD",
+					"Name": "Australian dollar",
+					"Exponent": 2,
+					"Id": 4
+				},
+				"Value": 100.0
+			},
+			"DiscountAmount": {
+				"CurrencyCodeIso": "AUD",
+				"Currency": {
+					"Iso": "AUD",
+					"Name": "Australian dollar",
+					"Exponent": 2,
+					"Id": 4
+				},
+				"Value": 20.0
+			},
+			"BeforeDiscount": {
+				"CurrencyCodeIso": "AUD",
+				"Currency": {
+					"Iso": "AUD",
+					"Name": "Australian dollar",
+					"Exponent": 2,
+					"Id": 4
+				},
+				"Value": 120.0
+			},
+			"DiscountPercentage": null
+		},
+		"MetadataItems": null
+	}],
+	"Payment": {
+		"PaymentId": "2c5b1314-a3d1-4208-adbd-48312df209c1",
+		"PaymentAttemptRef": "e5a5988f-987e-4d31-925d-68b9b809b6f1",
+		"PaymentFraudStatusId": 1,
+		"AuthCode": "00000000",
+		"State": "Authorised",
+		"PaymentGatewayCode": "Computop",
+		"PaymentMethodCode": "PaymentCard",
+		"AuthorizationDetails": {
+			"MerchantId": "eshop_dt_aib_test",
+			"GatewayTransactionId": "cba4013ddf9c4c0d9b3b5299696d2f0f",
+			"MerchantTransactionId": "12EA1",
+			"AuthResult": "Success",
+			"PaymentBrand": "VISA",
+			"SettleAfterUtc": "2018-11-06T17:56:59.7033662Z"
+		},
+		"PaymentTime": "2018-11-06T16:27:08.474905Z",
+		"IsPaymentSuccessful": true
+	},
+	"IpAddress": "10.52.1.4",
+	"CalculationParameters": {
+		"UseDutyAboveDeminimis": true,
+		"UseFeeAboveDeminimis": true,
+		"UseVatAboveDeminimis": true,
+		"CalculationCurrencyIso": "RON",
+		"ProductInputCurrencyIso": "RON",
+		"DeliveryInputCurrencyIso": "RON",
+		"ProductInputType": 1,
+		"DeliveryInputType": 1,
+		"OrderChargeInfos": {
+			"InputItem": {
+				"IncludesMerchandise": true,
+				"IncludesMerchandiseDuty": true,
+				"IncludesMerchandiseTax": true,
+				"IncludesMerchandiseFee": true,
+				"IncludesMerchandiseFixedFee": true,
+				"IncludesDeliveryItem": false,
+				"IncludesDeliveryDuty": false,
+				"IncludesDeliveryTax": false,
+				"IncludesDeliveryFee": false,
+				"IncludesDeliveryFixedFee": false,
+				"IsMerchandiseItemPrice": false,
+				"IsMerchandiseAllInclusivePrice": false,
+				"IsDeliveryItemPrice": false
+			},
+			"InputDelivery": {
+				"IncludesMerchandise": false,
+				"IncludesMerchandiseDuty": false,
+				"IncludesMerchandiseTax": false,
+				"IncludesMerchandiseFee": false,
+				"IncludesMerchandiseFixedFee": false,
+				"IncludesDeliveryItem": true,
+				"IncludesDeliveryDuty": true,
+				"IncludesDeliveryTax": true,
+				"IncludesDeliveryFee": true,
+				"IncludesDeliveryFixedFee": false,
+				"IsMerchandiseItemPrice": false,
+				"IsMerchandiseAllInclusivePrice": false,
+				"IsDeliveryItemPrice": false
+			}
+		},
+		"FxRates": [{
+				"FromCurrency": "EUR",
+				"ToCurrency": "RON",
+				"Rate": 4.8203
+			},
+			{
+				"FromCurrency": "RON",
+				"ToCurrency": "EUR",
+				"Rate": 0.20
+			}
+		],
+		"RetailerToShopperRate": 4.8203,
+		"ShopperToRetailerRate": 0.20
+	},
+	"Status": "OrderCompleted",
+	"RetailerConfirmation": {
+		"Status": "RetailerConfirmationSuccess",
+		"Response": {
+			"StatusCode": 200,
+			"ReasonPhrase": "OK",
+			"ErrorMessage": "ErrorMessage"
+		}
+	},
+	"PlatformCreate": {
+		"Status": "PlatformCreateSuccess",
+		"Response": {
+			"StatusCode": 200,
+			"ReasonPhrase": "OK",
+			"ErrorMessage": "ErrorMessage"
+		}
+	},
+	"Pricing": {
+		"id": "RO",
+		"CountryIso": "RO",
+		"ProductInput": {
+			"InputPriceId": 2185,
+			"PreOrderSecurityModelId": 1,
+			"InputPriceTypeId": 1,
+			"InputPriceSourceId": 0,
+			"CanOverrideCatalogPrice": true,
+			"CatalogOverrideInputPriceTypeId": 1,
+			"DutyRate": 0.1,
+			"TaxRate": 0.19,
+			"OtherRate": 0.1,
+			"MatchInputPrice": false
+		},
+		"DeliveryInput": {
+			"InputPriceId": 2412,
+			"PreOrderSecurityModelId": 0,
+			"InputPriceTypeId": 1,
+			"InputPriceSourceId": 1,
+			"CanOverrideShippingPrice": true,
+			"ShippingOverrideInputPriceTypeId": 1,
+			"DutyRate": 0.1,
+			"TaxRate": 0.19,
+			"OtherRate": 0.1,
+			"MatchInputPrice": true
+		},
+		"Calculation": {
+			"BrandCountryCalculationId": 2388,
+			"DutyTaxCalculationModelId": 9,
+			"IsAccurateCalculationRequired": true,
+			"IsReverseAccurateCalculationRequired": true,
+			"IsReverseEstimatedCalculationRequired": true,
+			"IsReverseTaxesCalculationRequired": true,
+			"IsReverseDutyCalculationRequired": true,
+			"EstimatedDutyRate": 0.1,
+			"EstimatedTaxRate": 0.19,
+			"BrandCountryMarkupId": 3962,
+			"MarkupPercentage": 0.1,
+			"PricingGroupId": 2,
+			"CustomsCalculationType": "CIF"
+		},
+		"Display": {
+			"BrandCountryDisplayModelId": 2589,
+			"ProductDisplay": {
+				"MerchandiseDisplayModelId": 6,
+				"Name": "Name",
+				"Description": "Description",
+				"IncludeAllDutyAndTax": false,
+				"IncludeMerchandiseDuty": true,
+				"IncludeMerchandiseTax": true,
+				"IncludeShipping": false,
+				"IncludeShippingDuty": false,
+				"IncludeShippingTax": false,
+				"IncludeOtherTaxes": true,
+				"IncludeOtherFees": true,
+				"DefaultDisplayText": "Merchandise",
+				"DisplayTextKey": "Merchandise"
+			},
+			"DutyAndTaxDisplay1": {
+				"DutyAndTaxDisplayModelId": 1,
+				"Name": "Name",
+				"Description": "Description",
+				"IncludeAllDutyAndTax": true,
+				"IncludeMerchandiseDuty": true,
+				"IncludeMerchandiseTax": true,
+				"IncludeShipping": true,
+				"IncludeShippingDuty": true,
+				"IncludeShippingTax": true,
+				"IncludeOtherTaxes": true,
+				"IncludeOtherFees": true,
+				"IsDutyAndTaxVisible": true,
+				"DefaultDisplayText": "DefaultDisplayText",
+				"DisplayTextKey": "DisplayTextKey"
+			},
+			"DutyAndTaxDisplay2": {
+				"DutyAndTaxDisplayModelId": 1,
+				"Name": "Name",
+				"Description": "Description",
+				"IncludeAllDutyAndTax": true,
+				"IncludeMerchandiseDuty": true,
+				"IncludeMerchandiseTax": true,
+				"IncludeShipping": true,
+				"IncludeShippingDuty": true,
+				"IncludeShippingTax": true,
+				"IncludeOtherTaxes": true,
+				"IncludeOtherFees": true,
+				"IsDutyAndTaxVisible": true,
+				"DefaultDisplayText": "DefaultDisplayText",
+				"DisplayTextKey": "DisplayTextKey"
+			},
+			"DeliveryDisplay": {
+				"IncludeAllDutyAndTax": false,
+				"ShippingDisplayModelId": 2,
+				"Name": "Name",
+				"Description": "Description",
+				"IncludeMerchandiseDuty": false,
+				"IncludeMerchandiseTax": false,
+				"IncludeShipping": true,
+				"IncludeShippingDuty": true,
+				"IncludeShippingTax": true,
+				"IncludeOtherTaxes": false,
+				"IncludeOtherFees": false,
+				"IsShippingVisible": true,
+				"DefaultDisplayText": "Shipping",
+				"DisplayTextKey": "Shipping"
+			}
+		}
+	},
+	"OrderConfirmationErrorInformation": null,
+	"Features": [{
+			"Type": "AsyncOrderConfirmation",
+			"Active": false
+		},
+		{
+			"Type": "AsyncCorePlatformOrderCreate",
+			"Active": false
+		},
+		{
+			"Type": "CleanupDiscounts",
+			"Active": true
+		},
+		{
+			"Type": "UpdatedPromoCodeLengthLimits",
+			"Active": true
+		}
+	],
+	"ExpiryTimeUtc": "2018-11-06T16:46:38.9587002Z",
+	"ChargeTargets": [],
+	"FingerprintId": "aac75b2513b0dbc015de17c6de2100f1727058244d223677e79ef6d8a47825e2",
+	"GdprAccepted": true,
+	"GdprAcceptanceHistory": [{
+		"Accepted": true,
+		"Date": "2018-11-06T16:26:58.4166241+00:00"
+	}],
+	"brandCode": "DIF",
+	"eventName": "ConfirmOrder",
+	"correlationId": "aac75b2513b0dbc015de17c6de2100f1727058244d223677e79ef6d8a47825e2",
+	"userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36",
+	"queryString": "http://checkout-api-diftes.ci.eshopworld.net/api/v2/Payment/AuthorizeOrder",
+	"created": "1541521629766"
+}</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>{
+  "OrderCode": "08d22af2-6337-4115-8e40-859c0c843e24",
+  "RetailerCartId": "EVO_20181106162638795",
+  "OrderItems": [{
+      "OrderArticles": [{
+        "Charges": [{
+            "Name": "InputItem",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 5977.8633333333
+            }
+          },
+          {
+            "Name": "InputDelivery",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 8.6733333333333333333333333333333333
+            }
+          },
+          {
+            "Name": "Items",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 5023.41
+            }
+          },
+          {
+            "Name": "Delivery",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 7.2933333333333333333333333333333333
+            }
+          },
+          {
+            "Name": "ItemTaxes",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 954.45
+            }
+          },
+          {
+            "Name": "DeliveryTaxes",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 1.38
+            }
+          },
+          {
+            "Name": "InputItem",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 1240.14
+            }
+          },
+          {
+            "Name": "InputDelivery",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 1.79
+            }
+          },
+          {
+            "Name": "Items",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 1042.13
+            }
+          },
+          {
+            "Name": "Delivery",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 1.51
+            }
+          },
+          {
+            "Name": "ItemTaxes",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 198.00
+            }
+          },
+          {
+            "Name": "DeliveryTaxes",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 0.28
+            }
+          },
+          {
+            "Name": "DeliveryRounding",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": -0.01
+            }
+          }
+        ],
+        "Package": {
+          "ChargeTargets": [{
+            "Name": "DeliveryTotal",
+            "TargetValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 26.0
+            }
+          }]
+        },
+        "ChargeTargets": []
+      }],
+      "Available": true,
+      "CalculationRates": {
+        "ItemVatRateApplied": 0.19,
+        "DeliveryVatRateApplied": 0.19,
+        "ItemDutyRateApplied": 0.0,
+        "DeliveryDutyRateApplied": 0.0,
+        "ItemFeeRateApplied": 0.0,
+        "DeliveryFeeRateApplied": 0.0,
+        "ItemReverseCalculationRate": 0.19,
+        "DeliveryReverseCalculationRate": 0.19
+      },
+      "VatRate": 0.19,
+      "DutyRate": 0.0,
+      "Weight": 0.697,
+      "WeightUnit": 0,
+      "CountryOfOriginIso": "CN",
+      "HsCode": "62021210",
+      "EstimatedDeliveryDate": "2019-05-30T10:38:26.35Z",
+      "Quantity": 1,
+      "Product": {
+        "ProductCode": "10230170040741",
+        "Upc": "UPC",
+        "Title": "Black Dress",
+        "Description": "Black Striped Dress",
+        "RetailerCurrencyProductPriceInfo": {
+          "Title": "Shopper price",
+          "Description": "Shopper price info",
+          "Price": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 1240.14
+          },
+          "DiscountAmount": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 20.86
+          },
+          "BeforeDiscount": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 1261.00
+          },
+          "DiscountPercentage": 0.1
+        },
+        "ShopperCurrencyProductPriceInfo": {
+          "Title": "Shopper price",
+          "Description": "Shopper price info",
+          "Price": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 5977.86
+          },
+          "DiscountAmount": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 100.56
+          },
+          "BeforeDiscount": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 6078.42
+          },
+          "DiscountPercentage": 0.1
+        },
+        "ImageUrl": "assets/images/cart/cart-item1.png",
+        "Color": "Black",
+        "Size": "M",
+        "IsRestrictedForCountry": false,
+        "OverridePrice": false,
+        "Dimension5": "Dimension5",
+        "Dimension6": "Dimension6",
+        "IsNonStandardCatalogItem": true,
+        "MetadataItems": []
+      },
+      "LineItemId": "1",
+      "CartGrouping": "Group 1",
+      "MetadataItems": [{
+          "Name": "Color",
+          "Value": "Green"
+        },
+        {
+          "Name": "Size",
+          "Value": "XL"
+        }
+      ],
+      "IsCountryDefault": false,
+      "ChargeTargets": [{
+        "Name": "ItemTotal",
+        "TargetValue": {
+          "CurrencyCodeIso": "RON",
+          "Currency": {
+            "Iso": "RON",
+            "Name": "Romanian new leu",
+            "Exponent": 2,
+            "Id": 18
+          },
+          "Value": 5977.86
+        }
+      }]
+    },
+    {
+      "OrderArticles": [{
+          "Charges": [{
+              "Name": "InputItem",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 5977.86
+              }
+            },
+            {
+              "Name": "InputDelivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 8.66
+              }
+            },
+            {
+              "Name": "Items",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 5023.41
+              }
+            },
+            {
+              "Name": "Delivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 7.28
+              }
+            },
+            {
+              "Name": "ItemTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 954.45
+              }
+            },
+            {
+              "Name": "DeliveryTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 1.39
+              }
+            },
+            {
+              "Name": "InputItem",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1240.14
+              }
+            },
+            {
+              "Name": "InputDelivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1.79
+              }
+            },
+            {
+              "Name": "Items",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1042.13
+              }
+            },
+            {
+              "Name": "Delivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1.51
+              }
+            },
+            {
+              "Name": "ItemTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 198.00
+              }
+            },
+            {
+              "Name": "DeliveryTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 0.28
+              }
+            }
+          ],
+          "Package": {
+            "ChargeTargets": [{
+              "Name": "DeliveryTotal",
+              "TargetValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 26.0
+              }
+            }]
+          },
+          "ChargeTargets": []
+        },
+        {
+          "Charges": [{
+              "Name": "InputItem",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 5977.86
+              }
+            },
+            {
+              "Name": "InputDelivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 8.67
+              }
+            },
+            {
+              "Name": "Items",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 5023.41
+              }
+            },
+            {
+              "Name": "Delivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 7.28
+              }
+            },
+            {
+              "Name": "ItemTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 954.45
+              }
+            },
+            {
+              "Name": "DeliveryTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 1.38
+              }
+            },
+            {
+              "Name": "InputItem",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1240.14
+              }
+            },
+            {
+              "Name": "InputDelivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1.79
+              }
+            },
+            {
+              "Name": "Items",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1042.13
+              }
+            },
+            {
+              "Name": "Delivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1.51
+              }
+            },
+            {
+              "Name": "ItemTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 198.00
+              }
+            },
+            {
+              "Name": "DeliveryTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 0.28
+              }
+            }
+          ],
+          "Package": {
+            "ChargeTargets": [{
+              "Name": "DeliveryTotal",
+              "TargetValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 26.0
+              }
+            }]
+          },
+          "ChargeTargets": []
+        }
+      ],
+      "Available": true,
+      "CalculationRates": {
+        "ItemVatRateApplied": 0.19,
+        "DeliveryVatRateApplied": 0.19,
+        "ItemDutyRateApplied": 0.0,
+        "DeliveryDutyRateApplied": 0.0,
+        "ItemFeeRateApplied": 0.0,
+        "DeliveryFeeRateApplied": 0.0,
+        "ItemReverseCalculationRate": 0.19,
+        "DeliveryReverseCalculationRate": 0.19
+      },
+      "VatRate": 0.19,
+      "DutyRate": 0.0,
+      "Weight": 0.697,
+      "WeightUnit": 0,
+      "CountryOfOriginIso": "CN",
+      "HsCode": "62021210",
+      "EstimatedDeliveryDate": "2019-05-30T10:38:26.35Z",
+      "Quantity": 2,
+      "Product": {
+        "ProductCode": "10230170040742",
+        "Upc": "UPC",
+        "Title": "Red Dress",
+        "Description": "Red Striped Dress",
+        "RetailerCurrencyProductPriceInfo": {
+          "Title": "Shopper price",
+          "Description": "Shopper price info",
+          "Price": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 1240.14
+          },
+          "DiscountAmount": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 20.86
+          },
+          "BeforeDiscount": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 1261.00
+          },
+          "DiscountPercentage": 0.1
+        },
+        "ShopperCurrencyProductPriceInfo": {
+          "Title": "Shopper price",
+          "Description": "Shopper price info",
+          "Price": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 5977.86
+          },
+          "DiscountAmount": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 100.56
+          },
+          "BeforeDiscount": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 6078.42
+          },
+          "DiscountPercentage": 0.1
+        },
+        "ImageUrl": "assets/images/cart/cart-item1.png",
+        "Color": "Red",
+        "Size": "38",
+        "IsRestrictedForCountry": false,
+        "OverridePrice": false,
+        "Dimension5": "Dimension5",
+        "Dimension6": "Dimension6",
+        "IsNonStandardCatalogItem": true,
+        "MetadataItems": []
+      },
+      "LineItemId": "2",
+      "CartGrouping": "Group 2",
+      "MetadataItems": [],
+      "IsCountryDefault": false,
+      "ChargeTargets": [{
+        "Name": "ItemTotal",
+        "TargetValue": {
+          "CurrencyCodeIso": "RON",
+          "Currency": {
+            "Iso": "RON",
+            "Name": "Romanian new leu",
+            "Exponent": 2,
+            "Id": 18
+          },
+          "Value": 11955.72
+        }
+      }]
+    }
+  ],
+  "AvailableOrderItems": [{
+      "OrderArticles": [{
+        "Charges": [{
+            "Name": "InputItem",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 5977.86
+            }
+          },
+          {
+            "Name": "InputDelivery",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 8.67
+            }
+          },
+          {
+            "Name": "Items",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 5023.41
+            }
+          },
+          {
+            "Name": "Delivery",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 7.29
+            }
+          },
+          {
+            "Name": "ItemTaxes",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 954.45
+            }
+          },
+          {
+            "Name": "DeliveryTaxes",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 1.38
+            }
+          },
+          {
+            "Name": "InputItem",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 1240.14
+            }
+          },
+          {
+            "Name": "InputDelivery",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 1.79
+            }
+          },
+          {
+            "Name": "Items",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 1042.13
+            }
+          },
+          {
+            "Name": "Delivery",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 1.51
+            }
+          },
+          {
+            "Name": "ItemTaxes",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 198.00
+            }
+          },
+          {
+            "Name": "DeliveryTaxes",
+            "ExactValue": {
+              "CurrencyCodeIso": "EUR",
+              "Currency": {
+                "Iso": "EUR",
+                "Name": "Euro",
+                "Exponent": 2,
+                "Id": 1
+              },
+              "Value": 0.28
+            }
+          },
+          {
+            "Name": "DeliveryRounding",
+            "ExactValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": -0.01
+            }
+          }
+        ],
+        "Package": {
+          "ChargeTargets": [{
+            "Name": "DeliveryTotal",
+            "TargetValue": {
+              "CurrencyCodeIso": "RON",
+              "Currency": {
+                "Iso": "RON",
+                "Name": "Romanian new leu",
+                "Exponent": 2,
+                "Id": 18
+              },
+              "Value": 26.0
+            }
+          }]
+        },
+        "ChargeTargets": []
+      }],
+      "Available": true,
+      "CalculationRates": {
+        "ItemVatRateApplied": 0.19,
+        "DeliveryVatRateApplied": 0.19,
+        "ItemDutyRateApplied": 0.0,
+        "DeliveryDutyRateApplied": 0.0,
+        "ItemFeeRateApplied": 0.0,
+        "DeliveryFeeRateApplied": 0.0,
+        "ItemReverseCalculationRate": 0.19,
+        "DeliveryReverseCalculationRate": 0.19
+      },
+      "VatRate": 0.19,
+      "DutyRate": 0.0,
+      "Weight": 0.697,
+      "WeightUnit": 0,
+      "CountryOfOriginIso": "CN",
+      "HsCode": "62021210",
+      "EstimatedDeliveryDate": "2019-05-30T10:38:26.35Z",
+      "Quantity": 1,
+      "Product": {
+        "ProductCode": "10230170040741",
+        "Upc": "UPC",
+        "Title": "Black Dress",
+        "Description": "Black Striped Dress",
+        "RetailerCurrencyProductPriceInfo": {
+          "Title": "Shopper price",
+          "Description": "Shopper price info",
+          "Price": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 1240.14
+          },
+          "DiscountAmount": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 20.86
+          },
+          "BeforeDiscount": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 1261.00
+          },
+          "DiscountPercentage": 0.1
+        },
+        "ShopperCurrencyProductPriceInfo": {
+          "Title": "Shopper price",
+          "Description": "Shopper price info",
+          "Price": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 5977.86
+          },
+          "DiscountAmount": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 100.56
+          },
+          "BeforeDiscount": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 6078.42
+          },
+          "DiscountPercentage": 0.1
+        },
+        "ImageUrl": "assets/images/cart/cart-item1.png",
+        "Color": "Black",
+        "Size": "M",
+        "IsRestrictedForCountry": false,
+        "OverridePrice": false,
+        "Dimension5": "Dimension5",
+        "Dimension6": "Dimension6",
+        "IsNonStandardCatalogItem": true,
+        "MetadataItems": []
+      },
+      "LineItemId": "1",
+      "CartGrouping": "Group 1",
+      "MetadataItems": [],
+      "IsCountryDefault": false,
+      "ChargeTargets": [{
+        "Name": "ItemTotal",
+        "TargetValue": {
+          "CurrencyCodeIso": "RON",
+          "Currency": {
+            "Iso": "RON",
+            "Name": "Romanian new leu",
+            "Exponent": 2,
+            "Id": 18
+          },
+          "Value": 5977.86
+        }
+      }]
+    },
+    {
+      "OrderArticles": [{
+          "Charges": [{
+              "Name": "InputItem",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 5977.86
+              }
+            },
+            {
+              "Name": "InputDelivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 8.66
+              }
+            },
+            {
+              "Name": "Items",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 5023.41
+              }
+            },
+            {
+              "Name": "Delivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 7.28
+              }
+            },
+            {
+              "Name": "ItemTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 954.45
+              }
+            },
+            {
+              "Name": "DeliveryTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 1.39
+              }
+            },
+            {
+              "Name": "InputItem",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1240.14
+              }
+            },
+            {
+              "Name": "InputDelivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1.79
+              }
+            },
+            {
+              "Name": "Items",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1042.13
+              }
+            },
+            {
+              "Name": "Delivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1.51
+              }
+            },
+            {
+              "Name": "ItemTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 198.00
+              }
+            },
+            {
+              "Name": "DeliveryTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 0.28
+              }
+            }
+          ],
+          "Package": {
+            "ChargeTargets": [{
+              "Name": "DeliveryTotal",
+              "TargetValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 26.0
+              }
+            }]
+          },
+          "ChargeTargets": []
+        },
+        {
+          "Charges": [{
+              "Name": "InputItem",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 5977.86
+              }
+            },
+            {
+              "Name": "InputDelivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 8.67
+              }
+            },
+            {
+              "Name": "Items",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 5023.41
+              }
+            },
+            {
+              "Name": "Delivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 7.28
+              }
+            },
+            {
+              "Name": "ItemTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 954.45
+              }
+            },
+            {
+              "Name": "DeliveryTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 1.38
+              }
+            },
+            {
+              "Name": "InputItem",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1240.14
+              }
+            },
+            {
+              "Name": "InputDelivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1.79
+              }
+            },
+            {
+              "Name": "Items",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1042.13
+              }
+            },
+            {
+              "Name": "Delivery",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 1.51
+              }
+            },
+            {
+              "Name": "ItemTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 198.00
+              }
+            },
+            {
+              "Name": "DeliveryTaxes",
+              "ExactValue": {
+                "CurrencyCodeIso": "EUR",
+                "Currency": {
+                  "Iso": "EUR",
+                  "Name": "Euro",
+                  "Exponent": 2,
+                  "Id": 1
+                },
+                "Value": 0.28
+              }
+            }
+          ],
+          "Package": {
+            "ChargeTargets": [{
+              "Name": "DeliveryTotal",
+              "TargetValue": {
+                "CurrencyCodeIso": "RON",
+                "Currency": {
+                  "Iso": "RON",
+                  "Name": "Romanian new leu",
+                  "Exponent": 2,
+                  "Id": 18
+                },
+                "Value": 26.0
+              }
+            }]
+          },
+          "ChargeTargets": []
+        }
+      ],
+      "Available": true,
+      "CalculationRates": {
+        "ItemVatRateApplied": 0.19,
+        "DeliveryVatRateApplied": 0.19,
+        "ItemDutyRateApplied": 0.0,
+        "DeliveryDutyRateApplied": 0.0,
+        "ItemFeeRateApplied": 0.0,
+        "DeliveryFeeRateApplied": 0.0,
+        "ItemReverseCalculationRate": 0.19,
+        "DeliveryReverseCalculationRate": 0.19
+      },
+      "VatRate": 0.19,
+      "DutyRate": 0.0,
+      "Weight": 0.697,
+      "WeightUnit": 0,
+      "CountryOfOriginIso": "CN",
+      "HsCode": "62021210",
+      "EstimatedDeliveryDate": "2019-05-30T10:38:26.35Z",
+      "Quantity": 2,
+      "Product": {
+        "ProductCode": "10230170040742",
+        "Upc": "UPC",
+        "Title": "Red Dress",
+        "Description": "Red Striped Dress",
+        "RetailerCurrencyProductPriceInfo": {
+          "Title": "Shopper price",
+          "Description": "Shopper price info",
+          "Price": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 1240.14
+          },
+          "DiscountAmount": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 20.86
+          },
+          "BeforeDiscount": {
+            "CurrencyCodeIso": "EUR",
+            "Currency": {
+              "Iso": "EUR",
+              "Name": "Euro",
+              "Exponent": 2,
+              "Id": 1
+            },
+            "Value": 1261.00
+          },
+          "DiscountPercentage": 0.1
+        },
+        "ShopperCurrencyProductPriceInfo": {
+          "Title": "Shopper price",
+          "Description": "Shopper price info",
+          "Price": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 5977.86
+          },
+          "DiscountAmount": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 100.56
+          },
+          "BeforeDiscount": {
+            "CurrencyCodeIso": "RON",
+            "Currency": {
+              "Iso": "RON",
+              "Name": "Romanian new leu",
+              "Exponent": 2,
+              "Id": 18
+            },
+            "Value": 6078.42
+          },
+          "DiscountPercentage": 0.1
+        },
+        "ImageUrl": "assets/images/cart/cart-item1.png",
+        "Color": "Red",
+        "Size": "38",
+        "IsRestrictedForCountry": false,
+        "OverridePrice": false,
+        "Dimension5": "Dimension5",
+        "Dimension6": "Dimension6",
+        "IsNonStandardCatalogItem": true,
+        "MetadataItems": []
+      },
+      "LineItemId": "2",
+      "CartGrouping": "Group 2",
+      "MetadataItems": [],
+      "IsCountryDefault": false,
+      "ChargeTargets": [{
+        "Name": "ItemTotal",
+        "TargetValue": {
+          "CurrencyCodeIso": "RON",
+          "Currency": {
+            "Iso": "RON",
+            "Name": "Romanian new leu",
+            "Exponent": 2,
+            "Id": 18
+          },
+          "Value": 11955.72
+        }
+      }]
+    }
+  ],
+  "RetailerPromoCodes": [{
+    "PromoCode": "PROMO1",
+    "Title": "Promo 1",
+    "Description": "Promo code #1"
+  }],
+  "OrderDiscounts": [{
+    "Title": "DISCOUNT20",
+    "Description": "Discount 20%",
+    "RetailerCurrencyOrderDiscountAmount": {
+      "Title": "Discount title",
+      "Description": "Retailer discount title",
+      "Price": {
+        "CurrencyCodeIso": "EUR",
+        "Currency": {
+          "Iso": "EUR",
+          "Name": "Euro",
+          "Exponent": 2,
+          "Id": 1
+        },
+        "Value": 20.0
+      },
+      "DiscountAmount": {
+        "CurrencyCodeIso": "EUR",
+        "Currency": {
+          "Iso": "EUR",
+          "Name": "Euro",
+          "Exponent": 2,
+          "Id": 1
+        },
+        "Value": 1.0
+      },
+      "BeforeDiscount": {
+        "CurrencyCodeIso": "EUR",
+        "Currency": {
+          "Iso": "EUR",
+          "Name": "Euro",
+          "Exponent": 2,
+          "Id": 1
+        },
+        "Value": 21.0
+      },
+      "DiscountPercentage": 0.1
+    },
+    "ShopperCurrencyOrderDiscountAmount": {
+      "Title": "Bonus Offer",
+      "Description": "Bonus reduction off your order total",
+      "Price": {
+        "CurrencyCodeIso": "RON",
+        "Currency": {
+          "Iso": "RON",
+          "Name": "Romanian new leu",
+          "Exponent": 2,
+          "Id": 18
+        },
+        "Value": 22.0
+      },
+      "DiscountAmount": {
+        "CurrencyCodeIso": "RON",
+        "Currency": {
+          "Iso": "RON",
+          "Name": "Romanian new leu",
+          "Exponent": 2,
+          "Id": 18
+        },
+        "Value": 2.0
+      },
+      "BeforeDiscount": {
+        "CurrencyCodeIso": "RON",
+        "Currency": {
+          "Iso": "RON",
+          "Name": "Romanian new leu",
+          "Exponent": 2,
+          "Id": 18
+        },
+        "Value": 2.0
+      },
+      "DiscountPercentage": 0.1
+    }
+  }],
+  "DeliveryDetails": [{
+      "Id": 3,
+      "ContactDetailsNickName": "",
+      "Address1": "Auto Street 1",
+      "Address2": "Auto Street 2",
+      "Address3": "Address 3",
+      "City": "Auto City 1",
+      "PostalCode": "80544",
+      "Region": "Leinster",
+      "Country": "RO",
+      "Email": "delivery@eshopworld.com",
+      "FirstName": "Auto",
+      "LastName": "Test",
+      "Gender": 0,
+      "Telephone": "+40712034888",
+      "PoBox": "PO-BOX",
+      "MetadataItems": []
+    },
+    {
+      "Id": 2,
+      "ContactDetailsNickName": "",
+      "Address1": "Auto Street 1",
+      "Address2": "Auto Street 2",
+      "Address3": "Address 3",
+      "City": "Auto City 1",
+      "PostalCode": "80544",
+      "Region": "Leinster",
+      "Country": "RO",
+      "Email": "delivery@eshopworld.com",
+      "FirstName": "Auto",
+      "LastName": "Test",
+      "Gender": 0,
+      "Telephone": "+40712034888",
+      "PoBox": "PO-BOX",
+      "MetadataItems": []
+    },
+    {
+      "Id": 1,
+      "ContactDetailsNickName": "ContactDetailsNickName",
+      "Address1": "Address 1",
+      "Address2": "Address 2",
+      "Address3": "Address3",
+      "City": "Bucharest",
+      "PostalCode": "07710",
+      "Region": "Region",
+      "Country": "RO",
+      "Email": "test@eshopworld.com",
+      "FirstName": "Joe",
+      "LastName": "Bloggs",
+      "Gender": 0,
+      "Telephone": "+40311051555",
+      "PoBox": "PO-BOX",
+      "MetadataItems": []
+    }
+  ],
+  "PaymentDetails": [{
+      "Id": 3,
+      "ContactDetailsNickName": "",
+      "Address1": "Auto Street 1",
+      "Address2": "Auto Street 2",
+      "Address3": "Address3",
+      "City": "Auto City 1",
+      "PostalCode": "80544",
+      "Region": "Region",
+      "Country": "RO",
+      "Email": "delivery@eshopworld.com",
+      "FirstName": "Auto",
+      "LastName": "Test",
+      "Gender": 0,
+      "Telephone": "+40712034888",
+      "PoBox": "PO-BOX",
+      "MetadataItems": []
+    },
+    {
+      "Id": 2,
+      "ContactDetailsNickName": "",
+      "Address1": "Auto Street 1",
+      "Address2": "Auto Street 2",
+      "Address3": "Address3",
+      "City": "Auto City 1",
+      "PostalCode": "80544",
+      "Region": "Region",
+      "Country": "RO",
+      "Email": "delivery@eshopworld.com",
+      "FirstName": "Auto",
+      "LastName": "Test",
+      "Gender": 0,
+      "Telephone": "+40712034888",
+      "PoBox": "PO-BOX",
+      "MetadataItems": []
+    },
+    {
+      "Id": 1,
+      "ContactDetailsNickName": "ContactDetailsNickName",
+      "Address1": "Address 1",
+      "Address2": "Address 2",
+      "Address3": "Address3",
+      "City": "Bucharest",
+      "PostalCode": "07710",
+      "Region": "Region",
+      "Country": "RO",
+      "Email": "test@eshopworld.com",
+      "FirstName": "Joe",
+      "LastName": "Bloggs",
+      "Gender": 0,
+      "Telephone": "+40311051555",
+      "PoBox": "PO-BOX",
+      "MetadataItems": []
+    }
+  ],
+  "DeliveryOption": {
+    "Option": 1,
+    "IsExpressDelivery": false
+  },
+  "Errors": [{
+    "Code": 1,
+    "Message": "Error"
+  }],
+  "RetailerCheckoutExperience": {
+    "RetailerCheckoutExperienceId": "EXP001",
+    "BackToCartUrl": "https://cart.url/",
+    "ContinueShoppingUrl": "https://shopping.url/",
+    "MetadataItems": []
+  },
+  "ShopperCurrencyIso": "RON",
+  "RetailerCurrencyIso": "EUR",
+  "RetailerFxGroupId": 1617,
+  "SourceCountryIso": "IT",
+  "DeliveryCountryIso": "RO",
+  "ShopperCheckoutExperience": {
+    "UseDeliveryContactDetailsForPaymentContactDetails": true,
+    "EmailMarketingOptIn": true,
+    "RegisteredProfileId": "PROF 0001",
+    "ShopperCultureLanguageIso": "en-IE",
+    "ExpressPaymentMethod": "Paypal",
+    "MetadataItems": []
+  },
+  "DeliveryOptions": [{
+    "DeliveryOption": "POST",
+    "EstimatedDeliveryDate": "2019-06-06T10:38:26.35Z",
+    "RetailerCurrencyOveridePriceInfo": {
+      "Title": "RCOPI_Title",
+      "Description": "RCOPI_Description",
+      "Price": {
+        "CurrencyCodeIso": "EUR",
+        "Currency": {
+          "Iso": "EUR",
+          "Name": "Euro",
+          "Exponent": 2,
+          "Id": 1
+        },
+        "Value": 100.0
+      },
+      "DiscountAmount": {
+        "CurrencyCodeIso": "EUR",
+        "Currency": {
+          "Iso": "EUR",
+          "Name": "Euro",
+          "Exponent": 2,
+          "Id": 1
+        },
+        "Value": 101.0
+      },
+      "BeforeDiscount": {
+        "CurrencyCodeIso": "EUR",
+        "Currency": {
+          "Iso": "EUR",
+          "Name": "Euro",
+          "Exponent": 2,
+          "Id": 1
+        },
+        "Value": 102.0
+      },
+      "DiscountPercentage": 0.1
+    },
+    "ShopperCurrencyOveridePriceInfo": {
+      "Title": "Title 2",
+      "Description": "Description 2",
+      "Price": {
+        "CurrencyCodeIso": "AUD",
+        "Currency": {
+          "Iso": "AUD",
+          "Name": "Australian dollar",
+          "Exponent": 2,
+          "Id": 4
+        },
+        "Value": 100.0
+      },
+      "DiscountAmount": {
+        "CurrencyCodeIso": "AUD",
+        "Currency": {
+          "Iso": "AUD",
+          "Name": "Australian dollar",
+          "Exponent": 2,
+          "Id": 4
+        },
+        "Value": 20.0
+      },
+      "BeforeDiscount": {
+        "CurrencyCodeIso": "AUD",
+        "Currency": {
+          "Iso": "AUD",
+          "Name": "Australian dollar",
+          "Exponent": 2,
+          "Id": 4
+        },
+        "Value": 120.0
+      },
+      "DiscountPercentage": 0.1
+    },
+    "MetadataItems": []
+  }],
+  "RetailerDeliveryOptions": [],
+  "Payment": {
+    "PaymentId": "2c5b1314-a3d1-4208-adbd-48312df209c1",
+    "PaymentAttemptRef": "e5a5988f-987e-4d31-925d-68b9b809b6f1",
+    "PaymentFraudStatusId": 1,
+    "AuthCode": "00000000",
+    "State": "Authorised",
+    "PaymentGatewayCode": "Computop",
+    "PaymentMethodCode": "PaymentCard",
+    "AuthorizationDetails": {
+      "MerchantId": "eshop_dt_aib_test",
+      "GatewayTransactionId": "cba4013ddf9c4c0d9b3b5299696d2f0f",
+      "MerchantTransactionId": "12EA1",
+      "AuthResult": "Success",
+      "PaymentBrand": "VISA",
+      "SettleAfterUtc": "2018-11-06T17:56:59.7033662Z"
+    },
+    "PaymentTime": "2018-11-06T16:27:08.474905Z",
+    "IsPaymentSuccessful": true
+  },
+  "IpAddress": "10.52.1.4",
+  "CalculationParameters": {
+    "UseDutyAboveDeminimis": true,
+    "UseFeeAboveDeminimis": true,
+    "UseVatAboveDeminimis": true,
+    "CalculationCurrencyIso": "RON",
+    "ProductInputCurrencyIso": "RON",
+    "DeliveryInputCurrencyIso": "RON",
+    "ProductInputType": 1,
+    "DeliveryInputType": 1,
+    "OrderChargeInfos": {
+      "InputItem": {
+        "IncludesMerchandise": true,
+        "IncludesMerchandiseDuty": true,
+        "IncludesMerchandiseTax": true,
+        "IncludesMerchandiseFee": true,
+        "IncludesMerchandiseFixedFee": true,
+        "IncludesDeliveryItem": false,
+        "IncludesDeliveryDuty": false,
+        "IncludesDeliveryTax": false,
+        "IncludesDeliveryFee": false,
+        "IncludesDeliveryFixedFee": false,
+        "IsMerchandiseItemPrice": false,
+        "IsMerchandiseAllInclusivePrice": false,
+        "IsDeliveryItemPrice": false
+      },
+      "InputDelivery": {
+        "IncludesMerchandise": false,
+        "IncludesMerchandiseDuty": false,
+        "IncludesMerchandiseTax": false,
+        "IncludesMerchandiseFee": false,
+        "IncludesMerchandiseFixedFee": false,
+        "IncludesDeliveryItem": true,
+        "IncludesDeliveryDuty": true,
+        "IncludesDeliveryTax": true,
+        "IncludesDeliveryFee": true,
+        "IncludesDeliveryFixedFee": false,
+        "IsMerchandiseItemPrice": false,
+        "IsMerchandiseAllInclusivePrice": false,
+        "IsDeliveryItemPrice": false
+      }
+    },
+    "FxRates": [{
+        "FromCurrency": "EUR",
+        "ToCurrency": "RON",
+        "Rate": 4.8203
+      },
+      {
+        "FromCurrency": "RON",
+        "ToCurrency": "EUR",
+        "Rate": 0.20
+      }
+    ],
+    "RetailerToShopperRate": 4.8203,
+    "ShopperToRetailerRate": 0.20
+  },
+  "Status": "OrderCompleted",
+  "RetailerConfirmation": {
+    "Status": "RetailerConfirmationSuccess",
+    "Response": {
+      "StatusCode": 200,
+      "ReasonPhrase": "OK",
+      "ErrorMessage": "ErrorMessage"
+    }
+  },
+  "PlatformCreate": {
+    "Status": "PlatformCreateSuccess",
+    "Response": {
+      "StatusCode": 200,
+      "ReasonPhrase": "OK",
+      "ErrorMessage": "ErrorMessage"
+    }
+  },
+  "Pricing": {
+    "id": "RO",
+    "CountryIso": "RO",
+    "ProductInput": {
+      "InputPriceId": 2185,
+      "PreOrderSecurityModelId": 1,
+      "InputPriceTypeId": 1,
+      "InputPriceSourceId": 0,
+      "CanOverrideCatalogPrice": true,
+      "CatalogOverrideInputPriceTypeId": 1,
+      "DutyRate": 0.1,
+      "TaxRate": 0.19,
+      "OtherRate": 0.1,
+      "MatchInputPrice": false
+    },
+    "DeliveryInput": {
+      "InputPriceId": 2412,
+      "PreOrderSecurityModelId": 0,
+      "InputPriceTypeId": 1,
+      "InputPriceSourceId": 1,
+      "CanOverrideShippingPrice": true,
+      "ShippingOverrideInputPriceTypeId": 1,
+      "DutyRate": 0.1,
+      "TaxRate": 0.19,
+      "OtherRate": 0.1,
+      "MatchInputPrice": true
+    },
+    "Calculation": {
+      "BrandCountryCalculationId": 2388,
+      "DutyTaxCalculationModelId": 9,
+      "IsAccurateCalculationRequired": true,
+      "IsReverseAccurateCalculationRequired": true,
+      "IsReverseEstimatedCalculationRequired": true,
+      "IsReverseTaxesCalculationRequired": true,
+      "IsReverseDutyCalculationRequired": true,
+      "EstimatedDutyRate": 0.1,
+      "EstimatedTaxRate": 0.19,
+      "BrandCountryMarkupId": 3962,
+      "MarkupPercentage": 0.1,
+      "PricingGroupId": 2,
+      "CustomsCalculationType": "CIF"
+    },
+    "Display": {
+      "BrandCountryDisplayModelId": 2589,
+      "ProductDisplay": {
+        "MerchandiseDisplayModelId": 6,
+        "Name": "Name",
+        "Description": "Description",
+        "IncludeAllDutyAndTax": false,
+        "IncludeMerchandiseDuty": true,
+        "IncludeMerchandiseTax": true,
+        "IncludeShipping": false,
+        "IncludeShippingDuty": false,
+        "IncludeShippingTax": false,
+        "IncludeOtherTaxes": true,
+        "IncludeOtherFees": true,
+        "DefaultDisplayText": "Merchandise",
+        "DisplayTextKey": "Merchandise"
+      },
+      "DutyAndTaxDisplay1": {
+        "DutyAndTaxDisplayModelId": 1,
+        "Name": "Name",
+        "Description": "Description",
+        "IncludeAllDutyAndTax": true,
+        "IncludeMerchandiseDuty": true,
+        "IncludeMerchandiseTax": true,
+        "IncludeShipping": true,
+        "IncludeShippingDuty": true,
+        "IncludeShippingTax": true,
+        "IncludeOtherTaxes": true,
+        "IncludeOtherFees": true,
+        "IsDutyAndTaxVisible": true,
+        "DefaultDisplayText": "DefaultDisplayText",
+        "DisplayTextKey": "DisplayTextKey"
+      },
+      "DutyAndTaxDisplay2": {
+        "DutyAndTaxDisplayModelId": 1,
+        "Name": "Name",
+        "Description": "Description",
+        "IncludeAllDutyAndTax": true,
+        "IncludeMerchandiseDuty": true,
+        "IncludeMerchandiseTax": true,
+        "IncludeShipping": true,
+        "IncludeShippingDuty": true,
+        "IncludeShippingTax": true,
+        "IncludeOtherTaxes": true,
+        "IncludeOtherFees": true,
+        "IsDutyAndTaxVisible": true,
+        "DefaultDisplayText": "DefaultDisplayText",
+        "DisplayTextKey": "DisplayTextKey"
+      },
+      "DeliveryDisplay": {
+        "IncludeAllDutyAndTax": false,
+        "ShippingDisplayModelId": 2,
+        "Name": "Name",
+        "Description": "Description",
+        "IncludeMerchandiseDuty": false,
+        "IncludeMerchandiseTax": false,
+        "IncludeShipping": true,
+        "IncludeShippingDuty": true,
+        "IncludeShippingTax": true,
+        "IncludeOtherTaxes": false,
+        "IncludeOtherFees": false,
+        "IsShippingVisible": true,
+        "DefaultDisplayText": "Shipping",
+        "DisplayTextKey": "Shipping"
+      }
+    }
+  },
+  "Features": [{
+      "Type": "AsyncOrderConfirmation",
+      "Active": false
+    },
+    {
+      "Type": "AsyncCorePlatformOrderCreate",
+      "Active": false
+    },
+    {
+      "Type": "CleanupDiscounts",
+      "Active": true
+    },
+    {
+      "Type": "UpdatedPromoCodeLengthLimits",
+      "Active": true
+    }
+  ],
+  "ExpiryTimeUtc": "2018-11-06T16:46:38.9587002Z",
+  "ChargeTargets": [],
+  "FingerprintId": "aac75b2513b0dbc015de17c6de2100f1727058244d223677e79ef6d8a47825e2",
+  "GdprAccepted": true,
+  "GdprAcceptanceHistory": [{
+    "Accepted": true,
+    "Date": "2018-11-06T16:26:58.4166241+00:00"
+  }],
+  "brandCode": "DIF",
+  "eventName": "ConfirmOrder",
+  "correlationId": "aac75b2513b0dbc015de17c6de2100f1727058244d223677e79ef6d8a47825e2",
+  "userAgent": "FxVersion/4.7.3221.0 OSName/WindowsServer2016Datacenter OSVersion/6.3.14393 Checkout.Api.AutoRest.Client.Proxies.CheckoutApiPaymentV2/1.0.0.0",
+  "queryString": "http://checkout-api-diftes.ci.eshopworld.net/api/v2/Payment/AuthorizeOrder",
+  "created": "1541521629766"
+}</value>
+  </data>
+</root>
