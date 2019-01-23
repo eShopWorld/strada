@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Eshopworld.Strada.Plugins.Streaming;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.PubSub.V1;
 using Grpc.Auth;
