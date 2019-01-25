@@ -26,6 +26,6 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
             Assert.Equal(50, eventMetadataPayloadBatch.Count);
         }
 
-        // TODO: Concurrency tests?
+        // todo: Concurrency tests?
     }
 }

@@ -24,8 +24,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         public List<string>
             GetEventMetadataPayloadBatch(
-                int maxItemsToRemove = int.MaxValue) // todo: param should equal batch max items.
+                int maxItemsToRemove = 1000)
         {
+            if (maxItemsToRemove > 1000)
+                throw new IndexOutOfRangeException(
+                    $"Value {maxItemsToRemove} should be in range [1, 1000].");
             if (_cache == null || _cache.IsEmpty) return new List<string>();
 
             var eventMetadataPayloadBatch = new List<string>();

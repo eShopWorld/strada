@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Cloud.PubSub.V1" Version="1.0.0" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
   </ItemGroup>
 
 </Project>

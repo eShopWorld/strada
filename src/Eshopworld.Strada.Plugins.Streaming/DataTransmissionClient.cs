@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Google.Api.Gax;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
 using Grpc.Auth;
 using Newtonsoft.Json;
+using Quartz;
+using Quartz.Impl;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
@@ -20,7 +25,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public delegate void TransmissionFailedEventHandler(object sender, TransmissionFailedEventArgs e);
 
         private static readonly Lazy<DataTransmissionClient> InnerDataTransmissionClient =
-            new Lazy<DataTransmissionClient>(() => new DataTransmissionClient());
+            new Lazy<DataTransmissionClient>(() => new DataTransmissionClient()); // todo: Remove lazy
 
         private PublisherClient _publisher;
         private TopicName _topicName;
@@ -32,12 +37,13 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         /// <summary>
         ///     Indicates whether or not this instance has been initialised by calling
-        ///     <see cref="InitAsync(string,string,string,double,bool)" />.
+        ///     <see cref="InitAsync(string,string,string,bool,bool,long,int)" />.
         /// </summary>
         public bool Initialised { get; private set; }
 
         /// <summary>
-        ///     InitialisationFailed is invoked if the <see cref="InitAsync(string,string,string,double,bool)" /> method fails.
+        ///     InitialisationFailed is invoked if the <see cref="InitAsync(string,string,string,bool,bool,long,int)" /> method
+        ///     fails.
         /// </summary>
         public event InitialisationFailedEventHandler InitialisationFailed;
 
@@ -57,12 +63,16 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
         /// <param name="gcpServiceCredentials">The GCP Pub/Sub service credentials in JSON format.</param>
-        /// <param name="transmitAbortTimeout">The time after which the <see cref="TransmitAsync{T}" /> method will abort.</param>
         /// <param name="swallowExceptions">
         ///     If <c>true</c>, invokes the <see cref="InitialisationFailed" /> event on error, persisting the
         ///     exception. Otherwise, the exception is thrown.
         /// </param>
-        /// <remarks><see cref="transmitAbortTimeout" /> minimum value is 100 ms. Default is 3000 ms.</remarks>
+        /// <param name="batchMode">Indicates whether or not to activate Pub/Sub batch mode.</param>
+        /// <param name="elementCountThreshold">
+        ///     The element count (in seconds) above which further processing of a batch will
+        ///     occur.
+        /// </param>
+        /// <param name="delayThreshold">The batch lifetime (in seconds) above which further processing of a batch will occur.</param>
         /// <exception cref="DataTransmissionClientException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="IndexOutOfRangeException"></exception>
@@ -70,15 +80,16 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string projectId,
             string topicId,
             string gcpServiceCredentials,
-            double transmitAbortTimeout = 3000,
-            bool swallowExceptions = true)
+            bool swallowExceptions = true,
+            bool batchMode = false,
+            long elementCountThreshold = 1000,
+            int delayThreshold = 3)
         {
             try
             {
                 if (string.IsNullOrEmpty(projectId)) throw new ArgumentNullException(nameof(projectId));
                 if (string.IsNullOrEmpty(topicId)) throw new ArgumentNullException(nameof(topicId));
                 if (gcpServiceCredentials == null) throw new ArgumentNullException(nameof(gcpServiceCredentials));
-                if (transmitAbortTimeout < 100) throw new ArgumentOutOfRangeException(nameof(transmitAbortTimeout));
 
                 if (!Initialised)
                 {
@@ -86,27 +97,37 @@ namespace Eshopworld.Strada.Plugins.Streaming
                         .FromJson(gcpServiceCredentials)
                         .CreateScoped(PublisherServiceApiClient.DefaultScopes);
 
+                    PublisherClient.Settings settings = null;
+                    if (batchMode)
+                        settings = new PublisherClient.Settings
+                        {
+                            BatchingSettings = new BatchingSettings(
+                                elementCountThreshold,
+                                null,
+                                TimeSpan.FromSeconds(delayThreshold))
+                        };
+
                     var clientCreationSettings = new PublisherClient.ClientCreationSettings(
                         null,
                         null,
                         credential.ToChannelCredentials());
 
                     _topicName = new TopicName(projectId, topicId);
-                    _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings);
+                    _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings, settings);
 
+                    //if (batchMode) await StartBatchProcessingJob(); TODO: Fix this constructor.
                     Initialised = true;
                 }
             }
             catch (Exception exception)
             {
+                const string errorMessage = "An error occurred while initializing the data transmission client.";
                 if (swallowExceptions)
                     OnInitialisationFailed(
                         new InitialisationFailedEventArgs(
-                            new DataTransmissionClientException(
-                                "An error occurred while initializing the data transmission client.", exception)));
+                            new DataTransmissionClientException(errorMessage, exception)));
                 else
-                    throw new DataTransmissionClientException(
-                        "An error occurred while initializing the data transmission client.", exception);
+                    throw new DataTransmissionClientException(errorMessage, exception);
             }
         }
 
@@ -117,12 +138,16 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="projectId">The Cloud Pub/Sub Project ID.</param>
         /// <param name="topicId">The Cloud Pub/Sub Topic ID</param>
         /// <param name="gcpServiceCredentials">The GCP Pub/Sub service credentials.</param>
-        /// <param name="transmitAbortTimeout">The time after which the <see cref="TransmitAsync{T}" /> method will abort.</param>
         /// <param name="swallowExceptions">
         ///     If <c>true</c>, invokes the <see cref="InitialisationFailed" /> event on error, persisting the
         ///     exception. Otherwise, the exception is thrown.
         /// </param>
-        /// <remarks><see cref="transmitAbortTimeout" /> minimum value is 100 ms. Default is 3000 ms.</remarks>
+        /// <param name="batchMode">Indicates whether or not to activate Pub/Sub batch mode.</param>
+        /// <param name="elementCountThreshold">
+        ///     The element count (in seconds) above which further processing of a batch will
+        ///     occur.
+        /// </param>
+        /// <param name="delayThreshold">The batch lifetime (in seconds) above which further processing of a batch will occur.</param>
         /// <exception cref="DataTransmissionClientException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="IndexOutOfRangeException"></exception>
@@ -130,15 +155,16 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string projectId,
             string topicId,
             GcpServiceCredentials gcpServiceCredentials,
-            double transmitAbortTimeout = 3000,
-            bool swallowExceptions = true)
+            bool swallowExceptions = true,
+            bool batchMode = false,
+            long elementCountThreshold = 1000,
+            int delayThreshold = 3)
         {
             try
             {
                 if (string.IsNullOrEmpty(projectId)) throw new ArgumentNullException(nameof(projectId));
                 if (string.IsNullOrEmpty(topicId)) throw new ArgumentNullException(nameof(topicId));
                 if (gcpServiceCredentials == null) throw new ArgumentNullException(nameof(gcpServiceCredentials));
-                if (transmitAbortTimeout < 100) throw new ArgumentOutOfRangeException(nameof(transmitAbortTimeout));
 
                 if (!Initialised)
                 {
@@ -146,26 +172,38 @@ namespace Eshopworld.Strada.Plugins.Streaming
                         .FromJson(JsonConvert.SerializeObject(gcpServiceCredentials))
                         .CreateScoped(PublisherServiceApiClient.DefaultScopes);
 
+                    PublisherClient.Settings settings = null;
+                    if (batchMode)
+                        settings = new PublisherClient.Settings
+                        {
+                            BatchingSettings = new BatchingSettings(
+                                elementCountThreshold,
+                                null,
+                                TimeSpan.FromSeconds(delayThreshold))
+                        };
+
                     var clientCreationSettings = new PublisherClient.ClientCreationSettings(
                         null,
                         null,
                         credential.ToChannelCredentials());
 
                     _topicName = new TopicName(projectId, topicId);
-                    _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings);
+                    _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings, settings);
+
+                    //if (batchMode) await StartBatchProcessingJob(); TODO: Fix this constructor.
 
                     Initialised = true;
                 }
             }
             catch (Exception exception)
             {
+                const string errorMessage = "An error occurred while initializing the data transmission client.";
                 if (swallowExceptions)
                     OnInitialisationFailed(
                         new InitialisationFailedEventArgs(
-                            new DataTransmissionClientException(
-                                "An error occurred while initializing the data transmission client.", exception)));
-                throw new DataTransmissionClientException(
-                    "An error occurred while initializing the data transmission client.", exception);
+                            new DataTransmissionClientException(errorMessage, exception)));
+                else
+                    throw new DataTransmissionClientException(errorMessage, exception);
             }
         }
 
@@ -183,7 +221,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
             {
                 if (Initialised)
                 {
-                    await _publisher.ShutdownAsync(TimeSpan.Zero);
+                    await _publisher.ShutdownAsync(
+                        TimeSpan.Zero); // todo: Increase shutdown timeout and implement in Startup.cs
                     Initialised = false;
                 }
             }
@@ -314,6 +353,47 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     throw new DataTransmissionException("An error occurred while transmitting metadata.",
                         brandCode, correlationId, exception);
             }
+        }
+
+        public async Task TransmitAsync(
+            IEnumerable<string> eventMetadataPayloadBatch,
+            bool swallowExceptions = true)
+        {
+            if (eventMetadataPayloadBatch == null) throw new ArgumentNullException(nameof(eventMetadataPayloadBatch));
+            try
+            {
+                var publishTasks = eventMetadataPayloadBatch
+                    .Select(eventMetadataPayload => new PubsubMessage
+                        {Data = ByteString.CopyFromUtf8(eventMetadataPayload)})
+                    .Select(pubsubMessage => _publisher.PublishAsync(pubsubMessage)).ToList();
+
+                foreach (var publishTask in publishTasks) await publishTask;
+            }
+            catch (Exception exception)
+            {
+                const string errorMessage = "An error occurred while transmitting metadata.";
+                if (swallowExceptions)
+                    OnTransmissionFailed(
+                        new TransmissionFailedEventArgs(
+                            new DataTransmissionException(errorMessage, exception)));
+                else
+                    throw new DataTransmissionException(errorMessage, exception);
+            }
+        }
+
+        private static async Task StartBatchProcessingJob()
+        {
+            var scheduler = await StdSchedulerFactory.GetDefaultScheduler();
+            await scheduler.Start();
+
+            var job = JobBuilder.Create<EventMetadataPublishJob>().Build();
+
+            var trigger = TriggerBuilder.Create()
+                .StartNow()
+                .WithSimpleSchedule(s => s.WithIntervalInSeconds(30).RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
         }
 
         private void OnTransmissionFailed(TransmissionFailedEventArgs e)

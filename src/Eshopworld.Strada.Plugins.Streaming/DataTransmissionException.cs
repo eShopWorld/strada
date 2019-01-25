@@ -27,6 +27,18 @@ namespace Eshopworld.Strada.Plugins.Streaming
             CorrelationId = correlationId;
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Default constructor.
+        /// </summary>
+        /// <param name="message">An intuitive error message.</param>
+        /// <param name="innerException">The exception instance that caused the error.</param>
+        public DataTransmissionException(
+            string message,
+            Exception innerException) : base(message, innerException)
+        {
+        }
+
         /// <summary>
         ///     BrandName is the customer reference code.
         /// </summary>
