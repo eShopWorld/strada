@@ -63,8 +63,8 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
             };
 
             dataTransmissionClient.InitAsync(
-                "eshop-puddle",
-                "local-mooney-test", gcpServiceCredentials,
+                "",
+                "", gcpServiceCredentials,
                 false,
                 true).Wait();
 
