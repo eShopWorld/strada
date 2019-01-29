@@ -352,15 +352,20 @@ namespace Eshopworld.Strada.Plugins.Streaming
             IEnumerable<string> eventMetadataPayloadBatch,
             bool swallowExceptions = true)
         {
-            if (eventMetadataPayloadBatch == null) throw new ArgumentNullException(nameof(eventMetadataPayloadBatch));
+            if (eventMetadataPayloadBatch == null)
+                throw new ArgumentNullException(nameof(eventMetadataPayloadBatch));
             try
             {
-                var publishTasks = eventMetadataPayloadBatch
-                    .Select(eventMetadataPayload => new PubsubMessage
-                        {Data = ByteString.CopyFromUtf8(eventMetadataPayload)})
-                    .Select(pubsubMessage => _publisher.PublishAsync(pubsubMessage)).ToList();
+                var batch = eventMetadataPayloadBatch.ToList();
+                if (batch.Any())
+                {
+                    var publishTasks = batch
+                        .Select(eventMetadataPayload => new PubsubMessage
+                            {Data = ByteString.CopyFromUtf8(eventMetadataPayload)})
+                        .Select(pubsubMessage => _publisher.PublishAsync(pubsubMessage)).ToList();
 
-                foreach (var publishTask in publishTasks) await publishTask;
+                    foreach (var publishTask in publishTasks) await publishTask;
+                }
             }
             catch (Exception exception)
             {
