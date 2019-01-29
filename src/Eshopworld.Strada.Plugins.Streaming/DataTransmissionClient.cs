@@ -8,8 +8,6 @@ using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
 using Grpc.Auth;
 using Newtonsoft.Json;
-using Quartz;
-using Quartz.Impl;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
@@ -25,7 +23,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public delegate void TransmissionFailedEventHandler(object sender, TransmissionFailedEventArgs e);
 
         private static readonly Lazy<DataTransmissionClient> InnerDataTransmissionClient =
-            new Lazy<DataTransmissionClient>(() => new DataTransmissionClient()); // todo: Remove lazy
+            new Lazy<DataTransmissionClient>(() => new DataTransmissionClient()); // todo: Remove Lazy
 
         private PublisherClient _publisher;
         private TopicName _topicName;
@@ -114,8 +112,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
                     _topicName = new TopicName(projectId, topicId);
                     _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings, settings);
-
-                    //if (batchMode) await StartBatchProcessingJob(); TODO: Fix this constructor.
                     Initialised = true;
                 }
             }
@@ -189,9 +185,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
                     _topicName = new TopicName(projectId, topicId);
                     _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings, settings);
-
-                    //if (batchMode) await StartBatchProcessingJob(); TODO: Fix this constructor.
-
                     Initialised = true;
                 }
             }
@@ -379,21 +372,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 else
                     throw new DataTransmissionException(errorMessage, exception);
             }
-        }
-
-        private static async Task StartBatchProcessingJob()
-        {
-            var scheduler = await StdSchedulerFactory.GetDefaultScheduler();
-            await scheduler.Start();
-
-            var job = JobBuilder.Create<EventMetadataPublishJob>().Build();
-
-            var trigger = TriggerBuilder.Create()
-                .StartNow()
-                .WithSimpleSchedule(s => s.WithIntervalInSeconds(30).RepeatForever())
-                .Build();
-
-            await scheduler.ScheduleJob(job, trigger);
         }
 
         private void OnTransmissionFailed(TransmissionFailedEventArgs e)

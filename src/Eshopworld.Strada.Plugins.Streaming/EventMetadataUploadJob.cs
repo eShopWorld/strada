@@ -1,28 +1,24 @@
-﻿using System;
-using System.Threading.Tasks;
-using Quartz;
+﻿using FluentScheduler;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    internal class EventMetadataPublishJob : IJob
+    internal class EventMetadataUploadJob : IJob
     {
         private readonly DataTransmissionClient _dataTransmissionClient;
         private readonly EventMetadataCache _eventMetadataCache;
 
-        public EventMetadataPublishJob(DataTransmissionClient dataTransmissionClient,
+        public EventMetadataUploadJob(
+            DataTransmissionClient dataTransmissionClient,
             EventMetadataCache eventMetadataCache)
         {
             _dataTransmissionClient = dataTransmissionClient;
             _eventMetadataCache = eventMetadataCache;
         }
 
-        public Task Execute(IJobExecutionContext context)
+        public void Execute()
         {
             var eventMetadataPayloadBatch = _eventMetadataCache.GetEventMetadataPayloadBatch();
-            if (!_dataTransmissionClient.Initialised)
-                throw new NullReferenceException("Data transmission client is not initialised.");
-
-            return _dataTransmissionClient.TransmitAsync(eventMetadataPayloadBatch);
+            _dataTransmissionClient.TransmitAsync(eventMetadataPayloadBatch).Wait();
         }
     }
 }
