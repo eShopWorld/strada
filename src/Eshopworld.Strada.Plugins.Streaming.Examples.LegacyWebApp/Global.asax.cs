@@ -51,7 +51,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
             var gcpServiceCredentials = new GcpServiceCredentials
             {
                 Type = "",
-                ProjectId = "",
+                ProjectId = "", // todo: Need topic for each environment
                 PrivateKeyId = "",
                 PrivateKey = "",
                 ClientEmail = "",
@@ -60,24 +60,24 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
                 TokenUri = "",
                 AuthProviderX509CertUrl = "",
                 ClientX509CertUrl = ""
-            };
+            }; // todo: Parse from JSON
 
-            dataTransmissionClient.InitAsync(
-                "",
-                "", gcpServiceCredentials,
-                false,
-                true).Wait();
+            dataTransmissionClient.InitAsync( // todo: This should be the only exposed component
+                "", // todo: Rename GCP to 'App', or generic equivalent
+                "", gcpServiceCredentials, // todo: ProjectId, TopicId should be encapsulated in GCP service credentials meta
+                false, // todo: Make batch-mode true by default
+                true).Wait(); // todo: Create synchronous equivalent
 
-            var eventMetadataCache = container.Resolve<EventMetadataCache>();
+            var eventMetadataCache = container.Resolve<EventMetadataCache>(); // todo: Encapsulate this in custom component
 
             var eventMetadataUploadRegistry = new Registry(); // todo: Encapsulate FluentScheduler in custom component
             eventMetadataUploadRegistry
                 .Schedule(() => new EventMetadataUploadJob(dataTransmissionClient, eventMetadataCache))
                 .NonReentrant()
-                .ToRunNow().AndEvery(5)
+                .ToRunNow().AndEvery(5) // todo: Expose timespan during init
                 .Seconds();
 
-            JobManager.Initialize(eventMetadataUploadRegistry);
+            JobManager.Initialize(eventMetadataUploadRegistry); // todo: .NET Core equivalent
         }
     }
 }

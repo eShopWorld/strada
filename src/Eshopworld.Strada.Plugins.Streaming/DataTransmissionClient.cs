@@ -245,7 +245,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="userAgent">The HTTP request User Agent header value.</param>
         /// <exception cref="DataTransmissionException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task TransmitAsync<T>(
+        public async Task TransmitAsync<T>( // todo: Mark non-batch mode as obsolete
             string brandCode,
             string eventName,
             string correlationId,
@@ -346,9 +346,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     throw new DataTransmissionException("An error occurred while transmitting metadata.",
                         brandCode, correlationId, exception);
             }
-        }
+        } // todo: Auto-swallow exceptions
 
-        public async Task TransmitAsync(
+        public async Task TransmitAsync( // todo: Create as custom attribute/middleware
             IEnumerable<string> eventMetadataPayloadBatch,
             bool swallowExceptions = true)
         {
