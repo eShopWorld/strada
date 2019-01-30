@@ -13,6 +13,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
             _cache = new ConcurrentQueue<string>();
         }
 
+        public long NumItems => _cache.Count;
+
         public void Add(string eventMetadataPayload)
         {
             if (string.IsNullOrEmpty(eventMetadataPayload))

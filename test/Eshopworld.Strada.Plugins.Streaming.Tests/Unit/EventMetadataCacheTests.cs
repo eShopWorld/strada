@@ -30,8 +30,6 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
 
             var eventMetadataPayloadBatch = eventMetadataCache.GetEventMetadataPayloadBatch(50);
             Assert.Equal(50, eventMetadataPayloadBatch.Count);
-        }
-
-        // todo: Concurrency tests?
+        }        
     }
 }
