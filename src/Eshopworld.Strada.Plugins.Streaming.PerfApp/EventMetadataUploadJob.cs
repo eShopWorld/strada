@@ -34,7 +34,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.PerfApp
             _dataTransmissionClient.TransmitAsync(eventMetadataPayloadBatch).Wait();
 
             _stopwatch.Stop();
-            _elapsedTime.Add(_stopwatch.ElapsedMilliseconds);
+            _elapsedTime.Add(_stopwatch.ElapsedMilliseconds); // todo: Send to StackDriver
 
             Console.Clear();
             Console.WriteLine("No. items in this batch: {0}", eventMetadataPayloadBatch.Count);
