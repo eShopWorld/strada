@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -48,16 +47,8 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
                 JsonConvert.DeserializeObject<GcpServiceCredentials>(Resources.GcpServiceCredentials);
 
             var dataTransmissionClientConfigSettings =
-                JsonConvert.DeserializeObject<DataTransmissionClientConfigSettings>(Resources
-                    .DataTransmissionClientConfigSettings);
-
-            UriSegmentMetaCache.Instance.Add( // todo: NEXT Add these to JSON array and deserialise
-                "values",
-                new[] {HttpMethod.Post, HttpMethod.Get});
-
-            UriSegmentMetaCache.Instance.Add(
-                "test",
-                new[] {HttpMethod.Post});
+                JsonConvert.DeserializeObject<DataTransmissionClientConfigSettings>(
+                    Resources.DataTransmissionClientConfigSettings);
 
             var dataTransmissionClient = container.Resolve<DataTransmissionClient>();
 

@@ -1,4 +1,6 @@
-﻿namespace Eshopworld.Strada.Plugins.Streaming
+﻿using System.Collections.Generic;
+
+namespace Eshopworld.Strada.Plugins.Streaming
 {
     public class DataTransmissionClientConfigSettings
     {
@@ -13,6 +15,7 @@
         public DataTransmissionClientConfigSettings(
             string projectId,
             string topicId,
+            List<UriSegmentMeta> uriSegmentMeta,
             bool swallowExceptions = true,
             bool batchMode = true,
             long elementCountThreshold = 1000,
@@ -20,6 +23,7 @@
         {
             ProjectId = projectId;
             TopicId = topicId;
+            UriSegmentMeta = uriSegmentMeta;
             SwallowExceptions = swallowExceptions;
             BatchMode = batchMode;
             ElementCountThreshold = elementCountThreshold;
@@ -32,5 +36,6 @@
         public bool BatchMode { get; set; }
         public long ElementCountThreshold { get; set; }
         public int DelayThreshold { get; set; }
+        public List<UriSegmentMeta> UriSegmentMeta { get; set; }
     }
 }

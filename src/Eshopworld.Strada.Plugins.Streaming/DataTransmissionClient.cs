@@ -248,6 +248,10 @@ namespace Eshopworld.Strada.Plugins.Streaming
                         dataTransmissionClientConfigSettings.TopicId);
 
                     _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings, settings);
+
+                    foreach (var uriSegmentMeta in dataTransmissionClientConfigSettings.UriSegmentMeta)
+                        UriSegmentMetaCache.Instance.UriSegmentMeta.Add(uriSegmentMeta);
+
                     Initialised = true;
                 }
             }
