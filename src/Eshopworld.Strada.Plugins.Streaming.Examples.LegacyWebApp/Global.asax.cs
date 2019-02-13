@@ -7,6 +7,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.WebApi;
 using Eshopworld.Strada.Plugins.Streaming.AspNet;
+using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
 {
@@ -42,29 +43,16 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            var gcpServiceCredentials = new GcpServiceCredentials
-            {
-                Type = "",
-                ProjectId = "",
-                PrivateKeyId = "",
-                PrivateKey = "",
-                ClientEmail = "",
-                ClientId = "",
-                AuthUri = "",
-                TokenUri = "",
-                AuthProviderX509CertUrl = "",
-                ClientX509CertUrl = ""
-            }; // todo: Parse from JSON
+            var gcpServiceCredentials =
+                JsonConvert.DeserializeObject<GcpServiceCredentials>(Resources.GcpServiceCredentials);
 
-            var dataTransmissionClientConfigSettings = new DataTransmissionClientConfigSettings
-            {
-                ProjectId = "",
-                TopicId = ""
-            }; // todo: Parse from JSON
+            var dataTransmissionClientConfigSettings =
+                JsonConvert.DeserializeObject<DataTransmissionClientConfigSettings>(
+                    Resources.DataTransmissionClientConfigSettings);
 
             var dataTransmissionClient = container.Resolve<DataTransmissionClient>();
 
-            dataTransmissionClient.InitAsync( // todo: This should be the only exposed component
+            dataTransmissionClient.InitAsync(
                 gcpServiceCredentials,
                 dataTransmissionClientConfigSettings
             ).Wait(); // todo: Create synchronous equivalent            

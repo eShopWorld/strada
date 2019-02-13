@@ -4,6 +4,10 @@
     {
         public DataTransmissionClientConfigSettings()
         {
+            SwallowExceptions = true;
+            BatchMode = true;
+            ElementCountThreshold = 1000;
+            DelayThreshold = 3;
         }
 
         /// <summary>
