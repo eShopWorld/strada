@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Eshopworld.Strada.Plugins.Streaming.AspNet
 {
-    public class BotTrackingHandler : DelegatingHandler
+    public class DataTransmissionHandler : DelegatingHandler
     {
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,

@@ -18,7 +18,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
                 new {id = RouteParameter.Optional}
             );
 
-            config.MessageHandlers.Add(new BotTrackingHandler());
+            config.MessageHandlers.Add(new DataTransmissionHandler());
         }
     }
 }
