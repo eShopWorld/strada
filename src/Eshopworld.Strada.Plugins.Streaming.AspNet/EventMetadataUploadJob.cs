@@ -1,7 +1,7 @@
 ﻿using System.Web.Hosting;
 using FluentScheduler;
 
-namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
+namespace Eshopworld.Strada.Plugins.Streaming.AspNet
 {
     public class EventMetadataUploadJob : IJob, IRegisteredObject
     {

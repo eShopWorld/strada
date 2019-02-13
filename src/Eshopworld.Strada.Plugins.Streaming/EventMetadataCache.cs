@@ -11,7 +11,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         private ConcurrentQueue<string> _cache;
 
-        public EventMetadataCache()
+        public EventMetadataCache() // todo: Make private
         {
             _cache = new ConcurrentQueue<string>();
         }

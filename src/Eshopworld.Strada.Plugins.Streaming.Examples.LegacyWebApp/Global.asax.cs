@@ -6,7 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.WebApi;
-using FluentScheduler;
+using Eshopworld.Strada.Plugins.Streaming.AspNet;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
 {
@@ -42,8 +42,6 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            var dataTransmissionClient = container.Resolve<DataTransmissionClient>();
-
             var gcpServiceCredentials = new GcpServiceCredentials
             {
                 Type = "",
@@ -64,19 +62,14 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
                 TopicId = ""
             }; // todo: Parse from JSON
 
+            var dataTransmissionClient = container.Resolve<DataTransmissionClient>();
+
             dataTransmissionClient.InitAsync( // todo: This should be the only exposed component
                 gcpServiceCredentials,
                 dataTransmissionClientConfigSettings
             ).Wait(); // todo: Create synchronous equivalent            
 
-            var eventMetadataUploadRegistry = new Registry(); // todo: Encapsulate FluentScheduler in custom component
-            eventMetadataUploadRegistry
-                .Schedule(() => new EventMetadataUploadJob(dataTransmissionClient, EventMetadataCache.Instance))
-                .NonReentrant()
-                .ToRunNow().AndEvery(5) // todo: Expose timespan during init
-                .Seconds();
-
-            JobManager.Initialize(eventMetadataUploadRegistry); // todo: .NET Core equivalent
+            DataUploader.Start(dataTransmissionClient);
         }
     }
 }
