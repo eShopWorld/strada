@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshopworld.Strada.Plugins.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp", "src\Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp\Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.csproj", "{E36686B9-BDD8-4CB6-9B20-3EDFBA5A222F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshopworld.Strada.Plugins.Streaming.PerfApp", "src\Eshopworld.Strada.Plugins.Streaming.PerfApp\Eshopworld.Strada.Plugins.Streaming.PerfApp.csproj", "{0339ABF4-13DD-4C06-BBC3-898B81A723D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshopworld.Strada.Plugins.Streaming.PerfApp", "src\Eshopworld.Strada.Plugins.Streaming.PerfApp\Eshopworld.Strada.Plugins.Streaming.PerfApp.csproj", "{0339ABF4-13DD-4C06-BBC3-898B81A723D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshopworld.Strada.Plugins.Streaming.AspNet", "src\Eshopworld.Strada.Plugins.Streaming.AspNet\Eshopworld.Strada.Plugins.Streaming.AspNet.csproj", "{3FA587D6-DEF4-4ACA-9751-06027E95CE59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{0339ABF4-13DD-4C06-BBC3-898B81A723D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0339ABF4-13DD-4C06-BBC3-898B81A723D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0339ABF4-13DD-4C06-BBC3-898B81A723D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FA587D6-DEF4-4ACA-9751-06027E95CE59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA587D6-DEF4-4ACA-9751-06027E95CE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FA587D6-DEF4-4ACA-9751-06027E95CE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA587D6-DEF4-4ACA-9751-06027E95CE59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
