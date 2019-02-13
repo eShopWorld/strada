@@ -201,6 +201,69 @@ namespace Eshopworld.Strada.Plugins.Streaming
         }
 
         /// <summary>
+        ///     InitAsync instantiates Cloud Pub/Sub connectivity components.
+        /// </summary>
+        /// <param name="gcpServiceCredentials">The GCP Pub/Sub service credentials.</param>
+        /// <param name="dataTransmissionClientConfigSettings">
+        ///     The transmission client configuration settings that define how data is transmitted.
+        /// </param>
+        /// <exception cref="DataTransmissionClientException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="IndexOutOfRangeException"></exception>
+        public async Task InitAsync(
+            GcpServiceCredentials gcpServiceCredentials,
+            DataTransmissionClientConfigSettings dataTransmissionClientConfigSettings)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(dataTransmissionClientConfigSettings.ProjectId))
+                    throw new ArgumentNullException(nameof(dataTransmissionClientConfigSettings.ProjectId));
+                if (string.IsNullOrEmpty(dataTransmissionClientConfigSettings.TopicId))
+                    throw new ArgumentNullException(nameof(dataTransmissionClientConfigSettings.TopicId));
+                if (gcpServiceCredentials == null) throw new ArgumentNullException(nameof(gcpServiceCredentials));
+
+                if (!Initialised)
+                {
+                    var credential = GoogleCredential
+                        .FromJson(JsonConvert.SerializeObject(gcpServiceCredentials))
+                        .CreateScoped(PublisherServiceApiClient.DefaultScopes);
+
+                    PublisherClient.Settings settings = null;
+                    if (dataTransmissionClientConfigSettings.BatchMode)
+                        settings = new PublisherClient.Settings
+                        {
+                            BatchingSettings = new BatchingSettings(
+                                dataTransmissionClientConfigSettings.ElementCountThreshold,
+                                null,
+                                TimeSpan.FromSeconds(dataTransmissionClientConfigSettings.DelayThreshold))
+                        };
+
+                    var clientCreationSettings = new PublisherClient.ClientCreationSettings(
+                        null,
+                        null,
+                        credential.ToChannelCredentials());
+
+                    _topicName = new TopicName(
+                        dataTransmissionClientConfigSettings.ProjectId,
+                        dataTransmissionClientConfigSettings.TopicId);
+
+                    _publisher = await PublisherClient.CreateAsync(_topicName, clientCreationSettings, settings);
+                    Initialised = true;
+                }
+            }
+            catch (Exception exception)
+            {
+                const string errorMessage = "An error occurred while initializing the data transmission client.";
+                if (dataTransmissionClientConfigSettings.SwallowExceptions)
+                    OnInitialisationFailed(
+                        new InitialisationFailedEventArgs(
+                            new DataTransmissionClientException(errorMessage, exception)));
+                else
+                    throw new DataTransmissionClientException(errorMessage, exception);
+            }
+        }
+
+        /// <summary>
         ///     ShutDownAsync shuts down all active Cloud Pub/Sub channels.
         /// </summary>
         /// <param name="swallowExceptions">

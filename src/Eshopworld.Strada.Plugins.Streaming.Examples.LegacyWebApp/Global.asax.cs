@@ -43,7 +43,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
             var dataTransmissionClient = container.Resolve<DataTransmissionClient>();
-            
+
             var gcpServiceCredentials = new GcpServiceCredentials
             {
                 Type = "",
@@ -58,12 +58,16 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
                 ClientX509CertUrl = ""
             }; // todo: Parse from JSON
 
+            var dataTransmissionClientConfigSettings = new DataTransmissionClientConfigSettings
+            {
+                ProjectId = "",
+                TopicId = ""
+            }; // todo: Parse from JSON
+
             dataTransmissionClient.InitAsync( // todo: This should be the only exposed component
-                "", // todo: Rename GCP to 'App', or generic equivalent
-                "",
-                gcpServiceCredentials, // todo: ProjectId, TopicId should be encapsulated in GCP service credentials meta
-                false, // todo: Make batch-mode true by default
-                true).Wait(); // todo: Create synchronous equivalent            
+                gcpServiceCredentials,
+                dataTransmissionClientConfigSettings
+            ).Wait(); // todo: Create synchronous equivalent            
 
             var eventMetadataUploadRegistry = new Registry(); // todo: Encapsulate FluentScheduler in custom component
             eventMetadataUploadRegistry
