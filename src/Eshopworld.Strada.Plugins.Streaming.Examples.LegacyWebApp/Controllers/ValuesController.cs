@@ -4,29 +4,21 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
 {
     public class ValuesController : ApiController
     {
-        private readonly EventMetadataCache _eventMetadataCache;
-
-        public ValuesController(EventMetadataCache eventMetadataCache)
-        {
-            _eventMetadataCache = eventMetadataCache;
-        }
-
         // GET api/values
-        public bool Get()
+        public long Get()
         {
-            return true;
+            return EventMetadataCache.Instance.NumItems;
         }
 
         // GET api/values/5
         public string Get(int id)
         {
-            return "value";
+            return null;
         }
 
-        // POST api/values
+        // POST api/values                      
         public void Post([FromBody] string value)
         {
-            _eventMetadataCache.Add(value);
         }
 
         // PUT api/values/5

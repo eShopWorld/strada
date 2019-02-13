@@ -38,20 +38,16 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
                 .AsSelf()
                 .SingleInstance();
 
-            builder.RegisterType<EventMetadataCache>()
-                .AsSelf()
-                .SingleInstance();
-
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
             var dataTransmissionClient = container.Resolve<DataTransmissionClient>();
-
+            
             var gcpServiceCredentials = new GcpServiceCredentials
             {
                 Type = "",
-                ProjectId = "", // todo: Need topic for each environment
+                ProjectId = "",
                 PrivateKeyId = "",
                 PrivateKey = "",
                 ClientEmail = "",
@@ -64,15 +60,14 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
 
             dataTransmissionClient.InitAsync( // todo: This should be the only exposed component
                 "", // todo: Rename GCP to 'App', or generic equivalent
-                "", gcpServiceCredentials, // todo: ProjectId, TopicId should be encapsulated in GCP service credentials meta
+                "",
+                gcpServiceCredentials, // todo: ProjectId, TopicId should be encapsulated in GCP service credentials meta
                 false, // todo: Make batch-mode true by default
-                true).Wait(); // todo: Create synchronous equivalent
-
-            var eventMetadataCache = container.Resolve<EventMetadataCache>(); // todo: Encapsulate this in custom component
+                true).Wait(); // todo: Create synchronous equivalent            
 
             var eventMetadataUploadRegistry = new Registry(); // todo: Encapsulate FluentScheduler in custom component
             eventMetadataUploadRegistry
-                .Schedule(() => new EventMetadataUploadJob(dataTransmissionClient, eventMetadataCache))
+                .Schedule(() => new EventMetadataUploadJob(dataTransmissionClient, EventMetadataCache.Instance))
                 .NonReentrant()
                 .ToRunNow().AndEvery(5) // todo: Expose timespan during init
                 .Seconds();

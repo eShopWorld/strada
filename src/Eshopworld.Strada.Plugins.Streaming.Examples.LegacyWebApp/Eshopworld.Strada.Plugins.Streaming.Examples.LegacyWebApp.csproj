@@ -346,6 +346,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Eshopworld.Strada.Plugins.Streaming.AspNet\Eshopworld.Strada.Plugins.Streaming.AspNet.csproj">
+      <Project>{3FA587D6-DEF4-4ACA-9751-06027E95CE59}</Project>
+      <Name>Eshopworld.Strada.Plugins.Streaming.AspNet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eshopworld.Strada.Plugins.Streaming\Eshopworld.Strada.Plugins.Streaming.csproj">
       <Project>{7c59070b-e9ff-4296-8a5c-5a66e8efa3ea}</Project>
       <Name>Eshopworld.Strada.Plugins.Streaming</Name>
