@@ -6,6 +6,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
 {
     public class EventMetadataCache
     {
+        private static readonly Lazy<EventMetadataCache> Lazy =
+            new Lazy<EventMetadataCache>(() => new EventMetadataCache());
+
         private ConcurrentQueue<string> _cache;
 
         public EventMetadataCache()
@@ -14,6 +17,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
         }
 
         public long NumItems => _cache.Count;
+
+        public static EventMetadataCache Instance => Lazy.Value;
 
         public void Add(string eventMetadataPayload)
         {
