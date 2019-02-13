@@ -59,5 +59,23 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataTransmissionClientConfigSettings {
+            get {
+                return ResourceManager.GetString("DataTransmissionClientConfigSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string GcpServiceCredentials {
+            get {
+                return ResourceManager.GetString("GcpServiceCredentials", resourceCulture);
+            }
+        }
     }
 }
