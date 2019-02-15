@@ -40,7 +40,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.PerfApp
 
             Console.WriteLine("Connection established ...");
 
-            var eventMetadataCache = new EventMetadataCache();
+            var eventMetadataCache = new EventMetaCache();
             var stopwatch = new Stopwatch();
             var elapsedTime = new List<long>();
 

@@ -1,6 +1,8 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming.AspNet
 {
@@ -12,7 +14,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
         {
             var uriSegmentFound = Functions.UriSegmentExists(
                 request.RequestUri.Segments,
-                UriSegmentMetaCache.Instance.UriSegmentMeta,
+                UriMetaCache.Instance.UriSegmentMeta,
                 out var allowedHttpMethods);
 
             if (!uriSegmentFound) return await base.SendAsync(request, cancellationToken);
@@ -20,8 +22,19 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
             if (!allowedHttpMethods.Contains(request.Method.Method))
                 return await base.SendAsync(request, cancellationToken);
 
-            var requestBody = await request.Content.ReadAsStringAsync();
-            if (!string.IsNullOrEmpty(requestBody)) EventMetadataCache.Instance.Add(requestBody);
+            var requestBody = JsonConvert.DeserializeObject(await request.Content.ReadAsStringAsync());
+
+            var httpRequestMeta = new HttpRequestMeta
+            {
+                Uri = request.RequestUri,
+                Body = requestBody,
+                HttpRequestHeaders = request.Headers
+                    .Where(header => UriMetaCache.Instance.AllowedHttpHeaders.Contains(header.Key.ToLowerInvariant()))
+                    .ToList()
+            };
+
+            var eventMetadataPayload = JsonConvert.SerializeObject(httpRequestMeta);
+            EventMetaCache.Instance.Add(eventMetadataPayload);
 
             return await base.SendAsync(request, cancellationToken);
         }

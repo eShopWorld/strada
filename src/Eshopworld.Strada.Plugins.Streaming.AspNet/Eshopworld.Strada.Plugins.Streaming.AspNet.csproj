@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="DataUploader.cs" />
     <Compile Include="EventMetadataUploadJob.cs" />
+    <Compile Include="HttpRequestMeta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataTransmissionHandler.cs" />
   </ItemGroup>

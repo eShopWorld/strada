@@ -10,12 +10,12 @@ namespace Eshopworld.Strada.Plugins.Streaming.PerfApp
     {
         private readonly DataTransmissionClient _dataTransmissionClient;
         private readonly List<long> _elapsedTime;
-        private readonly EventMetadataCache _eventMetadataCache;
+        private readonly EventMetaCache _eventMetadataCache;
         private readonly Stopwatch _stopwatch;
 
         public EventMetadataUploadJob(
             DataTransmissionClient dataTransmissionClient,
-            EventMetadataCache eventMetadataCache,
+            EventMetaCache eventMetadataCache,
             Stopwatch stopwatch,
             List<long> elapsedTime)
         {

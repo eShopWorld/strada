@@ -16,6 +16,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string projectId,
             string topicId,
             List<UriSegmentMeta> uriSegmentMeta,
+            List<string> allowedHttpHeaders,
             bool swallowExceptions = true,
             bool batchMode = true,
             long elementCountThreshold = 1000,
@@ -24,6 +25,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             ProjectId = projectId;
             TopicId = topicId;
             UriSegmentMeta = uriSegmentMeta;
+            AllowedHttpHeaders = allowedHttpHeaders;
             SwallowExceptions = swallowExceptions;
             BatchMode = batchMode;
             ElementCountThreshold = elementCountThreshold;
@@ -37,5 +39,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public long ElementCountThreshold { get; set; }
         public int DelayThreshold { get; set; }
         public List<UriSegmentMeta> UriSegmentMeta { get; set; }
+        public List<string> AllowedHttpHeaders { get; set; }
     }
 }

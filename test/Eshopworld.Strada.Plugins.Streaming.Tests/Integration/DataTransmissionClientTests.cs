@@ -108,7 +108,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     out publisher,
                     out topicName);
 
-                var eventMetadataCache = new EventMetadataCache();
+                var eventMetadataCache = new EventMetaCache();
                 for (var i = 0; i < 10; i++) eventMetadataCache.Add("_");
 
                 var dataTransmissionClient = new DataTransmissionClient();

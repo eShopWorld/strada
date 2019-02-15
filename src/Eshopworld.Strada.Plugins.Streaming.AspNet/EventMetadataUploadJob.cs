@@ -6,11 +6,11 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
     public class EventMetadataUploadJob : IJob, IRegisteredObject
     {
         private readonly DataTransmissionClient _dataTransmissionClient;
-        private readonly EventMetadataCache _eventMetadataCache;
+        private readonly EventMetaCache _eventMetadataCache;
 
         public EventMetadataUploadJob( // todo: Move to ASP.NET Web API streaming project
             DataTransmissionClient dataTransmissionClient,
-            EventMetadataCache eventMetadataCache)
+            EventMetaCache eventMetadataCache)
         {
             _dataTransmissionClient = dataTransmissionClient;
             _eventMetadataCache = eventMetadataCache;

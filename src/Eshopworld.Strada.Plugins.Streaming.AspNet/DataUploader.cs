@@ -8,7 +8,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
         {
             var eventMetadataUploadRegistry = new Registry();
             eventMetadataUploadRegistry
-                .Schedule(() => new EventMetadataUploadJob(dataTransmissionClient, EventMetadataCache.Instance))
+                .Schedule(() => new EventMetadataUploadJob(dataTransmissionClient, EventMetaCache.Instance))
                 .NonReentrant()
                 .ToRunNow().AndEvery(5) // todo: Expose timespan during init
                 .Seconds();

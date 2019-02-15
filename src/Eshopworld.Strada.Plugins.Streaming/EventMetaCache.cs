@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public class EventMetadataCache
+    public class EventMetaCache
     {
-        private static readonly Lazy<EventMetadataCache> Lazy =
-            new Lazy<EventMetadataCache>(() => new EventMetadataCache());
+        private static readonly Lazy<EventMetaCache> Lazy =
+            new Lazy<EventMetaCache>(() => new EventMetaCache());
 
         private ConcurrentQueue<string> _cache;
 
-        public EventMetadataCache() // todo: Make private
+        public EventMetaCache() // todo: Make private
         {
             _cache = new ConcurrentQueue<string>();
         }
 
         public long NumItems => _cache.Count;
 
-        public static EventMetadataCache Instance => Lazy.Value;
+        public static EventMetaCache Instance => Lazy.Value;
 
         public void Add(string eventMetadataPayload)
         {

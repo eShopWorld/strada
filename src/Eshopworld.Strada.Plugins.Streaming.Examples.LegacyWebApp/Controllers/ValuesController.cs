@@ -7,7 +7,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
         // GET api/values
         public long Get()
         {
-            return EventMetadataCache.Instance.NumItems;
+            return EventMetaCache.Instance.NumItems;
         }
 
         // GET api/values/5
@@ -17,7 +17,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
         }
 
         // POST api/values                      
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Message greeting)
         {
         }
 
@@ -30,5 +30,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
         public void Delete(int id)
         {
         }
+    }
+
+    public class Message
+    {
+        public string Greeting { get; set; }
     }
 }
