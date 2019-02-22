@@ -62,7 +62,8 @@ namespace Eshopworld.Strada.Plugins.Streaming.PerfApp
             while (true)
             {
                 var numEventPayloadItems = random.Next(1, 10001);
-                Parallel.For(0, numEventPayloadItems, i => { eventMetadataCache.Add(Guid.NewGuid().ToString()); });
+                Parallel.For(0, numEventPayloadItems,
+                    i => { eventMetadataCache.Add(new SimpleObject {Name = "TEST"}); });
                 Thread.Sleep(10000);
             }
 
