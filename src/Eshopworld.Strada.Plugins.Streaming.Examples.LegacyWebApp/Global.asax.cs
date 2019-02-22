@@ -57,7 +57,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
                 dataTransmissionClientConfigSettings
             ).Wait(); // todo: Create synchronous equivalent            
 
-            DataUploader.Start(dataTransmissionClient);
+            DataUploader.Start(dataTransmissionClient, 30);
         }
     }
 }
