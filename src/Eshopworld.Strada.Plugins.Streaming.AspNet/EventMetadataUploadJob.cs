@@ -8,7 +8,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
         private readonly DataTransmissionClient _dataTransmissionClient;
         private readonly EventMetaCache _eventMetadataCache;
 
-        public EventMetadataUploadJob( // todo: Move to ASP.NET Web API streaming project
+        public EventMetadataUploadJob(
             DataTransmissionClient dataTransmissionClient,
             EventMetaCache eventMetadataCache)
         {
@@ -22,7 +22,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
             try
             {
                 var eventMetadataPayloadBatch = _eventMetadataCache.GetEventMetadataPayloadBatch();
-                _dataTransmissionClient.TransmitAsync(eventMetadataPayloadBatch).Wait(); // todo: Exception handling
+                _dataTransmissionClient.TransmitAsync(eventMetadataPayloadBatch).Wait();
             }
             finally
             {

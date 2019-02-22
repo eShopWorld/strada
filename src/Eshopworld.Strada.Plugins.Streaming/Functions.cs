@@ -40,7 +40,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
             return jsonObject.ToString();
         }
 
-
         public static bool UriSegmentExists(
             string[] uriSegments,
             List<UriSegmentMeta> uriSegmentMeta,

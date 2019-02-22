@@ -10,10 +10,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
             eventMetadataUploadRegistry
                 .Schedule(() => new EventMetadataUploadJob(dataTransmissionClient, EventMetaCache.Instance))
                 .NonReentrant()
-                .ToRunNow().AndEvery(5) // todo: Expose timespan during init
+                .ToRunNow().AndEvery(5) // todo: Expose timespan during init: START HERE
                 .Seconds();
 
-            JobManager.Initialize(eventMetadataUploadRegistry); // todo: .NET Core equivalent
+            JobManager.Initialize(eventMetadataUploadRegistry);
         }
     }
 }

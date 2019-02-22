@@ -23,7 +23,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public delegate void TransmissionFailedEventHandler(object sender, TransmissionFailedEventArgs e);
 
         private static readonly Lazy<DataTransmissionClient> InnerDataTransmissionClient =
-            new Lazy<DataTransmissionClient>(() => new DataTransmissionClient()); // todo: Remove Lazy
+            new Lazy<DataTransmissionClient>(() => new DataTransmissionClient());
 
         private PublisherClient _publisher;
         private TopicName _topicName;
@@ -415,9 +415,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     throw new DataTransmissionException("An error occurred while transmitting metadata.",
                         brandCode, correlationId, exception);
             }
-        } // todo: Auto-swallow exceptions
+        }
 
-        public async Task TransmitAsync( // todo: Create as custom attribute/middleware
+        public async Task TransmitAsync(
             IEnumerable<string> eventMetadataPayloadBatch,
             bool swallowExceptions = true)
         {

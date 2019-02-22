@@ -25,12 +25,12 @@ namespace Eshopworld.Strada.Plugins.Streaming.PerfApp
             _elapsedTime = elapsedTime;
         }
 
-        public void Execute() // todo: Error-handling EVERYWHERE!
+        public void Execute()
         {
             _stopwatch.Restart();
 
             var eventMetadataPayloadBatch =
-                _eventMetadataCache.GetEventMetadataPayloadBatch(); // todo: Get times for both methods
+                _eventMetadataCache.GetEventMetadataPayloadBatch();
             _dataTransmissionClient.TransmitAsync(eventMetadataPayloadBatch).Wait();
 
             _stopwatch.Stop();
