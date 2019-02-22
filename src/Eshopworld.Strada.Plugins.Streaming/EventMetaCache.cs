@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
@@ -20,13 +21,31 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         public static EventMetaCache Instance => Lazy.Value;
 
-        public void Add(string eventMetadataPayload)
+        public void Add<T>(T eventMetadataPayload,
+            string brandCode = null,
+            string eventName = null,
+            string correlationId = null,
+            string userAgent = null,
+            string queryString = null)
         {
-            if (string.IsNullOrEmpty(eventMetadataPayload))
+            if (eventMetadataPayload == null)
                 throw new ArgumentNullException(nameof(eventMetadataPayload));
-
             if (_cache == null) _cache = new ConcurrentQueue<string>();
-            _cache.Enqueue(eventMetadataPayload);
+
+            var serialisedEventMetadataPayload = JsonConvert.SerializeObject(eventMetadataPayload);
+            var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
+
+            var cachePayload = Functions.AddTrackingMetadataToJson(
+                serialisedEventMetadataPayload,
+                brandCode,
+                eventName,
+                correlationId,
+                userAgent,
+                queryString,
+                eventTimestamp.ToString()
+            );
+
+            _cache.Enqueue(cachePayload);
         }
 
         public List<string>

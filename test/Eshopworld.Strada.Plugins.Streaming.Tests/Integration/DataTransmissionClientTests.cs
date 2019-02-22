@@ -109,7 +109,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     out topicName);
 
                 var eventMetadataCache = new EventMetaCache();
-                for (var i = 0; i < 10; i++) eventMetadataCache.Add("_");
+                for (var i = 0; i < 10; i++) eventMetadataCache.Add(new SimpleObject {Name = "TEST"});
 
                 var dataTransmissionClient = new DataTransmissionClient();
 

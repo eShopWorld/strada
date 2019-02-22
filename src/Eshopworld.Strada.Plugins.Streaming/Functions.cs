@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Eshopworld.Strada.Plugins.Streaming
@@ -20,6 +21,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <param name="queryString">The HTTP request Query string.</param>
         /// <param name="timestamp">The timestamp at which this method is called.</param>
         /// <param name="userAgent">The HTTP request User Agent header value.</param>
+        /// <exception cref="JsonSerializationException"></exception>
         /// <returns>The original JSON suffixed with <see cref="brandCode" /> and <see cref="correlationId" />.</returns>
         public static string AddTrackingMetadataToJson(
             string json,
@@ -30,14 +32,21 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string queryString,
             string timestamp)
         {
-            var jsonObject = JObject.Parse(json);
-            jsonObject.Add(new JProperty("brandCode", brandCode));
-            jsonObject.Add(new JProperty("eventName", eventName));
-            jsonObject.Add(new JProperty("correlationId", correlationId));
-            jsonObject.Add(new JProperty("userAgent", userAgent));
-            jsonObject.Add(new JProperty("queryString", queryString));
-            jsonObject.Add(new JProperty("created", timestamp));
-            return jsonObject.ToString();
+            try
+            {
+                var jsonObject = JObject.Parse(json);
+                jsonObject.Add(new JProperty("brandCode", brandCode));
+                jsonObject.Add(new JProperty("eventName", eventName));
+                jsonObject.Add(new JProperty("correlationId", correlationId));
+                jsonObject.Add(new JProperty("userAgent", userAgent));
+                jsonObject.Add(new JProperty("queryString", queryString));
+                jsonObject.Add(new JProperty("created", timestamp));
+                return jsonObject.ToString();
+            }
+            catch (Exception exception)
+            {
+                throw new JsonSerializationException($"Could not edit the JSON payload: {json}", exception);
+            }
         }
 
         public static bool UriSegmentExists(

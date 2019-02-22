@@ -9,7 +9,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
         public void AllEventMetadataPayloadsAreDequeued()
         {
             var eventMetadataCache = new EventMetaCache();
-            for (var i = 0; i < 100; i++) eventMetadataCache.Add("EVENTMETADATAPAYLOAD");
+            for (var i = 0; i < 100; i++) eventMetadataCache.Add(new SimpleObject {Name = "TEST"});
 
             var eventMetadataPayloadBatch = eventMetadataCache.GetEventMetadataPayloadBatch();
             Assert.Equal(100, eventMetadataPayloadBatch.Count);
@@ -26,10 +26,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
         public void Top50EventMetadataPayloadsAreDequeued()
         {
             var eventMetadataCache = new EventMetaCache();
-            for (var i = 0; i < 100; i++) eventMetadataCache.Add("EVENTMETADATAPAYLOAD");
+            for (var i = 0; i < 100; i++) eventMetadataCache.Add(new SimpleObject {Name = "TEST"});
 
             var eventMetadataPayloadBatch = eventMetadataCache.GetEventMetadataPayloadBatch(50);
             Assert.Equal(50, eventMetadataPayloadBatch.Count);
-        }        
+        }
     }
 }

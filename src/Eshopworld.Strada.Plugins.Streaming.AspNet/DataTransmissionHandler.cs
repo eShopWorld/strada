@@ -34,7 +34,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
             };
 
             var eventMetadataPayload = JsonConvert.SerializeObject(httpRequestMeta);
-            EventMetaCache.Instance.Add(eventMetadataPayload);
+            EventMetaCache.Instance.Add(eventMetadataPayload); // todo: Add other parameters from HTTP headers
 
             return await base.SendAsync(request, cancellationToken);
         }
