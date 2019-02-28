@@ -5,23 +5,7 @@ The **Data Analytics Transmission Component** (DATC) is a [.NET Standard 2.0](ht
 ## Data Flow
 ### Implicit Mode
 Data models, based on your `DataTransmissionClientConfigSettings` [configuration](####Configuration) are automatically cached in memory and published to GCP at regular intervals without the need to explicitly cache the data models
-```mermaid
-sequenceDiagram
-HTTP Request->> HTTP Handler: 
-HTTP Handler->> Your API: Your data model
-HTTP Handler-->>EventCache: Your data model
-loop Event Polling
-EventUploader-->> EventCache: Get Events
-end
-loop Publish Events
-EventUploader->>GCP: Event Batch
-end
-Note right of HTTP Request: HTTP request issued<br/>from web browser
-Note right of HTTP Handler: HTTP request body<br/>is parsed, and your<br/>data model is<br/>extracted
-Note right of Your API: Your data model is<br/>added to a custom<br/>Event, and cached
-Note right of EventCache: Event batches are<br/>dequeued and<br/>prepped for upload<br/>at regular intervals
-Note right of EventUploader: Event batches are<br/>published to a GCP<br/>Cloud Pub/Sub Topic
-```
+<a href="https://eshopworldirl-my.sharepoint.com/personal/pmooney_eshopworld_com/Documents/Projects/Ontario/Data%20Flow%20Implicit%20Mode.PNG">![Data Flow Implicit Mode](https://eshopworldirl-my.sharepoint.com/personal/pmooney_eshopworld_com/Documents/Projects/Ontario/Data%20Flow%20Implicit%20Mode.PNG)</a>
 ### Explicit Mode
 Data models must be explicitly cached in memory in order to be published to GCP
 ```mermaid
