@@ -32,7 +32,7 @@ builder.RegisterType<DataTransmissionClient>()
 ```
 #### Authentication
 We will issue a custom `GcpServiceCredentials` file with the following JSON properties
-```
+```json
 {
 	"Type": "service_account",
 	"project_id": "{GCP Project ID}",
@@ -47,13 +47,13 @@ We will issue a custom `GcpServiceCredentials` file with the following JSON prop
 }
 ```
 Reference and bind the `GcpServiceCredentials` file in your `Application_Start` method
-```
+```csharp
 var gcpServiceCredentials =
                 JsonConvert.DeserializeObject<GcpServiceCredentials>(Resources.GcpServiceCredentials);
 ```
 #### Configuration
 We will issue a custom `DataTransmissionClientConfigSettings` file with the following JSON properties
-```
+```json
 {
 	"ProjectId": "{GCP Project ID}",
 	"TopicId": "{GCP Pub/Sub Topic ID}",
@@ -97,35 +97,35 @@ Cached data models will be published as a batch when the number of elapsed secon
 #### Initialization
 
 Reference and bind the `DataTransmissionClientConfigSettings` file in your `Application_Start` method
-```
+```csharp
 var dataTransmissionClientConfigSettings =
 	JsonConvert.DeserializeObject<DataTransmissionClientConfigSettings>(
 		Resources.DataTransmissionClientConfigSettings);
 ```
 Resolve a reference to your `DataTransmissionClient` [Singleton](http://csharpindepth.com/Articles/Singleton) instance
-```
+```csharp
 var dataTransmissionClient = container.Resolve<DataTransmissionClient>();
 ```
 This example assumes that you are leveraging [AutoFac](https://autofac.org/).
 
 Initialize your `DataTransmissionClient` instance using your [Authentication](#authentication
 ) and [Configuration](#configuration) settings
-```
+```csharp
 dataTransmissionClient.InitAsync(
 	gcpServiceCredentials,
 	dataTransmissionClientConfigSettings
 ).Wait();
 ```
 Start the `DataUploader` background task at the required interval. This runs a single-threaded background process that uploads data batches every 30 seconds
-```
+```csharp
 DataUploader.Start(dataTransmissionClient, 30);
 ```
 Register a `DataTransmissionHandler` instance with your `WebApiConfig` class. This applies to [Implicit Mode](#implicit-mode) only
-```
+```csharp
 config.MessageHandlers.Add(new DataTransmissionHandler());
 ```
 Data models will be automatically cached and published in [Implicit Mode](#implicit-mode). [Explicitly](#explicit-mode) cache your data model by referencing the model in a `HttpRequestMeta` instance
-```
+```csharp
 var myDataModel = new MyDataModel();
 var httpRequestMeta = new HttpRequestMeta
 {
@@ -140,7 +140,7 @@ var httpRequestMeta = new HttpRequestMeta
 };
 ```
 and then add the `HttpRequestMeta` instance to the `EventMetaCache` instance
-```
+```csharp
 EventMetaCache.Instance.Add(httpRequestMeta);
 ```
 ---
