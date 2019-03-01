@@ -7,13 +7,13 @@ The Data Analytics Transmission Component (DATC) is a [.NET Standard 2.0](https:
 There are 2 modes of operation: implicit,  and explicit. In implicit mode, events are automatically written to a backing cache, before being uploaded in batches. This results in a latency measured in single-digit milliseconds. In explicit mode, events are uploaded on-demand, by executing an upload function inside your API Controller. This results in a latency measured in 2|3-digit milliseconds.
 ## Data Flow
 ### Implicit Mode
-Data models, based on your `DataTransmissionClientConfigSettings` [configuration](####Configuration) are automatically cached in memory and published to GCP at regular intervals without the need to explicitly cache the data models
+Data models, based on your `DataTransmissionClientConfigSettings` [Configuration](#configuration), are automatically cached in memory and published to GCP at regular intervals without the need to explicitly cache the data models
 
-<a href="https://bit.ly/2H8arim">![Data Flow Implicit Mode](https://bit.ly/2H8arim)</a>
+<a href="https://bit.ly/2GTu3Ya">![Data Flow Implicit Mode](https://bit.ly/2GTu3Ya)</a>
 ### Explicit Mode
 Data models must be explicitly cached in memory in order to be published to GCP
 
-<a href="https://bit.ly/2GTZdyp">![Data Flow Explicit Mode](https://bit.ly/2GTZdyp)</a>
+<a href="https://bit.ly/2HfihXB">![Data Flow Explicit Mode](https://bit.ly/2HfihXB)</a>
 # Installation
 ## .NET Framework 4.6
 Install the `Strada Core` NuGet package
@@ -25,7 +25,7 @@ and the `ASP.NET` NuGet package
 ### Implementation
 #### Dependency Injection
 Register the `DataTransmissionClient` class as a [Singleton](http://csharpindepth.com/Articles/Singleton) instance with your DI provider in your `Application_Start` method. This example assumes that you are leveraging [AutoFac](https://autofac.org/).
-```
+```csharp
 builder.RegisterType<DataTransmissionClient>()
 	.AsSelf()
 	.SingleInstance();
@@ -75,10 +75,10 @@ We will issue a custom `DataTransmissionClientConfigSettings` file with the foll
 The configuration file determines where and how data models are intercepted and uploaded. Below are explanations of each configuration property
 
 ##### UriSegmentName
-URI segment that you would like to intercept. E.g., given the following URI: `http://www.myapp/api/accounts?id=1`, setting `UriSegmentName` to "_accounts_" allows the component to intercept HTTP calls to the _accounts_ URI segment. This property applies to [implicit](#implicit-mode) mode only.
+URI segment that you would like to intercept. E.g., given the following URI: `http://www.myapp/api/accounts?id=1`, setting `UriSegmentName` to "_accounts_" allows the component to intercept HTTP calls to the _accounts_ URI segment. This property applies to [Implicit](#implicit-mode) mode only.
 
 ##### AllowedHttpMethods
-HTTP methods associated with `UriSegmentName` that you would like to intercept. E.g., specifying a value of `POST`, associated with `UriSegmentName` _accounts_,  will intercept all HTTP POST calls to the _accounts_ URI segment. You must individually specify each HTTP method that you would like to intercept. This property applies to [implicit](#implicit-mode) mode only.
+HTTP methods associated with `UriSegmentName` that you would like to intercept. E.g., specifying a value of `POST`, associated with `UriSegmentName` _accounts_,  will intercept all HTTP POST calls to the _accounts_ URI segment. You must individually specify each HTTP method that you would like to intercept. This property applies to [Implicit](#implicit-mode) mode only.
 
 ##### AllowedHttpHeaders
 HTTP headers that you would like to read on data model interception. These headers will be persisted to GCP along with the data model.
@@ -120,11 +120,11 @@ Start the `DataUploader` background task at the required interval. This runs a s
 ```
 DataUploader.Start(dataTransmissionClient, 30);
 ```
-Register a `DataTransmissionHandler` instance with your `WebApiConfig` class. This applies to [implicit mode](#implicit-mode) only
+Register a `DataTransmissionHandler` instance with your `WebApiConfig` class. This applies to [Implicit Mode](#implicit-mode) only
 ```
 config.MessageHandlers.Add(new DataTransmissionHandler());
 ```
-Data models will be automatically cached and published in [implicit](#implicit-mode) mode. [Explicitly](#explicit-mode) cache your data model by referencing the model in a `HttpRequestMeta` instance
+Data models will be automatically cached and published in [Implicit Mode](#implicit-mode). [Explicitly](#explicit-mode) cache your data model by referencing the model in a `HttpRequestMeta` instance
 ```
 var myDataModel = new MyDataModel();
 var httpRequestMeta = new HttpRequestMeta
@@ -139,3 +139,8 @@ var httpRequestMeta = new HttpRequestMeta
         .ToList()
 };
 ```
+and then add the `HttpRequestMeta` instance to the `EventMetaCache` instance
+```
+EventMetaCache.Instance.Add(httpRequestMeta);
+```
+---
