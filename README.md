@@ -13,7 +13,7 @@ Data models, based on your `DataTransmissionClientConfigSettings` [configuration
 ### Explicit Mode
 Data models must be explicitly cached in memory in order to be published to GCP
 
-<a href="https://bit.ly/2tKL7Hi">![Data Flow Explicit Mode](https://bit.ly/2tKL7Hi)</a>
+<a href="https://bit.ly/2GTZdyp">![Data Flow Explicit Mode](https://bit.ly/2GTZdyp)</a>
 # Installation
 ## .NET Framework 4.6
 Install the `Strada Core` NuGet package
