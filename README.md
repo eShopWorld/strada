@@ -1,22 +1,17 @@
+
 [![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://ci.appveyor.com/project/daishisystems/strada)
 [![NuGet](https://img.shields.io/badge/myget-v1.9.8-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming)
 # Overview
-The **Data Analytics Transmission Component** (DATC) is a [.NET Standard 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/08/14/announcing-net-standard-2-0/) library that transmits data from your app to [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).  Data is transmitted asynchronously from an in-memory cache, resulting in evenly-balanced throughput, and low CPU/RAM overhead. There are 2 modes of operation: implcit,  and explicit. In implicit mode, events are automatically written to a backing cache, before being uploaded in batches. This results in a latency measured in single-digit milliseconds. In explicit mode, events are uploaded on-demand, by executing an upload function inside your API Controller. This results in a latency measured in 2|3-digit milliseconds.
+The **Data Analytics Transmission Component** (DATC) is a [.NET Standard 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/08/14/announcing-net-standard-2-0/) library that transmits data from your app to [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).  Data is transmitted asynchronously from an in-memory cache, resulting in evenly-balanced throughput, and low CPU/RAM overhead.
+
+There are 2 modes of operation: implcit,  and explicit. In implicit mode, events are automatically written to a backing cache, before being uploaded in batches. This results in a latency measured in single-digit milliseconds. In explicit mode, events are uploaded on-demand, by executing an upload function inside your API Controller. This results in a latency measured in 2|3-digit milliseconds.
 ## Data Flow
 ### Implicit Mode
-Data models, based on your `DataTransmissionClientConfigSettings` [configuration](####Configuration) are automatically cached in memory and published to GCP at regular intervals without the need to explicitly cache the data models
-<a href="https://bit.ly/2T5nCaV">![Data Flow Implicit Mode](https://bit.ly/2T5nCaV)</a>
+Data models, based on your `DataTransmissionClientConfigSettings` [configuration](####Configuration) are automatically cached in memory and published to GCP at regular intervals without the need to explicitly cache the data models 
+<a href="https://bit.ly/2GS2mPq">![Data Flow Implicit Mode](https://bit.ly/2GS2mPq)</a>
 ### Explicit Mode
 Data models must be explicitly cached in memory in order to be published to GCP
-```mermaid
-sequenceDiagram
-HTTP Request->> Your API: 
-Your API->>EventUploader: Your data model
-EventUploader->>GCP: Event
-Note right of HTTP Request: HTTP request issued<br/>from web browser
-Note right of Your API: Your data model is<br/>added to a custom<br/>Event
-Note right of EventUploader: Event is published to<br/>a GCP<br/>Cloud Pub/Sub Topic
-```
+<a href="https://bit.ly/2UdeQ79">![Data Flow Implicit Mode](https://bit.ly/2UdeQ79)</a>
 # Installation
 ## .NET Framework 4.6
 Install the `Strada Core` NuGet package
