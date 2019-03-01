@@ -75,10 +75,10 @@ We will issue a custom `DataTransmissionClientConfigSettings` file with the foll
 The configuration file determines where and how data models are intercepted and uploaded. Below are explanations of each configuration property
 
 ##### UriSegmentName
-URI segment that you would like to intercept. E.g., given the following URI: `http://www.myapp/api/accounts?id=1`, setting `UriSegmentName` to "_accounts_" allows the component to intercept HTTP calls to the _accounts_ URI segment. This property applies to [implicit](###Implicit) mode only.
+URI segment that you would like to intercept. E.g., given the following URI: `http://www.myapp/api/accounts?id=1`, setting `UriSegmentName` to "_accounts_" allows the component to intercept HTTP calls to the _accounts_ URI segment. This property applies to [implicit](#implicit-mode) mode only.
 
 ##### AllowedHttpMethods
-HTTP methods associated with `UriSegmentName` that you would like to intercept. E.g., specifying a value of `POST`, associated with `UriSegmentName` _accounts_,  will intercept all HTTP POST calls to the _accounts_ URI segment. You must individually specify each HTTP method that you would like to intercept. This property applies to [implicit](###Implicit) mode only.
+HTTP methods associated with `UriSegmentName` that you would like to intercept. E.g., specifying a value of `POST`, associated with `UriSegmentName` _accounts_,  will intercept all HTTP POST calls to the _accounts_ URI segment. You must individually specify each HTTP method that you would like to intercept. This property applies to [implicit](#implicit-mode) mode only.
 
 ##### AllowedHttpHeaders
 HTTP headers that you would like to read on data model interception. These headers will be persisted to GCP along with the data model.
@@ -108,8 +108,8 @@ var dataTransmissionClient = container.Resolve<DataTransmissionClient>();
 ```
 This example assumes that you are leveraging [AutoFac](https://autofac.org/).
 
-Initialize your `DataTransmissionClient` instance using your [Authentication](###Authentication
-) and [Configuration](####Configuration) settings
+Initialize your `DataTransmissionClient` instance using your [Authentication](#authentication
+) and [Configuration](#configuration) settings
 ```
 dataTransmissionClient.InitAsync(
 	gcpServiceCredentials,
@@ -120,7 +120,7 @@ Start the `DataUploader` background task at the required interval. This runs a s
 ```
 DataUploader.Start(dataTransmissionClient, 30);
 ```
-Register a `DataTransmissionHandler` instance with your `WebApiConfig` class. This applies to [implicit mode](###Implicit) only
+Register a `DataTransmissionHandler` instance with your `WebApiConfig` class. This applies to [implicit mode](#implicit-mode) only
 ```
 config.MessageHandlers.Add(new DataTransmissionHandler());
 ```
