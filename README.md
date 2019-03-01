@@ -7,11 +7,11 @@ The **Data Analytics Transmission Component** (DATC) is a [.NET Standard 2.0](ht
 There are 2 modes of operation: implcit,  and explicit. In implicit mode, events are automatically written to a backing cache, before being uploaded in batches. This results in a latency measured in single-digit milliseconds. In explicit mode, events are uploaded on-demand, by executing an upload function inside your API Controller. This results in a latency measured in 2|3-digit milliseconds.
 ## Data Flow
 ### Implicit Mode
-Data models, based on your `DataTransmissionClientConfigSettings` [configuration](####Configuration) are automatically cached in memory and published to GCP at regular intervals without the need to explicitly cache the data models 
-<a href="https://bit.ly/2GS2mPq">![Data Flow Implicit Mode](https://bit.ly/2GS2mPq)</a>
+Data models, based on your `DataTransmissionClientConfigSettings` [configuration](####Configuration) are automatically cached in memory and published to GCP at regular intervals without the need to explicitly cache the data models
+<a href="https://bit.ly/2H8arim">![Data Flow Implicit Mode](https://bit.ly/2H8arim)</a>
 ### Explicit Mode
 Data models must be explicitly cached in memory in order to be published to GCP
-<a href="https://bit.ly/2UdeQ79">![Data Flow Explicit Mode](https://bit.ly/2UdeQ79)</a>
+<a href="https://bit.ly/2tKL7Hi">![Data Flow Explicit Mode](https://bit.ly/2tKL7Hi)</a>
 # Installation
 ## .NET Framework 4.6
 Install the `Strada Core` NuGet package
