@@ -4,7 +4,7 @@
 # Overview
 The **Data Analytics Transmission Component** (DATC) is a [.NET Standard 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/08/14/announcing-net-standard-2-0/) library that transmits data from your app to [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).  Data is transmitted asynchronously from an in-memory cache, resulting in evenly-balanced throughput, and low CPU/RAM overhead.
 
-There are 2 modes of operation: implcit,  and explicit. In implicit mode, events are automatically written to a backing cache, before being uploaded in batches. This results in a latency measured in single-digit milliseconds. In explicit mode, events are uploaded on-demand, by executing an upload function inside your API Controller. This results in a latency measured in 2|3-digit milliseconds.
+There are 2 modes of operation: implicit,  and explicit. In implicit mode, events are automatically written to a backing cache, before being uploaded in batches. This results in a latency measured in single-digit milliseconds. In explicit mode, events are uploaded on-demand, by executing an upload function inside your API Controller. This results in a latency measured in 2|3-digit milliseconds.
 ## Data Flow
 ### Implicit Mode
 Data models, based on your `DataTransmissionClientConfigSettings` [configuration](####Configuration) are automatically cached in memory and published to GCP at regular intervals without the need to explicitly cache the data models
