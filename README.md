@@ -2,7 +2,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://ci.appveyor.com/project/daishisystems/strada)
 [![NuGet](https://img.shields.io/badge/myget-v1.9.8-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming)
 # Overview
-The **Data Analytics Transmission Component** (DATC) is a [.NET Standard 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/08/14/announcing-net-standard-2-0/) library that transmits data from your app to [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).  Data is transmitted asynchronously from an in-memory cache, resulting in evenly-balanced throughput, and low CPU/RAM overhead.
+The Data Analytics Transmission Component (DATC) is a [.NET Standard 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/08/14/announcing-net-standard-2-0/) library that transmits data from your app to [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).  Data is transmitted asynchronously from an in-memory cache, resulting in evenly-balanced throughput, and low CPU/RAM overhead.
 
 There are 2 modes of operation: implicit,  and explicit. In implicit mode, events are automatically written to a backing cache, before being uploaded in batches. This results in a latency measured in single-digit milliseconds. In explicit mode, events are uploaded on-demand, by executing an upload function inside your API Controller. This results in a latency measured in 2|3-digit milliseconds.
 ## Data Flow
@@ -124,7 +124,7 @@ Register a `DataTransmissionHandler` instance with your `WebApiConfig` class. Th
 ```
 config.MessageHandlers.Add(new DataTransmissionHandler());
 ```
-Data models will be automatically cached and published in [implicit](###Implicit) mode. [Explicitly](###Explicit) cache your data model by referencing the model to in a `HttpRequestMeta` instance
+Data models will be automatically cached and published in [implicit](#implicit-mode) mode. [Explicitly](#explicit-mode) cache your data model by referencing the model in a `HttpRequestMeta` instance
 ```
 var myDataModel = new MyDataModel();
 var httpRequestMeta = new HttpRequestMeta
