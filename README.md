@@ -5,7 +5,7 @@ The **Data Analytics Transmission Component** (DATC) is a [.NET Standard 2.0](ht
 ## Data Flow
 ### Implicit Mode
 Data models, based on your `DataTransmissionClientConfigSettings` [configuration](####Configuration) are automatically cached in memory and published to GCP at regular intervals without the need to explicitly cache the data models
-<a href="https://eshopworldirl-my.sharepoint.com/personal/pmooney_eshopworld_com/Documents/Projects/Ontario/Data%20Flow%20Implicit%20Mode.PNG">![Data Flow Implicit Mode](https://eshopworldirl-my.sharepoint.com/personal/pmooney_eshopworld_com/Documents/Projects/Ontario/Data%20Flow%20Implicit%20Mode.PNG)</a>
+<a href="https://bit.ly/2T5nCaV">![Data Flow Implicit Mode](https://bit.ly/2T5nCaV)</a>
 ### Explicit Mode
 Data models must be explicitly cached in memory in order to be published to GCP
 ```mermaid
