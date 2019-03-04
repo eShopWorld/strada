@@ -56,7 +56,6 @@
   <ItemGroup>
     <Compile Include="DataUploader.cs" />
     <Compile Include="EventMetadataUploadJob.cs" />
-    <Compile Include="FingerprintHandler.cs" />
     <Compile Include="Functions.cs" />
     <Compile Include="HttpRequestMeta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

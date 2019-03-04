@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Net.Http;
 
 namespace Eshopworld.Strada.Plugins.Streaming.AspNet
 {
     public static class Functions
     {
-        public static string GetCorGetFingerprint(
-            HttpRequest httpRequest,
+        public static string GetFingerprint(
+            HttpRequestMessage httpRequest,
             string fingerprintHeaderName = "FingerprintId")
         {
             if (httpRequest == null) throw new ArgumentNullException(nameof(httpRequest));
 
-            IEnumerable<string> headerValues = httpRequest.Headers.GetValues(fingerprintHeaderName);
+            var headerValues = httpRequest.Headers.GetValues(fingerprintHeaderName);
             return headerValues?.LastOrDefault();
         }
     }

@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Eshopworld.Strada.Plugins.Streaming\Eshopworld.Strada.Plugins.Streaming.csproj" />
+  </ItemGroup>
+
 </Project>

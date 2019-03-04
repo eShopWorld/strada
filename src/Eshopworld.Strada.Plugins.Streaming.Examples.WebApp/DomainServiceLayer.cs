@@ -25,7 +25,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
         /// <summary>
         ///     Used to link related metadata in the downstream data lake.
         /// </summary>
-        public string CorrelationId => _dataAnalyticsMeta.CorrelationId;
+        public string CorrelationId => _dataAnalyticsMeta.Fingerprint;
 
         /// <summary>
         ///     SaveOrder persists an <see cref="Order" /> instance to DB.
@@ -47,7 +47,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             await _dataTransmissionClient.TransmitAsync(
                 brandCode,
                 eventName,
-                _dataAnalyticsMeta.CorrelationId,
+                _dataAnalyticsMeta.Fingerprint,
                 order,
                 userAgent,
                 queryString);

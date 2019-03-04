@@ -1,4 +1,8 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Http;
+using Eshopworld.Strada.Plugins.Streaming.AspNet;
+using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
 {
@@ -11,9 +15,18 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public async Task<string> Get(int id)
         {
-            return null;
+            var httpRequestMeta = new HttpRequestMeta
+            {
+                Uri = Request.RequestUri,
+                Body = JsonConvert.DeserializeObject(await Request.Content.ReadAsStringAsync()),
+                HttpRequestHeaders = Request.Headers
+                    .Where(header => UriMetaCache.Instance.AllowedHttpHeaders.Contains(header.Key.ToLowerInvariant()))
+                    .ToList(),
+                Fingerprint = AspNet.Functions.GetFingerprint(Request)
+            };
+            return httpRequestMeta.Fingerprint;
         }
 
         // POST api/values                      
@@ -30,10 +43,5 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
         public void Delete(int id)
         {
         }
-    }
-
-    public class Message
-    {
-        public string Greeting { get; set; }
     }
 }

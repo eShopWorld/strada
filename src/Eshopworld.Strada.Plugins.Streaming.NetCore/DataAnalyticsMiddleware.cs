@@ -18,7 +18,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.NetCore
 
         public async Task Invoke(HttpContext context, DataAnalyticsMeta dataAnalyticsMeta)
         {
-            dataAnalyticsMeta.CorrelationId = Functions.GetCorrelationId(context.Request);
+            dataAnalyticsMeta.Fingerprint = Functions.GetCorrelationId(context.Request);
             await _next(context);
         }
     }
