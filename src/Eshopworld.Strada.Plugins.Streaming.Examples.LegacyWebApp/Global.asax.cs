@@ -55,7 +55,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
             dataTransmissionClient.InitAsync(
                 gcpServiceCredentials,
                 dataTransmissionClientConfigSettings
-            ).Wait(); // todo: Create synchronous equivalent            
+            ).Wait();
 
             DataUploader.Start(dataTransmissionClient, 30);
         }

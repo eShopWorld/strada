@@ -12,7 +12,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
             HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            var uriSegmentFound = Functions.UriSegmentExists(
+            var uriSegmentFound = Streaming.Functions.UriSegmentExists(
                 request.RequestUri.Segments,
                 UriMetaCache.Instance.UriSegmentMeta,
                 out var allowedHttpMethods);

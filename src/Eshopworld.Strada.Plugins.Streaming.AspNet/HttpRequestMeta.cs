@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 
 namespace Eshopworld.Strada.Plugins.Streaming.AspNet
 {
-    internal class HttpRequestMeta
+    public class HttpRequestMeta // todo: Add AdditionalMeta dictionary to hold brandcode, etc.
     {
         public Uri Uri { get; set; }
         public object Body { get; set; }
