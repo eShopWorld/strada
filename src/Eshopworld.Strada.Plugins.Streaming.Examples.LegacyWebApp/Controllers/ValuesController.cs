@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using Eshopworld.Strada.Plugins.Streaming.AspNet;
-using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
 {
@@ -17,15 +15,8 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
         // GET api/values/5
         public async Task<string> Get(int id)
         {
-            var httpRequestMeta = new HttpRequestMeta
-            {
-                Uri = Request.RequestUri,
-                Body = JsonConvert.DeserializeObject(await Request.Content.ReadAsStringAsync()),
-                HttpRequestHeaders = Request.Headers
-                    .Where(header => UriMetaCache.Instance.AllowedHttpHeaders.Contains(header.Key.ToLowerInvariant()))
-                    .ToList(),
-                Fingerprint = AspNet.Functions.GetFingerprint(Request)
-            };
+            var httpRequestMeta = await HttpRequestMeta.Create(Request);
+            EventMetaCache.Instance.Add(httpRequestMeta);
             return httpRequestMeta.Fingerprint;
         }
 

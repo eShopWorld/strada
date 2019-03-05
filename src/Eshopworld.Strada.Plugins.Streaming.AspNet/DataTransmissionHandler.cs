@@ -32,7 +32,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
                     .Where(header => UriMetaCache.Instance.AllowedHttpHeaders.Contains(header.Key.ToLowerInvariant()))
                     .ToList()
             };
-
+            // todo: Error handling
             EventMetaCache.Instance.Add(httpRequestMeta); // todo: Add other parameters from HTTP headers
 
             return await base.SendAsync(request, cancellationToken);

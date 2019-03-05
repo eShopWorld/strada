@@ -65,7 +65,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             {
                 do
                 {
-                    uriSegmentName = uriSegments[index];
+                    uriSegmentName = uriSegments[index].Replace("/", string.Empty);
                     if (uriSegmentMeta.Any(meta => meta.UriSegmentName == uriSegmentName))
                         uriSegmentFound = true;
                 } while (!uriSegmentFound && ++index < uriSegments.Length);
