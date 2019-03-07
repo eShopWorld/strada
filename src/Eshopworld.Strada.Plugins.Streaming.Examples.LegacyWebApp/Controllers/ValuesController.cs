@@ -15,7 +15,8 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
         // GET api/values/5
         public async Task<string> Get(int id)
         {
-            var httpRequestMeta = await HttpRequestMeta.Create(Request);
+            var payload = new Message {Greeting = "Hey!"};
+            var httpRequestMeta = await HttpRequestMeta.Create(Request, payload);
             EventMetaCache.Instance.Add(httpRequestMeta);
             return httpRequestMeta.Fingerprint;
         }
