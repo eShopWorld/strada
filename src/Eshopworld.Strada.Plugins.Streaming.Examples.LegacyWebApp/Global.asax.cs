@@ -6,7 +6,6 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.WebApi;
-using Eshopworld.Strada.Plugins.Streaming.AspNet;
 using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
@@ -57,7 +56,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
                 dataTransmissionClientConfigSettings
             ).Wait();
 
-            DataUploader.Start(dataTransmissionClient, 30);
+            AspNet.DataUploader.Start(dataTransmissionClient, 30);
         }
     }
 }
