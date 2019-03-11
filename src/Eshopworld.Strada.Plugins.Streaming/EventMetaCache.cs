@@ -24,7 +24,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public void Add<T>(T eventMetadataPayload,
             string brandCode = null,
             string eventName = null,
-            string correlationId = null,
+            string fingerprint = null,
             string userAgent = null,
             string queryString = null)
         {
@@ -39,7 +39,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 serialisedEventMetadataPayload,
                 brandCode,
                 eventName,
-                correlationId,
+                fingerprint,
                 userAgent,
                 queryString,
                 eventTimestamp.ToString()

@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using Eshopworld.Strada.Plugins.Streaming.AspNet;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
 {
@@ -17,8 +16,6 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
                 "api/{controller}/{id}",
                 new {id = RouteParameter.Optional}
             );
-
-            config.MessageHandlers.Add(new DataTransmissionHandler());
         }
     }
 }

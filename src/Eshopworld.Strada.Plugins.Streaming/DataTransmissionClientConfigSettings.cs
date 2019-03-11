@@ -2,7 +2,7 @@
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public class DataTransmissionClientConfigSettings
+    public class DataTransmissionClientConfigSettings // todo: remove implicit properties, keep everything else
     {
         public DataTransmissionClientConfigSettings()
         {

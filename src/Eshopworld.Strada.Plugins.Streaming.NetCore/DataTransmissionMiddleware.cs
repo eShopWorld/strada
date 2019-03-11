@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace Eshopworld.Strada.Plugins.Streaming.NetCore
 {
-    public class DataAnalyticsMiddleware
+    public class DataTransmissionMiddleware
     {
         private readonly RequestDelegate _next;
 
-        public DataAnalyticsMiddleware(RequestDelegate next)
+        public DataTransmissionMiddleware(RequestDelegate next)
         {
             _next = next;
         }

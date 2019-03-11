@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
 {
     public class FunctionsTests
-    {        
+    {
         [Fact]
         public void TrackingMetadataIsAddedToJSON()
         {
@@ -33,49 +31,6 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
             Assert.Equal(userAgent, deserialised["userAgent"].ToString());
             Assert.Equal(queryString, deserialised["queryString"].ToString());
             Assert.Equal(created, deserialised["created"].ToString());
-        }
-
-        [Fact]
-        public void UriSegmentIsFound()
-        {
-            const string httpPostMethod = "POST";
-            const string uriSegmentName = "segment2";
-
-            var uriSegmentMeta = new List<UriSegmentMeta>
-            {
-                new UriSegmentMeta
-                {
-                    UriSegmentName = uriSegmentName,
-                    AllowedHttpMethods = new HashSet<string> {httpPostMethod}
-                }
-            };
-
-            string[] uriSegments = {"segment1", uriSegmentName, "segment3"};
-            var uriSegmentFound = Functions.UriSegmentExists(uriSegments, uriSegmentMeta, out var allowedHttpMethods);
-
-            Assert.True(uriSegmentFound);
-            Assert.Equal(httpPostMethod, allowedHttpMethods.First());
-        }
-
-        [Fact]
-        public void UriSegmentIsNotFound()
-        {
-            const string httpPostMethod = "POST";
-            const string uriSegmentName = "segment2";
-
-            var uriSegmentMeta = new List<UriSegmentMeta>
-            {
-                new UriSegmentMeta
-                {
-                    UriSegmentName = "NAME",
-                    AllowedHttpMethods = new HashSet<string> {httpPostMethod}
-                }
-            };
-
-            string[] uriSegments = {"segment1", uriSegmentName, "segment3"};
-            var uriSegmentFound = Functions.UriSegmentExists(uriSegments, uriSegmentMeta, out var allowedHttpMethods);
-
-            Assert.False(uriSegmentFound);
         }
     }
 }

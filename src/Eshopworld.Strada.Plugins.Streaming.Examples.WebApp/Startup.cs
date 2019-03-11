@@ -48,7 +48,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             // Establish a persistent connection to GCP Pub/Sub
             dataTransmissionClient.InitAsync("eshop-puddle", "checkout-dev", gcpServiceCredentials).Wait();
             // Configure custom middleware to handle correlation-id meta
-            app.UseMiddleware<DataAnalyticsMiddleware>();
+            app.UseMiddleware<DataTransmissionMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseMvc();

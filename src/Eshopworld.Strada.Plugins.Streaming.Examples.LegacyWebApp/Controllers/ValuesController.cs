@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
 {
@@ -12,18 +11,15 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
         }
 
         // GET api/values/5
-        public async Task<string> Get(int id)
+        public void Get(int id)
         {
-            var payload = new Message {Greeting = "Hey!"};
+            var payload = new Message
+            {
+                Greeting = "Hey!",
+                Value = id
+            };
 
-            var httpRequestMeta =
-                await HttpRequestMeta.Create(
-                    Request,
-                    AspNet.Functions.GetFingerprint(Request),
-                    payload);
-
-            EventMetaCache.Instance.Add(httpRequestMeta); // todo: call above as individual params?
-            return httpRequestMeta.Fingerprint;
+            EventMetaCache.Instance.Add(payload);
         }
 
         // POST api/values                      
