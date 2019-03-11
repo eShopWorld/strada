@@ -17,7 +17,8 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
             out SubscriberServiceApiClient subscriber,
             out SubscriptionName subscriptionName,
             out PublisherServiceApiClient publisher,
-            out TopicName topicName)
+            out TopicName topicName,
+            out DataTransmissionClientConfigSettings dataTransmissionClientConfigSettings)
         {
             GcpServiceCredentials gcpServiceCredentials;
 
@@ -31,6 +32,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     gcpServiceCredentials =
                         JsonConvert.DeserializeObject<GcpServiceCredentials>(client
                             .GetStringAsync(Resources.CredentialsFileUri).Result);
+
+                    dataTransmissionClientConfigSettings =
+                        JsonConvert.DeserializeObject<DataTransmissionClientConfigSettings>(client
+                            .GetStringAsync(Resources.ConfigFileUri).Result);
                 }
 
                 var publisherCredential = GoogleCredential.FromJson(JsonConvert.SerializeObject(gcpServiceCredentials))
@@ -75,10 +80,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
             return gcpServiceCredentials;
         }
 
-        private static void PullMessage<T>(
+        private static void PullMessage(
             Action callback,
             SubscriberServiceApiClient subscriber,
-            SubscriptionName subscriptionName) where T : class
+            SubscriptionName subscriptionName)
         {
             var response = subscriber.Pull(subscriptionName, false, 10,
                 CallSettings.FromCallTiming(
@@ -88,7 +93,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
 
             if (response.ReceivedMessages == null) return;
             if (response.ReceivedMessages.Count == 0) return;
-            foreach (var message in response.ReceivedMessages) callback();
+            foreach (var unused in response.ReceivedMessages) callback();
 
             var ackIds = new string[response.ReceivedMessages.Count];
             for (var i = 0; i < response.ReceivedMessages.Count; ++i)
@@ -97,7 +102,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
         }
 
         [Fact]
-        public void DataIsTransmittedToCloudPubSubInBatchMode()
+        public void DataIsTransmittedToCloudPubSub()
         {
             PublisherServiceApiClient publisher = null;
             SubscriberServiceApiClient subscriber = null;
@@ -106,11 +111,12 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
 
             try
             {
-                var serviceCredentialsJson = Init(
+                var gcpServiceCredentials = Init(
                     out subscriber,
                     out subscriptionName,
                     out publisher,
-                    out topicName);
+                    out topicName,
+                    out var dataTransmissionClientConfigSettings);
 
                 var eventMetadataCache = new EventMetaCache();
                 for (var i = 0; i < 10; i++) eventMetadataCache.Add(new SimpleObject {Name = "TEST"});
@@ -118,68 +124,17 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                 var dataTransmissionClient = new DataTransmissionClient();
 
                 dataTransmissionClient.InitAsync(
-                    Resources.GCPProjectId,
-                    Resources.PubSubTopicId,
-                    serviceCredentialsJson,
-                    true,
-                    true).Wait();
+                    gcpServiceCredentials,
+                    dataTransmissionClientConfigSettings).Wait();
 
                 dataTransmissionClient.TransmitAsync(eventMetadataCache.GetEventMetadataPayloadBatch()).Wait();
 
                 var counter = 0;
-                PullMessage<string>(() => { counter++; },
+                PullMessage(() => { counter++; },
                     subscriber,
                     subscriptionName);
 
                 Assert.Equal(10, counter);
-            }
-            finally
-            {
-                subscriber?.DeleteSubscription(subscriptionName);
-                publisher?.DeleteTopic(topicName);
-            }
-        }
-
-        [Fact]
-        public void DataIsTransmittedToCloudPubSubOnDemand()
-        {
-            SubscriberServiceApiClient subscriber = null;
-            SubscriptionName subscriptionName = null;
-            PublisherServiceApiClient publisher = null;
-            TopicName topicName = null;
-            try
-            {
-                var serviceCredentialsJson = Init(
-                    out subscriber,
-                    out subscriptionName,
-                    out publisher,
-                    out topicName);
-
-                var dataTransmissionClient = new DataTransmissionClient();
-
-                dataTransmissionClient.InitAsync(
-                    Resources.GCPProjectId,
-                    Resources.PubSubTopicId,
-                    serviceCredentialsJson).Wait();
-
-                dataTransmissionClient.TransmitAsync(
-                    Resources.BrandCode,
-                    Resources.EventName,
-                    Guid.NewGuid().ToString(),
-                    string.Empty,
-                    string.Empty,
-                    string.Empty).Wait();
-
-                var counter = 0;
-                PullMessage<string>(() => { counter++; },
-                    subscriber,
-                    subscriptionName);
-
-                Assert.Equal(1, counter);
-            }
-            catch (Exception)
-            {
-                // Fail todo: Don't fail silently
             }
             finally
             {

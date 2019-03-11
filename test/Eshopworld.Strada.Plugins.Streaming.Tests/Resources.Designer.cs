@@ -70,6 +70,15 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://storage.googleapis.com/integration-test-creds/config.json.
+        /// </summary>
+        internal static string ConfigFileUri {
+            get {
+                return ResourceManager.GetString("ConfigFileUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://storage.googleapis.com/integration-test-creds/creds.json.
         /// </summary>
         internal static string CredentialsFileUri {

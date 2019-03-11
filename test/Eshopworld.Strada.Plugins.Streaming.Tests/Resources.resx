@@ -138,4 +138,7 @@
   <data name="EventName" xml:space="preserve">
     <value>PAGE-LOAD</value>
   </data>
+  <data name="ConfigFileUri" xml:space="preserve">
+    <value>https://storage.googleapis.com/integration-test-creds/config.json</value>
+  </data>
 </root>
