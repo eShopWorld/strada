@@ -7,10 +7,11 @@ using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public class HttpRequestMeta // todo: Add HTTP method
+    public class HttpRequestMeta
     {
         public Uri Uri { get; set; }
         public object Body { get; set; }
+        public string HttpMethod { get; set; }
         public List<KeyValuePair<string, IEnumerable<string>>> HttpRequestHeaders { get; set; }
         public string Fingerprint { get; private set; }
 
@@ -38,6 +39,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             {
                 Uri = httpRequestMessage.RequestUri,
                 Body = body,
+                HttpMethod = httpRequestMessage.Method.Method,
                 HttpRequestHeaders = httpRequestHeaders,
                 Fingerprint = fingerPrint
             };
