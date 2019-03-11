@@ -5,9 +5,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Eshopworld.Strada.Plugins.Streaming.AspNet
+namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public class HttpRequestMeta
+    public class HttpRequestMeta // todo: Add HTTP method
     {
         public Uri Uri { get; set; }
         public object Body { get; set; }
@@ -16,6 +16,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
 
         public static async Task<HttpRequestMeta> Create(
             HttpRequestMessage httpRequestMessage,
+            string fingerPrint,
             object payload = null,
             bool parseAllHttpHeaders = true)
         {
@@ -38,7 +39,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
                 Uri = httpRequestMessage.RequestUri,
                 Body = body,
                 HttpRequestHeaders = httpRequestHeaders,
-                Fingerprint = Functions.GetFingerprint(httpRequestMessage)
+                Fingerprint = fingerPrint
             };
         }
     }

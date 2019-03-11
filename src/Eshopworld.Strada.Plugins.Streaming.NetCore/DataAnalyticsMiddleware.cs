@@ -3,10 +3,6 @@ using Microsoft.AspNetCore.Http;
 
 namespace Eshopworld.Strada.Plugins.Streaming.NetCore
 {
-    /// <summary>
-    ///     DataAnalyticsMiddleware applies data analytics metadata to the HTTP context.
-    /// </summary>
-    /// <remarks>Compatible with ASP.NET Core only.</remarks>
     public class DataAnalyticsMiddleware
     {
         private readonly RequestDelegate _next;
@@ -18,7 +14,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.NetCore
 
         public async Task Invoke(HttpContext context, DataAnalyticsMeta dataAnalyticsMeta)
         {
-            dataAnalyticsMeta.Fingerprint = Functions.GetCorrelationId(context.Request);
+            dataAnalyticsMeta.Fingerprint = Functions.GetFingerprint(context.Request);
             await _next(context);
         }
     }

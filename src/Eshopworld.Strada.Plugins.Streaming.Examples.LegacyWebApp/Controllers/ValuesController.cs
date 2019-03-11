@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Eshopworld.Strada.Plugins.Streaming.AspNet;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
 {
@@ -16,7 +15,13 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
         public async Task<string> Get(int id)
         {
             var payload = new Message {Greeting = "Hey!"};
-            var httpRequestMeta = await HttpRequestMeta.Create(Request, payload);
+
+            var httpRequestMeta =
+                await HttpRequestMeta.Create(
+                    Request,
+                    AspNet.Functions.GetFingerprint(Request),
+                    payload);
+
             EventMetaCache.Instance.Add(httpRequestMeta);
             return httpRequestMeta.Fingerprint;
         }

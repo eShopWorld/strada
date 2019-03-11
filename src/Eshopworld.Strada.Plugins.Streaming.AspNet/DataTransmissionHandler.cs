@@ -22,7 +22,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
             }
             catch
             {
-                // ignored
+                // todo: Swallow exception
             }
 
             if (!uriSegmentFound) return await base.SendAsync(request, cancellationToken);
@@ -32,12 +32,15 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
 
             try
             {
-                var httpRequestMeta = await HttpRequestMeta.Create(request);
+                var httpRequestMeta = await HttpRequestMeta.Create(
+                    request,
+                    Functions.GetFingerprint(request));
+
                 EventMetaCache.Instance.Add(httpRequestMeta);
             }
             catch
             {
-                // ignored
+                // todo: Swallow exception
             }
 
             return await base.SendAsync(request, cancellationToken);
