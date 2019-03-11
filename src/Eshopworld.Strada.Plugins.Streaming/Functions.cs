@@ -11,23 +11,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
     /// </summary>
     public static class Functions
     {
-        /// <summary>
-        ///     AddTrackingMetadataToJson adds tracking metadata to a JSON payload.
-        /// </summary>
-        /// <param name="json">The JSON to add to the metadata.</param>
-        /// <param name="brandCode">The customer reference code.</param>
-        /// <param name="eventName">The name of the upstream event in which the JSON payload was raised.</param>
-        /// <param name="correlationId">Used to link related metadata in the downstream data lake.</param>
-        /// <param name="queryString">The HTTP request Query string.</param>
-        /// <param name="timestamp">The timestamp at which this method is called.</param>
-        /// <param name="userAgent">The HTTP request User Agent header value.</param>
-        /// <exception cref="JsonSerializationException"></exception>
-        /// <returns>The original JSON suffixed with <see cref="brandCode" /> and <see cref="correlationId" />.</returns>
         public static string AddTrackingMetadataToJson(
             string json,
             string brandCode,
             string eventName,
-            string correlationId,
+            string fingerprint,
             string userAgent,
             string queryString,
             string timestamp)
@@ -37,7 +25,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 var jsonObject = JObject.Parse(json);
                 jsonObject.Add(new JProperty("brandCode", brandCode));
                 jsonObject.Add(new JProperty("eventName", eventName));
-                jsonObject.Add(new JProperty("correlationId", correlationId));
+                jsonObject.Add(new JProperty("correlationId", fingerprint));
                 jsonObject.Add(new JProperty("userAgent", userAgent));
                 jsonObject.Add(new JProperty("queryString", queryString));
                 jsonObject.Add(new JProperty("created", timestamp));
