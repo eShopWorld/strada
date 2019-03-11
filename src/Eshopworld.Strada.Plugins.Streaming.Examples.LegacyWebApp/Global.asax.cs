@@ -50,7 +50,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
                 dataTransmissionClientConfigSettings
             ).Wait();
 
-            DataUploader.Instance.StartAsync(
+            AspNet.DataUploader.Instance.StartAsync(
                 DataTransmissionClient.Instance,
                 EventMetaCache.Instance,
                 30).Wait();
