@@ -6,19 +6,21 @@ using Google.Apis.Auth.OAuth2;
 using Google.Cloud.PubSub.V1;
 using Grpc.Auth;
 using Grpc.Core;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
 {
     public class DataTransmissionClientTests
     {
-        private static string Init(
+        private static GcpServiceCredentials Init(
             out SubscriberServiceApiClient subscriber,
             out SubscriptionName subscriptionName,
             out PublisherServiceApiClient publisher,
             out TopicName topicName)
         {
-            string serviceCredentialsJson;
+            GcpServiceCredentials gcpServiceCredentials;
+
             try
             {
                 topicName = new TopicName(Resources.GCPProjectId, Resources.PubSubTopicId);
@@ -26,17 +28,19 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
 
                 using (var client = new HttpClient())
                 {
-                    serviceCredentialsJson = client.GetStringAsync(Resources.CredentialsFileUri).Result;
+                    gcpServiceCredentials =
+                        JsonConvert.DeserializeObject<GcpServiceCredentials>(client
+                            .GetStringAsync(Resources.CredentialsFileUri).Result);
                 }
 
-                var publisherCredential = GoogleCredential.FromJson(serviceCredentialsJson)
+                var publisherCredential = GoogleCredential.FromJson(JsonConvert.SerializeObject(gcpServiceCredentials))
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);
                 var publisherChannel = new Channel(
                     PublisherServiceApiClient.DefaultEndpoint.ToString(),
                     publisherCredential.ToChannelCredentials());
                 publisher = PublisherServiceApiClient.Create(publisherChannel);
 
-                var subscriberCredential = GoogleCredential.FromJson(serviceCredentialsJson)
+                var subscriberCredential = GoogleCredential.FromJson(JsonConvert.SerializeObject(gcpServiceCredentials))
                     .CreateScoped(SubscriberServiceApiClient.DefaultScopes);
                 var subscriberChannel = new Channel(
                     SubscriberServiceApiClient.DefaultEndpoint.ToString(),
@@ -68,7 +72,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                 // Subscription already exists.
             }
 
-            return serviceCredentialsJson;
+            return gcpServiceCredentials;
         }
 
         private static void PullMessage<T>(

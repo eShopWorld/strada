@@ -34,10 +34,6 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
             // OPTIONAL: Register the Autofac model binder provider.
             builder.RegisterWebApiModelBinderProvider();
 
-            builder.RegisterType<DataTransmissionClient>()
-                .AsSelf()
-                .SingleInstance();
-
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
@@ -49,15 +45,15 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
                 JsonConvert.DeserializeObject<DataTransmissionClientConfigSettings>(
                     Resources.DataTransmissionClientConfigSettings);
 
-            var dataTransmissionClient = container.Resolve<DataTransmissionClient>();
-
-            dataTransmissionClient.InitAsync(
+            DataTransmissionClient.Instance.InitAsync(
                 gcpServiceCredentials,
                 dataTransmissionClientConfigSettings
             ).Wait();
 
-            var dataUploader = new DataUploader();
-            dataUploader.StartAsync(null, null, 30).Wait();
+            DataUploader.Instance.StartAsync(
+                DataTransmissionClient.Instance,
+                EventMetaCache.Instance,
+                30).Wait();
         }
     }
 }

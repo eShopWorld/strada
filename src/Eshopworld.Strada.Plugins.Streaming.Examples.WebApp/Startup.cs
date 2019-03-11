@@ -23,8 +23,6 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddScoped<DataAnalyticsMeta>();
-            services.AddScoped<OrderRepository>();
-            services.AddScoped<DomainServiceLayer>();
             services.AddSingleton<DataTransmissionClient>();
         }
 
@@ -36,20 +34,13 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             else
                 app.UseHsts();
 
-            // Return a Singleton instance
-            var dataTransmissionClient = app.ApplicationServices.GetService<DataTransmissionClient>();
-            // Subscribe to error notifications
-            dataTransmissionClient.InitialisationFailed += DataTransmissionClient_InitialisationFailed;
-            dataTransmissionClient.TransmissionFailed += DataTransmissionClient_TransmissionFailed;
+            DataTransmissionClient.Instance.InitialisationFailed += DataTransmissionClient_InitialisationFailed;
+            DataTransmissionClient.Instance.TransmissionFailed += DataTransmissionClient_TransmissionFailed;
 
-            // Read GCP service credentials from app.config
             var gcpServiceCredentials = new GcpServiceCredentials();
             Configuration.GetSection("gcpServiceCredentials").Bind(gcpServiceCredentials);
-            // Establish a persistent connection to GCP Pub/Sub
-            dataTransmissionClient.InitAsync("eshop-puddle", "checkout-dev", gcpServiceCredentials).Wait();
-            // Configure custom middleware to handle correlation-id meta
-            app.UseMiddleware<DataTransmissionMiddleware>();
 
+            app.UseMiddleware<DataTransmissionMiddleware>();
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseDefaultFiles();
@@ -59,7 +50,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
         private static void DataTransmissionClient_InitialisationFailed(object sender, InitialisationFailedEventArgs e)
         {
             Console.WriteLine(e.Exception.Message);
-            throw new Exception("Start-up error.", e.Exception);
+            throw new Exception("Initialisation error.", e.Exception);
         }
 
         private static void DataTransmissionClient_TransmissionFailed(object sender, TransmissionFailedEventArgs e)
