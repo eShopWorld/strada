@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Quartz;
 using Quartz.Impl;
 
@@ -6,7 +7,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
 {
     public class DataUploader
     {
+        private static readonly Lazy<DataUploader> InnerDataUploader =
+            new Lazy<DataUploader>(() => new DataUploader());
+
         private IScheduler _scheduler;
+
+        public static DataUploader Instance => InnerDataUploader.Value;
 
         public async Task StartAsync(
             DataTransmissionClient dataTransmissionClient,

@@ -22,7 +22,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
                     AspNet.Functions.GetFingerprint(Request),
                     payload);
 
-            EventMetaCache.Instance.Add(httpRequestMeta);
+            EventMetaCache.Instance.Add(httpRequestMeta); // todo: call above as individual params?
             return httpRequestMeta.Fingerprint;
         }
 
