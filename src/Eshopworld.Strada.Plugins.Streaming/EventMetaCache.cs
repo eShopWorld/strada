@@ -5,8 +5,10 @@ using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public class EventMetaCache // todo: events
+    public class EventMetaCache // todo: events, error-handling
     {
+        public delegate void EventMetaAddedEventHandler(object sender, EventMetaAddedEventArgs e);
+
         private static readonly Lazy<EventMetaCache> Lazy =
             new Lazy<EventMetaCache>(() => new EventMetaCache());
 
@@ -20,6 +22,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public long NumItems => _cache.Count;
 
         public static EventMetaCache Instance => Lazy.Value;
+
+        public event EventMetaAddedEventHandler EventMetaAdded;
 
         public void Add<T>(T eventMetadataPayload,
             string brandCode = null,
@@ -46,6 +50,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
             );
 
             _cache.Enqueue(cachePayload);
+
+            OnEventMetaAdded(new EventMetaAddedEventArgs(cachePayload));
         }
 
         public List<string>
@@ -69,6 +75,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
             } while (counter < maxItemsToRemove && canDequeue);
 
             return eventMetadataPayloadBatch;
+        }
+
+        protected virtual void OnEventMetaAdded(EventMetaAddedEventArgs e)
+        {
+            EventMetaAdded?.Invoke(this, e);
         }
     }
 }

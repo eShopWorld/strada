@@ -3,7 +3,7 @@ using Quartz;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public class EventMetadataUploadJob : IJob // todo: events
+    public class EventMetadataUploadJob : IJob // todo: events, error-handling
     {
         public async Task Execute(IJobExecutionContext context)
         {

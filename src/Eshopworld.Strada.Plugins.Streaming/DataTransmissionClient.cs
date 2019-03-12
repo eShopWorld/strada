@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public sealed class DataTransmissionClient // todo: events
+    public sealed class DataTransmissionClient
     {
         public delegate void DataTransmittedEventHandler(object sender, DataTransmittedEventArgs e);
 
