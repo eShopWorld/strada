@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Eshopworld.Strada.Plugins.Streaming.NetCore</id>
+    <version>2.1.5</version>
+    <title>STRADA ASP.NET</title>
+    <authors>Paul Mooney</authors>
+    <owners>EShopWorld</owners>    
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>STRADA ASP.NET package</description>    
+    <copyright>Copyright 2019</copyright>    
+  </metadata>
+</package>
