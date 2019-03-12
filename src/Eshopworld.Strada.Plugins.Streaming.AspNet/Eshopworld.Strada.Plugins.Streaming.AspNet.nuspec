@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Eshopworld.Strada.Plugins.Streaming.NetCore</id>
-    <version>2.1.5</version>
+    <version>2.1.6</version>
     <title>STRADA ASP.NET</title>
     <authors>Paul Mooney</authors>
     <owners>EShopWorld</owners>    
