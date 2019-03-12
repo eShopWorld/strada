@@ -21,7 +21,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddScoped<DataAnalyticsMeta>();            
+            services.AddScoped<DataAnalyticsMeta>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +40,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
 
             DataTransmissionClient.Instance.InitialisationFailed += DataTransmissionClient_InitialisationFailed;
             DataTransmissionClient.Instance.TransmissionFailed += DataTransmissionClient_TransmissionFailed;
+            DataTransmissionClient.Instance.DataTransmitted += DataTransmissionClient_DataTransmitted;
 
             DataTransmissionClient
                 .Instance
@@ -56,6 +57,11 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+        }
+
+        private static void DataTransmissionClient_DataTransmitted(object sender, DataTransmittedEventArgs e)
+        {
+            Console.WriteLine(e.NumItemsTransferred);
         }
 
         private static void DataTransmissionClient_InitialisationFailed(object sender, InitialisationFailedEventArgs e)

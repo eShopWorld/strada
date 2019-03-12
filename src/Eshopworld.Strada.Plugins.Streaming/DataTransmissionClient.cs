@@ -13,6 +13,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
 {
     public sealed class DataTransmissionClient // todo: events
     {
+        public delegate void DataTransmittedEventHandler(object sender, DataTransmittedEventArgs e);
+
         public delegate void InitialisationFailedEventHandler(object sender, InitialisationFailedEventArgs e);
 
         public delegate void TransmissionFailedEventHandler(object sender, TransmissionFailedEventArgs e);
@@ -30,6 +32,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public event InitialisationFailedEventHandler InitialisationFailed;
 
         public event TransmissionFailedEventHandler TransmissionFailed;
+
+        public event DataTransmittedEventHandler DataTransmitted;
 
         public async Task InitAsync(
             CloudServiceCredentials cloudServiceCredentials,
@@ -91,6 +95,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     .Select(pubsubMessage => _publisher.PublishAsync(pubsubMessage)).ToList();
 
                 foreach (var publishTask in publishTasks) await publishTask;
+
+                OnDataTransmitted(new DataTransmittedEventArgs(publishTasks.Count));
             }
             catch (Exception exception)
             {
@@ -108,6 +114,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
         private void OnInitialisationFailed(InitialisationFailedEventArgs e)
         {
             InitialisationFailed?.Invoke(this, e);
+        }
+
+        private void OnDataTransmitted(DataTransmittedEventArgs e)
+        {
+            DataTransmitted?.Invoke(this, e);
         }
     }
 }
