@@ -11,7 +11,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         public delegate void EventMetaAddedEventHandler(object sender, EventMetaAddedEventArgs e);
 
-        public delegate void GetEventMetadataPayloadBatchFailedEventHandler(object sender,
+        public delegate void GetEventMetadataPayloadBatchEventHandler(
+            object sender,
+            GetEventMetadataPayloadBatchEventArgs e);
+
+        public delegate void GetEventMetadataPayloadBatchFailedEventHandler(
+            object sender,
             GetEventMetadataPayloadBatchFailedEventArgs e);
 
         private static readonly Lazy<EventMetaCache> Lazy =
@@ -31,6 +36,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public event EventMetaAddedEventHandler EventMetaAdded;
         public event AddEventMetaFailedEventHandler AddEventMetaFailed;
         public event GetEventMetadataPayloadBatchFailedEventHandler GetEventMetadataPayloadBatchFailed;
+        public event GetEventMetadataPayloadBatchEventHandler GotEventMetadataPayloadBatch;
 
         public void Add<T>(T eventMetadataPayload,
             string brandCode = null,
@@ -69,9 +75,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
             }
         }
 
-        public List<string>
-            GetEventMetadataPayloadBatch(
-                int maxItemsToRemove = 1000)
+        public List<string> GetEventMetadataPayloadBatch(
+            int maxItemsToRemove = 1000)
         {
             if (maxItemsToRemove > 1000)
                 throw new IndexOutOfRangeException(
@@ -91,6 +96,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     counter++;
                 } while (counter < maxItemsToRemove && canDequeue);
 
+                OnGotEventMetadataPayloadBatch(new GetEventMetadataPayloadBatchEventArgs(
+                    eventMetadataPayloadBatch.Count,
+                    _cache.Count));
                 return eventMetadataPayloadBatch;
             }
             catch (Exception exception)
@@ -116,6 +124,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
         protected virtual void OnGetEventMetadataPayloadBatchFailed(GetEventMetadataPayloadBatchFailedEventArgs e)
         {
             GetEventMetadataPayloadBatchFailed?.Invoke(this, e);
+        }
+
+        protected virtual void OnGotEventMetadataPayloadBatch(GetEventMetadataPayloadBatchEventArgs e)
+        {
+            GotEventMetadataPayloadBatch?.Invoke(this, e);
         }
     }
 }

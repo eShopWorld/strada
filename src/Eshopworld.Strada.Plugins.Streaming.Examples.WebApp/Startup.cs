@@ -45,6 +45,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             EventMetaCache.Instance.AddEventMetaFailed += EventMetaCache_AddEventMetaFailed;
             EventMetaCache.Instance.GetEventMetadataPayloadBatchFailed +=
                 EventMetaCache_GetEventMetadataPayloadBatchFailed;
+            EventMetaCache.Instance.GotEventMetadataPayloadBatch += Instance_GotEventMetadataPayloadBatch;
 
             DataTransmissionClient
                 .Instance
@@ -61,6 +62,13 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+        }
+
+        private static void Instance_GotEventMetadataPayloadBatch(
+            object sender,
+            GetEventMetadataPayloadBatchEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private static void EventMetaCache_GetEventMetadataPayloadBatchFailed(
