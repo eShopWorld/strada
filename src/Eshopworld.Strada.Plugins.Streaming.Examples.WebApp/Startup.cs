@@ -56,7 +56,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-        } // todo: implement new version
+        }
 
         private static void DataTransmissionClient_InitialisationFailed(object sender, InitialisationFailedEventArgs e)
         {
