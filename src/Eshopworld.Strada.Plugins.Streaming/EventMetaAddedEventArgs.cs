@@ -9,6 +9,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
             EventMeta = eventMeta;
         }
 
-        public object EventMeta { get; set; }
+        public object EventMeta { get; }
     }
 }

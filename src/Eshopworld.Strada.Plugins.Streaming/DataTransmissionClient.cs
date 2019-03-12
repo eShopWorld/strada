@@ -78,8 +78,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             catch (Exception exception)
             {
                 const string errorMessage = "An error occurred while initializing the data transmission client.";
-                OnInitialisationFailed(
-                    new InitialisationFailedEventArgs(new DataTransmissionClientException(errorMessage, exception)));
+                OnInitialisationFailed(new InitialisationFailedEventArgs(new Exception(errorMessage, exception)));
             }
         }
 
@@ -101,8 +100,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             catch (Exception exception)
             {
                 const string errorMessage = "An error occurred while transmitting the payload.";
-                OnTransmissionFailed(new TransmissionFailedEventArgs(
-                    new DataTransmissionException(errorMessage, exception)));
+                OnTransmissionFailed(new TransmissionFailedEventArgs(new Exception(errorMessage, exception)));
             }
         }
 

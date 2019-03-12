@@ -42,6 +42,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             DataTransmissionClient.Instance.TransmissionFailed += DataTransmissionClient_TransmissionFailed;
             DataTransmissionClient.Instance.DataTransmitted += DataTransmissionClient_DataTransmitted;
             EventMetaCache.Instance.EventMetaAdded += EventMetaCache_EventMetaAdded;
+            EventMetaCache.Instance.AddEventMetaFailed += EventMetaCache_AddEventMetaFailed;
 
             DataTransmissionClient
                 .Instance
@@ -58,6 +59,11 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+        }
+
+        private static void EventMetaCache_AddEventMetaFailed(object sender, AddEventMetaFailedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private static void EventMetaCache_EventMetaAdded(object sender, EventMetaAddedEventArgs e)

@@ -7,6 +7,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
 {
     public class EventMetaCache // todo: events, error-handling
     {
+        public delegate void AddEventMetaFailedEventHandler(object sender, AddEventMetaFailedEventArgs e);
+
         public delegate void EventMetaAddedEventHandler(object sender, EventMetaAddedEventArgs e);
 
         private static readonly Lazy<EventMetaCache> Lazy =
@@ -24,6 +26,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public static EventMetaCache Instance => Lazy.Value;
 
         public event EventMetaAddedEventHandler EventMetaAdded;
+        public event AddEventMetaFailedEventHandler AddEventMetaFailed;
 
         public void Add<T>(T eventMetadataPayload,
             string brandCode = null,
@@ -36,22 +39,30 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 throw new ArgumentNullException(nameof(eventMetadataPayload));
             if (_cache == null) _cache = new ConcurrentQueue<string>();
 
-            var serialisedEventMetadataPayload = JsonConvert.SerializeObject(eventMetadataPayload);
-            var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
+            try
+            {
+                var serialisedEventMetadataPayload = JsonConvert.SerializeObject(eventMetadataPayload);
+                var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
 
-            var cachePayload = Functions.AddTrackingMetadataToJson(
-                serialisedEventMetadataPayload,
-                brandCode,
-                eventName,
-                fingerprint,
-                userAgent,
-                queryString,
-                eventTimestamp.ToString()
-            );
+                var cachePayload = Functions.AddTrackingMetadataToJson(
+                    serialisedEventMetadataPayload,
+                    brandCode,
+                    eventName,
+                    fingerprint,
+                    userAgent,
+                    queryString,
+                    eventTimestamp.ToString()
+                );
 
-            _cache.Enqueue(cachePayload);
+                _cache.Enqueue(cachePayload);
 
-            OnEventMetaAdded(new EventMetaAddedEventArgs(cachePayload));
+                OnEventMetaAdded(new EventMetaAddedEventArgs(cachePayload));
+            }
+            catch (Exception exception)
+            {
+                const string errorMessage = "An error occurred while adding event-meta to cache.";
+                OnAddEventMetaFailed(new AddEventMetaFailedEventArgs(new Exception(errorMessage, exception)));
+            }
         }
 
         public List<string>
@@ -80,6 +91,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
         protected virtual void OnEventMetaAdded(EventMetaAddedEventArgs e)
         {
             EventMetaAdded?.Invoke(this, e);
+        }
+
+        protected virtual void OnAddEventMetaFailed(AddEventMetaFailedEventArgs e)
+        {
+            AddEventMetaFailed?.Invoke(this, e);
         }
     }
 }
