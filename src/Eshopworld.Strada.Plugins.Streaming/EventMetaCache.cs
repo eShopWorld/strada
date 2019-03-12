@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public class EventMetaCache
+    public class EventMetaCache // todo: events
     {
         private static readonly Lazy<EventMetaCache> Lazy =
             new Lazy<EventMetaCache>(() => new EventMetaCache());
