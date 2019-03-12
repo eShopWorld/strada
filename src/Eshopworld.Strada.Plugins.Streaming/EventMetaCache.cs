@@ -5,11 +5,14 @@ using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public class EventMetaCache // todo: events, error-handling
+    public class EventMetaCache // todo: need a clear-all method for emergencies
     {
         public delegate void AddEventMetaFailedEventHandler(object sender, AddEventMetaFailedEventArgs e);
 
         public delegate void EventMetaAddedEventHandler(object sender, EventMetaAddedEventArgs e);
+
+        public delegate void GetEventMetadataPayloadBatchFailedEventHandler(object sender,
+            GetEventMetadataPayloadBatchFailedEventArgs e);
 
         private static readonly Lazy<EventMetaCache> Lazy =
             new Lazy<EventMetaCache>(() => new EventMetaCache());
@@ -27,6 +30,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         public event EventMetaAddedEventHandler EventMetaAdded;
         public event AddEventMetaFailedEventHandler AddEventMetaFailed;
+        public event GetEventMetadataPayloadBatchFailedEventHandler GetEventMetadataPayloadBatchFailed;
 
         public void Add<T>(T eventMetadataPayload,
             string brandCode = null,
@@ -76,16 +80,27 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
             var eventMetadataPayloadBatch = new List<string>();
             var counter = 0;
-            bool canDequeue;
 
-            do
+            try
             {
-                canDequeue = _cache.TryDequeue(out var eventMetadataPayload);
-                if (canDequeue) eventMetadataPayloadBatch.Add(eventMetadataPayload);
-                counter++;
-            } while (counter < maxItemsToRemove && canDequeue);
+                bool canDequeue;
+                do
+                {
+                    canDequeue = _cache.TryDequeue(out var eventMetadataPayload);
+                    if (canDequeue) eventMetadataPayloadBatch.Add(eventMetadataPayload);
+                    counter++;
+                } while (counter < maxItemsToRemove && canDequeue);
 
-            return eventMetadataPayloadBatch;
+                return eventMetadataPayloadBatch;
+            }
+            catch (Exception exception)
+            {
+                const string errorMessage = "An error occurred while getting the event-meta payload batch.";
+                OnGetEventMetadataPayloadBatchFailed(new GetEventMetadataPayloadBatchFailedEventArgs(
+                    new Exception(errorMessage, exception), _cache.Count));
+            }
+
+            return null;
         }
 
         protected virtual void OnEventMetaAdded(EventMetaAddedEventArgs e)
@@ -96,6 +111,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
         protected virtual void OnAddEventMetaFailed(AddEventMetaFailedEventArgs e)
         {
             AddEventMetaFailed?.Invoke(this, e);
+        }
+
+        protected virtual void OnGetEventMetadataPayloadBatchFailed(GetEventMetadataPayloadBatchFailedEventArgs e)
+        {
+            GetEventMetadataPayloadBatchFailed?.Invoke(this, e);
         }
     }
 }
