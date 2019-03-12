@@ -21,9 +21,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            services.AddScoped<DataAnalyticsMeta>();
-            services.AddSingleton<DataTransmissionClient>();
+            services.AddScoped<DataAnalyticsMeta>();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,11 +32,24 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             else
                 app.UseHsts();
 
+            var cloudServiceCredentials = new CloudServiceCredentials();
+            Configuration.GetSection("cloudServiceCredentials").Bind(cloudServiceCredentials);
+
+            var dataTransmissionClientConfigSettings = new DataTransmissionClientConfigSettings();
+            Configuration.GetSection("dataTransmissionClientConfigSettings").Bind(dataTransmissionClientConfigSettings);
+
             DataTransmissionClient.Instance.InitialisationFailed += DataTransmissionClient_InitialisationFailed;
             DataTransmissionClient.Instance.TransmissionFailed += DataTransmissionClient_TransmissionFailed;
 
-            var gcpServiceCredentials = new CloudServiceCredentials();
-            Configuration.GetSection("gcpServiceCredentials").Bind(gcpServiceCredentials);
+            DataTransmissionClient
+                .Instance
+                .InitAsync(cloudServiceCredentials, dataTransmissionClientConfigSettings)
+                .Wait();
+
+            DataUploader
+                .Instance
+                .StartAsync(DataTransmissionClient.Instance, EventMetaCache.Instance, 30)
+                .Wait();
 
             app.UseMiddleware<DataTransmissionMiddleware>();
             app.UseHttpsRedirection();

@@ -32,11 +32,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public event TransmissionFailedEventHandler TransmissionFailed;
 
         public async Task InitAsync(
-            CloudServiceCredentials gcpServiceCredentials,
+            CloudServiceCredentials cloudServiceCredentials,
             DataTransmissionClientConfigSettings dataTransmissionClientConfigSettings)
         {
-            if (gcpServiceCredentials == null)
-                throw new ArgumentNullException(nameof(gcpServiceCredentials));
+            if (cloudServiceCredentials == null)
+                throw new ArgumentNullException(nameof(cloudServiceCredentials));
             if (dataTransmissionClientConfigSettings == null)
                 throw new ArgumentNullException(nameof(dataTransmissionClientConfigSettings));
             if (string.IsNullOrEmpty(dataTransmissionClientConfigSettings.ProjectId))
@@ -47,7 +47,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             try
             {
                 var credential = GoogleCredential
-                    .FromJson(JsonConvert.SerializeObject(gcpServiceCredentials))
+                    .FromJson(JsonConvert.SerializeObject(cloudServiceCredentials))
                     .CreateScoped(PublisherServiceApiClient.DefaultScopes);
 
                 var settings = new PublisherClient.Settings

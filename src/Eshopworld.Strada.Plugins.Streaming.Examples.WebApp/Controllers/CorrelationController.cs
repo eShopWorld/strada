@@ -6,9 +6,17 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp.Controllers
     [ApiController]
     public class CorrelationController : ControllerBase
     {
-        [HttpGet]
-        public void Get()
+        private readonly DataAnalyticsMeta _dataAnalyticsMeta;
+
+        public CorrelationController(DataAnalyticsMeta dataAnalyticsMeta)
         {
+            _dataAnalyticsMeta = dataAnalyticsMeta;
+        }
+
+        [HttpGet]
+        public string Get()
+        {
+            return _dataAnalyticsMeta.Fingerprint;
         }
 
         [HttpGet("{id}")]
@@ -18,8 +26,9 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Payload payload)
         {
+            EventMetaCache.Instance.Add(payload, null, null, _dataAnalyticsMeta.Fingerprint);
         }
 
         [HttpPut("{id}")]
