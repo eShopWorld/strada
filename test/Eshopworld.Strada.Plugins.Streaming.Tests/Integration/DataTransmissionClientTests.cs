@@ -13,14 +13,14 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
 {
     public class DataTransmissionClientTests
     {
-        private static GcpServiceCredentials Init(
+        private static CloudServiceCredentials Init(
             out SubscriberServiceApiClient subscriber,
             out SubscriptionName subscriptionName,
             out PublisherServiceApiClient publisher,
             out TopicName topicName,
             out DataTransmissionClientConfigSettings dataTransmissionClientConfigSettings)
         {
-            GcpServiceCredentials gcpServiceCredentials;
+            CloudServiceCredentials gcpServiceCredentials;
 
             try
             {
@@ -30,7 +30,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                 using (var client = new HttpClient())
                 {
                     gcpServiceCredentials =
-                        JsonConvert.DeserializeObject<GcpServiceCredentials>(client
+                        JsonConvert.DeserializeObject<CloudServiceCredentials>(client
                             .GetStringAsync(Resources.CredentialsFileUri).Result);
 
                     dataTransmissionClientConfigSettings =

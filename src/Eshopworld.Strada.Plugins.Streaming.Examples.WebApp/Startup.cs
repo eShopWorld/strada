@@ -37,7 +37,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             DataTransmissionClient.Instance.InitialisationFailed += DataTransmissionClient_InitialisationFailed;
             DataTransmissionClient.Instance.TransmissionFailed += DataTransmissionClient_TransmissionFailed;
 
-            var gcpServiceCredentials = new GcpServiceCredentials();
+            var gcpServiceCredentials = new CloudServiceCredentials();
             Configuration.GetSection("gcpServiceCredentials").Bind(gcpServiceCredentials);
 
             app.UseMiddleware<DataTransmissionMiddleware>();

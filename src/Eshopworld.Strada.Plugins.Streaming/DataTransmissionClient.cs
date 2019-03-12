@@ -58,7 +58,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="IndexOutOfRangeException"></exception>
         public async Task InitAsync(
-            GcpServiceCredentials gcpServiceCredentials,
+            CloudServiceCredentials gcpServiceCredentials,
             DataTransmissionClientConfigSettings dataTransmissionClientConfigSettings)
         {
             try

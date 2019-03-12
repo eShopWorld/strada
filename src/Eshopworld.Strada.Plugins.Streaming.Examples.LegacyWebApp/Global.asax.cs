@@ -39,7 +39,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
             var gcpServiceCredentials =
-                JsonConvert.DeserializeObject<GcpServiceCredentials>(Resources.GcpServiceCredentials);
+                JsonConvert.DeserializeObject<CloudServiceCredentials>(Resources.GcpServiceCredentials);
 
             var dataTransmissionClientConfigSettings =
                 JsonConvert.DeserializeObject<DataTransmissionClientConfigSettings>(
