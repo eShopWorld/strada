@@ -48,6 +48,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             EventMetaCache.Instance.GotEventMetadataPayloadBatch += Instance_GotEventMetadataPayloadBatch;
             EventMetaCache.Instance.ClearCacheFailed += EventMetaCache_ClearCacheFailed;
             DataUploader.Instance.DataUploaderStartFailed += Instance_DataUploaderStartFailed;
+            DataUploader.Instance.EventMetadataUploadJobExecutionFailed +=
+                DataUploader_EventMetadataUploadJobExecutionFailed;
+            DataUploader.Instance.EventMetadataUploadJobExecutionFailed +=
+                DataUploader_EventMetadataUploadJobExecutionFailed_2;
 
             DataTransmissionClient
                 .Instance
@@ -56,10 +60,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
 
             DataUploader
                 .Instance
-                .StartAsync(
-                    DataTransmissionClient.Instance,
-                    EventMetaCache.Instance,
-                    EventMetadataUploadJobListener_EventMetadataUploadJobExecutionFailed)
+                .StartAsync(DataTransmissionClient.Instance, EventMetaCache.Instance, 30)
                 .Wait();
 
             app.UseMiddleware<DataTransmissionMiddleware>();
@@ -67,6 +68,20 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+        }
+
+        private static void DataUploader_EventMetadataUploadJobExecutionFailed_2(
+            object sender,
+            EventMetadataUploadJobExecutionFailedEventArgs e)
+        {
+            Console.WriteLine(e.Exception.InnerException.Message);
+        }
+
+        private static void DataUploader_EventMetadataUploadJobExecutionFailed(
+            object sender,
+            EventMetadataUploadJobExecutionFailedEventArgs e)
+        {
+            Console.WriteLine(e.Exception.InnerException.Message);
         }
 
         private static void EventMetaCache_ClearCacheFailed(object sender, ClearCacheFailedEventArgs e)

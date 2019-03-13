@@ -23,10 +23,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         public event DataUploaderStartFailedEventHandler DataUploaderStartFailed;
 
+        public event EventMetadataUploadJobExecutionFailedEventHandler EventMetadataUploadJobExecutionFailed;
+
         public async Task StartAsync(
             DataTransmissionClient dataTransmissionClient,
             EventMetaCache eventMetaCache,
-            EventMetadataUploadJobExecutionFailedEventHandler eventMetadataUploadJobExecutionFailedEventHandler,
             int executionTimeInterval = 30)
         {
             if (dataTransmissionClient == null) throw new ArgumentNullException(nameof(dataTransmissionClient));
@@ -55,8 +56,10 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 };
 
                 _eventMetadataUploadJobListener = new EventMetadataUploadJobListener();
-                _eventMetadataUploadJobListener.EventMetadataUploadJobExecutionFailed +=
-                    eventMetadataUploadJobExecutionFailedEventHandler;
+
+                if (EventMetadataUploadJobExecutionFailed != null)
+                    _eventMetadataUploadJobListener.EventMetadataUploadJobExecutionFailed +=
+                        EventMetadataUploadJobExecutionFailed;
 
                 _scheduler.ListenerManager.AddJobListener(
                     _eventMetadataUploadJobListener,
