@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public class EventMetaCache // todo: need a clear-all method for emergencies
+    public class EventMetaCache
     {
         public delegate void AddEventMetaFailedEventHandler(object sender, AddEventMetaFailedEventArgs e);
 
