@@ -9,6 +9,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
     {
         public delegate void AddEventMetaFailedEventHandler(object sender, AddEventMetaFailedEventArgs e);
 
+        public delegate void ClearCacheFailedEventHandler(object sender, ClearCacheFailedEventArgs e);
+
         public delegate void EventMetaAddedEventHandler(object sender, EventMetaAddedEventArgs e);
 
         public delegate void GetEventMetadataPayloadBatchEventHandler(
@@ -37,6 +39,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public event AddEventMetaFailedEventHandler AddEventMetaFailed;
         public event GetEventMetadataPayloadBatchFailedEventHandler GetEventMetadataPayloadBatchFailed;
         public event GetEventMetadataPayloadBatchEventHandler GotEventMetadataPayloadBatch;
+        public event ClearCacheFailedEventHandler ClearCacheFailed;
 
         public void Add<T>(T eventMetadataPayload,
             string brandCode = null,
@@ -111,6 +114,25 @@ namespace Eshopworld.Strada.Plugins.Streaming
             return null;
         }
 
+        public void Clear()
+        {
+            if (_cache == null) return;
+
+            try
+            {
+                bool canDequeue;
+                do
+                {
+                    canDequeue = _cache.TryDequeue(out _);
+                } while (canDequeue);
+            }
+            catch (Exception exception)
+            {
+                const string errorMessage = "An error occurred while clearing the cache.";
+                OnClearCacheFailed(new ClearCacheFailedEventArgs(new Exception(errorMessage, exception)));
+            }
+        }
+
         protected virtual void OnEventMetaAdded(EventMetaAddedEventArgs e)
         {
             EventMetaAdded?.Invoke(this, e);
@@ -129,6 +151,11 @@ namespace Eshopworld.Strada.Plugins.Streaming
         protected virtual void OnGotEventMetadataPayloadBatch(GetEventMetadataPayloadBatchEventArgs e)
         {
             GotEventMetadataPayloadBatch?.Invoke(this, e);
+        }
+
+        protected virtual void OnClearCacheFailed(ClearCacheFailedEventArgs e)
+        {
+            ClearCacheFailed?.Invoke(this, e);
         }
     }
 }

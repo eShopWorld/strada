@@ -21,7 +21,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public Task JobWasExecuted(IJobExecutionContext context, JobExecutionException jobException,
             CancellationToken cancellationToken = new CancellationToken())
         {
-            OnEventMetadataUploadJobExecutionFailed(new EventMetadataUploadJobExecutionFailedEventArgs(jobException));
+            if (jobException != null)
+                OnEventMetadataUploadJobExecutionFailed(
+                    new EventMetadataUploadJobExecutionFailedEventArgs(jobException));
             return Task.CompletedTask;
         }
 

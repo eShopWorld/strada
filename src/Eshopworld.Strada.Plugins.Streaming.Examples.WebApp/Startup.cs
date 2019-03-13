@@ -46,6 +46,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             EventMetaCache.Instance.GetEventMetadataPayloadBatchFailed +=
                 EventMetaCache_GetEventMetadataPayloadBatchFailed;
             EventMetaCache.Instance.GotEventMetadataPayloadBatch += Instance_GotEventMetadataPayloadBatch;
+            EventMetaCache.Instance.ClearCacheFailed += EventMetaCache_ClearCacheFailed;
             DataUploader.Instance.DataUploaderStartFailed += Instance_DataUploaderStartFailed;
 
             DataTransmissionClient
@@ -68,11 +69,16 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             app.UseStaticFiles();
         }
 
+        private static void EventMetaCache_ClearCacheFailed(object sender, ClearCacheFailedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private static void EventMetadataUploadJobListener_EventMetadataUploadJobExecutionFailed(
             object sender,
             EventMetadataUploadJobExecutionFailedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.Exception != null) throw new NotImplementedException();
         }
 
         private static void Instance_DataUploaderStartFailed(object sender, DataUploaderStartFailedEventArgs e)
