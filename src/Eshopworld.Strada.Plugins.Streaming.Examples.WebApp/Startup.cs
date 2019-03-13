@@ -55,7 +55,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
 
             DataUploader
                 .Instance
-                .StartAsync(DataTransmissionClient.Instance, EventMetaCache.Instance, 30)
+                .StartAsync(
+                    DataTransmissionClient.Instance,
+                    EventMetaCache.Instance,
+                    EventMetadataUploadJobListener_EventMetadataUploadJobExecutionFailed)
                 .Wait();
 
             app.UseMiddleware<DataTransmissionMiddleware>();
@@ -63,6 +66,13 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+        }
+
+        private static void EventMetadataUploadJobListener_EventMetadataUploadJobExecutionFailed(
+            object sender,
+            EventMetadataUploadJobExecutionFailedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private static void Instance_DataUploaderStartFailed(object sender, DataUploaderStartFailedEventArgs e)

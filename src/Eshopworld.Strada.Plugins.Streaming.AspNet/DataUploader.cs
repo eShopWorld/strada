@@ -2,46 +2,84 @@
 using System.Threading.Tasks;
 using Quartz;
 using Quartz.Impl;
+using Quartz.Impl.Matchers;
 
 namespace Eshopworld.Strada.Plugins.Streaming.AspNet
 {
-    public class DataUploader
+    public sealed class DataUploader
     {
+        public delegate void DataUploaderStartFailedEventHandler(object sender, DataUploaderStartFailedEventArgs e);
+
         private static readonly Lazy<DataUploader> InnerDataUploader =
             new Lazy<DataUploader>(() => new DataUploader());
 
+        private EventMetadataUploadJobListener _eventMetadataUploadJobListener;
+        private JobDetailImpl _jobDetail;
+
         private IScheduler _scheduler;
+        private ITrigger _trigger;
 
         public static DataUploader Instance => InnerDataUploader.Value;
+
+        public event DataUploaderStartFailedEventHandler DataUploaderStartFailed;
 
         public async Task StartAsync(
             DataTransmissionClient dataTransmissionClient,
             EventMetaCache eventMetaCache,
-            int executionTimeInterval)
+            EventMetadataUploadJobExecutionFailedEventHandler eventMetadataUploadJobExecutionFailedEventHandler,
+            int executionTimeInterval = 30)
         {
-            var factory = new StdSchedulerFactory();
-            _scheduler = await factory.GetScheduler();
+            if (dataTransmissionClient == null) throw new ArgumentNullException(nameof(dataTransmissionClient));
+            if (eventMetaCache == null) throw new ArgumentNullException(nameof(eventMetaCache));
+            if (executionTimeInterval <= 0)
+                throw new IndexOutOfRangeException("Execution time interval must be greater than 0.");
 
-            await _scheduler.Start();
-
-            var jobDetail = new JobDetailImpl(
-                "eventMetadataUploadJob",
-                typeof(EventMetadataUploadJob))
+            try
             {
-                JobDataMap =
+                var factory = new StdSchedulerFactory();
+                _scheduler = await factory.GetScheduler();
+
+                await _scheduler.Start();
+
+                const string jobName = "eventMetadataUploadJob";
+
+                _jobDetail = new JobDetailImpl(
+                    jobName,
+                    typeof(EventMetadataUploadJob))
                 {
-                    [nameof(DataTransmissionClient)] = dataTransmissionClient,
-                    [nameof(EventMetaCache)] = eventMetaCache
-                }
-            };
+                    JobDataMap =
+                    {
+                        [nameof(DataTransmissionClient)] = dataTransmissionClient,
+                        [nameof(EventMetaCache)] = eventMetaCache
+                    }
+                };
 
-            var trigger = TriggerBuilder.Create()
-                .WithSimpleSchedule(s => s
-                    .WithIntervalInSeconds(executionTimeInterval)
-                    .RepeatForever())
-                .Build();
+                _eventMetadataUploadJobListener = new EventMetadataUploadJobListener();
+                _eventMetadataUploadJobListener.EventMetadataUploadJobExecutionFailed +=
+                    eventMetadataUploadJobExecutionFailedEventHandler;
 
-            await _scheduler.ScheduleJob(jobDetail, trigger);
+                _scheduler.ListenerManager.AddJobListener(
+                    _eventMetadataUploadJobListener,
+                    KeyMatcher<JobKey>.KeyEquals(new JobKey(jobName)));
+
+                _trigger = TriggerBuilder.Create()
+                    .WithSimpleSchedule(s => s
+                        .WithIntervalInSeconds(executionTimeInterval)
+                        .RepeatForever())
+                    .Build();
+
+                await _scheduler.ScheduleJob(_jobDetail, _trigger);
+            }
+            catch (Exception exception)
+            {
+                const string errorMessage = "Failed to start data-upload background task.";
+                OnDataUploaderStartFailed(new DataUploaderStartFailedEventArgs(new Exception(errorMessage, exception)));
+            }
+        }
+
+        private void OnDataUploaderStartFailed(DataUploaderStartFailedEventArgs e)
+        {
+            DataUploaderStartFailed?.Invoke(this, e);
         }
     }
 }

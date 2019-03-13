@@ -2,17 +2,22 @@
 using System.Threading.Tasks;
 using Quartz;
 using Quartz.Impl;
+using Quartz.Impl.Matchers;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public class DataUploader
+    public sealed class DataUploader
     {
         public delegate void DataUploaderStartFailedEventHandler(object sender, DataUploaderStartFailedEventArgs e);
 
         private static readonly Lazy<DataUploader> InnerDataUploader =
             new Lazy<DataUploader>(() => new DataUploader());
 
+        private EventMetadataUploadJobListener _eventMetadataUploadJobListener;
+        private JobDetailImpl _jobDetail;
+
         private IScheduler _scheduler;
+        private ITrigger _trigger;
 
         public static DataUploader Instance => InnerDataUploader.Value;
 
@@ -21,7 +26,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public async Task StartAsync(
             DataTransmissionClient dataTransmissionClient,
             EventMetaCache eventMetaCache,
-            int executionTimeInterval)
+            EventMetadataUploadJobExecutionFailedEventHandler eventMetadataUploadJobExecutionFailedEventHandler,
+            int executionTimeInterval = 30)
         {
             if (dataTransmissionClient == null) throw new ArgumentNullException(nameof(dataTransmissionClient));
             if (eventMetaCache == null) throw new ArgumentNullException(nameof(eventMetaCache));
@@ -35,8 +41,10 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
                 await _scheduler.Start();
 
-                var jobDetail = new JobDetailImpl(
-                    "eventMetadataUploadJob",
+                const string jobName = "eventMetadataUploadJob";
+
+                _jobDetail = new JobDetailImpl(
+                    jobName,
                     typeof(EventMetadataUploadJob))
                 {
                     JobDataMap =
@@ -46,13 +54,21 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     }
                 };
 
-                var trigger = TriggerBuilder.Create()
+                _eventMetadataUploadJobListener = new EventMetadataUploadJobListener();
+                _eventMetadataUploadJobListener.EventMetadataUploadJobExecutionFailed +=
+                    eventMetadataUploadJobExecutionFailedEventHandler;
+
+                _scheduler.ListenerManager.AddJobListener(
+                    _eventMetadataUploadJobListener,
+                    KeyMatcher<JobKey>.KeyEquals(new JobKey(jobName)));
+
+                _trigger = TriggerBuilder.Create()
                     .WithSimpleSchedule(s => s
                         .WithIntervalInSeconds(executionTimeInterval)
                         .RepeatForever())
                     .Build();
 
-                await _scheduler.ScheduleJob(jobDetail, trigger);
+                await _scheduler.ScheduleJob(_jobDetail, _trigger);
             }
             catch (Exception exception)
             {
@@ -61,7 +77,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             }
         }
 
-        protected virtual void OnDataUploaderStartFailed(DataUploaderStartFailedEventArgs e)
+        private void OnDataUploaderStartFailed(DataUploaderStartFailedEventArgs e)
         {
             DataUploaderStartFailed?.Invoke(this, e);
         }
