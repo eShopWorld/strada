@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -14,8 +15,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string brandCode,
             string eventName,
             string fingerprint,
-            string userAgent,
             string queryString,
+            Dictionary<string, string> httpHeaders,
             string timestamp)
         {
             try
@@ -24,8 +25,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 jsonObject.Add(new JProperty("brandCode", brandCode));
                 jsonObject.Add(new JProperty("eventName", eventName));
                 jsonObject.Add(new JProperty("correlationId", fingerprint));
-                jsonObject.Add(new JProperty("userAgent", userAgent));
                 jsonObject.Add(new JProperty("queryString", queryString));
+                jsonObject.Add(new JProperty("httpHeaders", JObject.FromObject(httpHeaders)));
                 jsonObject.Add(new JProperty("created", timestamp));
                 return jsonObject.ToString();
             }

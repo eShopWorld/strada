@@ -42,14 +42,21 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public event ClearCacheFailedEventHandler ClearCacheFailed;
 
         public void Add<T>(T eventMetadataPayload,
-            string brandCode = null,
-            string eventName = null,
-            string fingerprint = null,
-            string userAgent = null,
-            string queryString = null)
+            string brandCode,
+            string eventName,
+            string fingerprint,
+            string queryString,
+            Dictionary<string, string> httpHeaders)
         {
             if (eventMetadataPayload == null)
                 throw new ArgumentNullException(nameof(eventMetadataPayload));
+            if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
+            if (string.IsNullOrEmpty(eventName)) throw new ArgumentNullException(nameof(eventName));
+            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException(nameof(fingerprint));
+            if (string.IsNullOrEmpty(queryString)) throw new ArgumentNullException(nameof(queryString));
+            if (httpHeaders == null)
+                throw new ArgumentNullException(nameof(httpHeaders));
+
             if (_cache == null) _cache = new ConcurrentQueue<string>();
 
             try
@@ -62,8 +69,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     brandCode,
                     eventName,
                     fingerprint,
-                    userAgent,
                     queryString,
+                    httpHeaders,
                     eventTimestamp.ToString()
                 );
 
@@ -131,7 +138,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 const string errorMessage = "An error occurred while clearing the cache.";
                 OnClearCacheFailed(new ClearCacheFailedEventArgs(new Exception(errorMessage, exception)));
             }
-        }
+        } // todo: Clear cache if it becomes too big
 
         protected virtual void OnEventMetaAdded(EventMetaAddedEventArgs e)
         {

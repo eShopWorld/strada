@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Http;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
 {
@@ -19,7 +21,13 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
                 Value = id
             };
 
-            EventMetaCache.Instance.Add(payload);
+            var httpHeaders = new Dictionary<string, string> {{"User-Agent", "USERAGENT"}, {"Content-Type", "CONTENT"}};
+            EventMetaCache.Instance.Add(payload,
+                "MAX",
+                "CREATE",
+                Guid.NewGuid().ToString(),
+                "QUERY",
+                httpHeaders);
         }
 
         // POST api/values                      

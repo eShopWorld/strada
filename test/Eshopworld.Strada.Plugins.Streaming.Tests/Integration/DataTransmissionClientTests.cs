@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using Google.Api.Gax;
 using Google.Api.Gax.Grpc;
@@ -119,7 +120,17 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Integration
                     out var dataTransmissionClientConfigSettings);
 
                 var eventMetadataCache = new EventMetaCache();
-                for (var i = 0; i < 10; i++) eventMetadataCache.Add(new SimpleObject {Name = "TEST"});
+                var httpHeaders = new Dictionary<string, string>
+                    {{"User-Agent", "USERAGENT"}, {"Content-Type", "CONTENT"}};
+
+                for (var i = 0; i < 10; i++)
+                    eventMetadataCache.Add(
+                        new SimpleObject {Name = "TEST"},
+                        "BRAND",
+                        "TEST",
+                        Guid.NewGuid().ToString(),
+                        "QUERY",
+                        httpHeaders);
 
                 var dataTransmissionClient = new DataTransmissionClient();
 
