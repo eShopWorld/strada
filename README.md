@@ -229,5 +229,6 @@ Your application can subscribe to any data-streaming operation
 > ###### Parameters
 > `numItemsReturned`, *int*
 	>The number of events removed from the cache, and batched for upload 
+
 > `numEventsCached`, *int*
 	>The number of events remaining in the cache
