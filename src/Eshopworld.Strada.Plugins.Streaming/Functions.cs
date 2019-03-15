@@ -26,7 +26,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 jsonObject.Add(new JProperty("eventName", eventName));
                 jsonObject.Add(new JProperty("correlationId", fingerprint));
                 jsonObject.Add(new JProperty("queryString", queryString));
-                jsonObject.Add(new JProperty("httpHeaders", JObject.FromObject(httpHeaders)));
+                jsonObject.Add(httpHeaders != null
+                    ? new JProperty("httpHeaders", JObject.FromObject(httpHeaders))
+                    : new JProperty("httpHeaders", null));
                 jsonObject.Add(new JProperty("created", timestamp));
                 return jsonObject.ToString();
             }

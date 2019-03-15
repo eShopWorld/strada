@@ -35,7 +35,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp.Controllers
                 "MAX",
                 "CREATE",
                 _dataAnalyticsMeta.Fingerprint,
-                "QUERY",
+                null,
                 httpHeaders);
         }
 

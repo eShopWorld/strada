@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
 {
@@ -20,13 +19,11 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
                 Value = id
             };
 
-            var httpHeaders = new Dictionary<string, string> {{"User-Agent", "USERAGENT"}, {"Content-Type", "CONTENT"}};
             EventMetaCache.Instance.Add(payload,
                 "MAX",
                 "CREATE",
-                AspNet.Functions.GetFingerprint(Request, "fingerprint"),
-                "QUERY",
-                httpHeaders);
+                AspNet.Functions.GetFingerprint(Request)
+            );
         }
 
         // POST api/values                      

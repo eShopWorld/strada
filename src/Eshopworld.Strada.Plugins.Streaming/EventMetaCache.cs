@@ -45,17 +45,14 @@ namespace Eshopworld.Strada.Plugins.Streaming
             string brandCode,
             string eventName,
             string fingerprint,
-            string queryString,
-            Dictionary<string, string> httpHeaders)
+            string queryString = null,
+            Dictionary<string, string> httpHeaders = null)
         {
             if (eventMetadataPayload == null)
                 throw new ArgumentNullException(nameof(eventMetadataPayload));
             if (string.IsNullOrEmpty(brandCode)) throw new ArgumentNullException(nameof(brandCode));
             if (string.IsNullOrEmpty(eventName)) throw new ArgumentNullException(nameof(eventName));
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException(nameof(fingerprint));
-            if (string.IsNullOrEmpty(queryString)) throw new ArgumentNullException(nameof(queryString));
-            if (httpHeaders == null)
-                throw new ArgumentNullException(nameof(httpHeaders));
 
             if (_cache == null) _cache = new ConcurrentQueue<string>();
 
@@ -138,7 +135,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 const string errorMessage = "An error occurred while clearing the cache.";
                 OnClearCacheFailed(new ClearCacheFailedEventArgs(new Exception(errorMessage, exception)));
             }
-        } // todo: Clear cache if it becomes too big
+        } // todo: Clear cache if it becomes too big - just increase job frequency, and thread-count ...
 
         protected virtual void OnEventMetaAdded(EventMetaAddedEventArgs e)
         {

@@ -11,9 +11,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.AspNet
             string fingerprintHeaderName = "FingerprintId")
         {
             if (httpRequest == null) throw new ArgumentNullException(nameof(httpRequest));
+            if (httpRequest.Headers == null) throw new ArgumentNullException(nameof(httpRequest.Headers));
 
-            var headerValues = httpRequest.Headers.GetValues(fingerprintHeaderName);
-            return headerValues?.LastOrDefault();
+            var gotHeaderValues = httpRequest.Headers.TryGetValues(fingerprintHeaderName, out var headerValues);
+            return gotHeaderValues ? headerValues.LastOrDefault() : null;
         }
     }
 }

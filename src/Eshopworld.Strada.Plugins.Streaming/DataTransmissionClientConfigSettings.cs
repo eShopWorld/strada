@@ -1,6 +1,6 @@
 ﻿namespace Eshopworld.Strada.Plugins.Streaming
 {
-    public class DataTransmissionClientConfigSettings
+    public class DataTransmissionClientConfigSettings // todo: MAX THREADS config
     {
         public string ProjectId { get; set; }
         public string TopicId { get; set; }
