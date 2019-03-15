@@ -4,9 +4,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
 {
     public class DataTransmittedEventArgs : EventArgs
     {
-        public DataTransmittedEventArgs(int numItemsTransferred)
+        public DataTransmittedEventArgs(int numItemsTransmitted)
         {
-            NumItemsTransferred = numItemsTransferred;
+            NumItemsTransferred = numItemsTransmitted;
         }
 
         public int NumItemsTransferred { get; }

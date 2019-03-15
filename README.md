@@ -212,3 +212,22 @@ Errors are handled implicitly, so that the your application process flow is not 
 > The `DataUploader` could not start
 ##### `DataUploader.Instance.EventMetadataUploadJobExecutionFailed`
 > The batch-upload background task occurrence did not execute successfully
+## Notifications
+Your application can subscribe to any data-streaming operation
+##### DataTransmissionClient.Instance.DataTransmitted
+> A batch of events has just been transmitted to Google Cloud Pub/Sub
+> ###### Parameters
+> `numItemsTransmitted`, *int*
+	> The number of items that have been transmitted
+##### EventMetaCache.Instance.EventMetaAdded
+> An event has just been added to the cache
+> ###### Parameters
+> `eventMeta`, *object* 
+	> The event added to the cache 
+##### EventMetaCache.Instance.GotEventMetadataPayloadBatch
+> A batch of events has just been removed from the cache, and batched for upload
+> ###### Parameters
+> `numItemsReturned`, *int*
+	>The number of events removed from the cache, and batched for upload 
+> `numEventsCached`, *int*
+	>The number of events remaining in the cache
