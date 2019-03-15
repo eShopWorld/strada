@@ -5,7 +5,9 @@
 # Overview
 [![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://eshopworld.visualstudio.com/Github%20build/_build?definitionId=204&_a=summary) [![NuGet](https://img.shields.io/badge/myget-v2.6.1-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming)
 
-The Data Analytics Transmission Component (DATC) is a [.NET Standard 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/08/14/announcing-net-standard-2-0/) library, including components specific to [.NET Framework 4.6](https://en.wikipedia.org/wiki/.NET_Framework) and [.NET Core 2](https://en.wikipedia.org/wiki/.NET_Core), that transmits data from your app to [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).  Data is transmitted asynchronously from an in-memory cache, resulting in evenly-balanced throughput, and low CPU/RAM overhead.
+The Data Analytics Transmission Component (DATC) is a [.NET Standard 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/08/14/announcing-net-standard-2-0/) library, including components specific to [.NET Framework 4.6](https://en.wikipedia.org/wiki/.NET_Framework) and [.NET Core 2](https://en.wikipedia.org/wiki/.NET_Core), that transmits data from your app to [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).  Data is transmitted asynchronously from an in-memory cache, resulting in evenly-balanced throughput, and low CPU/RAM overhead
+
+![DATC Data Flow](https://storage.googleapis.com/streaming-library/implicit-mode.PNG)
 # Installation
 ## .NET Framework 4.6
 [![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://eshopworld.visualstudio.com/Github%20build/_build?definitionId=644&_a=summary) [![NuGet](https://img.shields.io/badge/myget-v2.2.1-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming.AspNet)
