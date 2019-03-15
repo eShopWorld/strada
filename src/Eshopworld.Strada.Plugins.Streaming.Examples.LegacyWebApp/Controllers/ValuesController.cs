@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
@@ -25,7 +24,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
             EventMetaCache.Instance.Add(payload,
                 "MAX",
                 "CREATE",
-                Guid.NewGuid().ToString(),
+                AspNet.Functions.GetFingerprint(Request, "fingerprint"),
                 "QUERY",
                 httpHeaders);
         }
