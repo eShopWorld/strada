@@ -228,7 +228,7 @@ Your application can subscribe to any data-streaming operation
 > A batch of events has just been removed from the cache, and batched for upload
 > ###### Parameters
 > `numItemsReturned`, *int*
-The number of events removed from the cache, and batched for upload 
-
+	> The number of events removed from the cache, and batched for upload
+	
 > `numEventsCached`, *int*
-The number of events remaining in the cache
+	> The number of events remaining in the cache
