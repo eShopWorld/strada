@@ -12,10 +12,10 @@ The Data Analytics Transmission Component (DATC) is a [.NET Standard 2.0](https:
 ## .NET Framework 4.6
 [![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://eshopworld.visualstudio.com/Github%20build/_build?definitionId=644&_a=summary) [![NuGet](https://img.shields.io/badge/myget-v2.2.1-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming.AspNet)
 
-Install the `Strada Core` NuGet package
+Install the `Strada` NuGet package
 `Install-Package Eshopworld.Strada.Plugins.Streaming`
 
-and the `ASP.NET` NuGet package
+and the `Strada ASP.NET` NuGet package
 `Install-Package Eshopworld.Strada.Plugins.Streaming.AspNet`
 ### Authentication
 A `CloudServiceCredentials` instance is necessary to establish a persistent connection with the Data Analytics Cloud. Authentication meta is stored in JSON format
@@ -86,10 +86,10 @@ Notice the `EventMetaCache.Instance` parameter - this is a Singleton component t
 ## .NET Core 2
 [![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://eshopworld.visualstudio.com/Github%20build/_build?definitionId=645&_a=summary) [![NuGet](https://img.shields.io/badge/myget-v2.1.8-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming.NetCore)
 
-Install the `Strada Core` NuGet package
+Install the `Strada` NuGet package
 `Install-Package Eshopworld.Strada.Plugins.Streaming`
 
-and the `.NET Core` NuGet package
+and the `Strada .NET Core` NuGet package
 `Install-Package Eshopworld.Strada.Plugins.Streaming.NetCore`
 ### Authentication
 A `CloudServiceCredentials` instance is necessary to establish a persistent connection with the Data Analytics Cloud. Authentication meta is stored in JSON format
