@@ -4,6 +4,7 @@ using Quartz;
 
 namespace Eshopworld.Strada.Plugins.Streaming
 {
+    [DisallowConcurrentExecution]
     public class EventMetadataUploadJob : IJob
     {
         public async Task Execute(IJobExecutionContext context)
