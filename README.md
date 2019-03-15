@@ -227,7 +227,7 @@ Your application can subscribe to any data-streaming operation
 > `eventMeta`, *object* 
 	> The event added to the cache 
 ##### EventMetaCache.Instance.GotEventMetadataPayloadBatch
-> A batch of events has just been removed from the cache, and batched for upload
+> A collection of events has just been removed from the cache, and batched for upload
 > ###### Parameters
 > `numItemsReturned`, *int*
 	> The number of events removed from the cache, and batched for upload
