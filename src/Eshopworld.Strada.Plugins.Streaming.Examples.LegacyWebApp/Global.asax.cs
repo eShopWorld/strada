@@ -52,10 +52,8 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp
             ).Wait();
 
             AspNet.DataUploader.Instance.StartAsync(
-                    DataTransmissionClient.Instance,
-                    EventMetaCache.Instance,
-                    EventMetadataUploadJobListener_EventMetadataUploadJobExecutionFailed)
-                .Wait();
+                DataTransmissionClient.Instance,
+                EventMetaCache.Instance).Wait();
         }
 
         private static void EventMetadataUploadJobListener_EventMetadataUploadJobExecutionFailed(
