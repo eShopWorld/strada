@@ -200,4 +200,15 @@ EventMetaCache.Instance.Add(
     "{URI Query string}",
     {HTTP request headers});
 ```
----
+## Error Handling
+Errors are handled implicitly, so that the your application process flow is not interrupted by streaming errors. You can subscribe to any thrown error
+##### `EventMetaCache.Instance.AddEventMetaFailed`
+> An event could not be added to the `EventMetaCache` instance
+##### `EventMetaCache.Instance.GetEventMetadataPayloadBatchFailed`
+> Cached events could not be removed from cache during batch-upload
+##### `EventMetaCache.Instance.ClearCacheFailed`
+> The event cache could not be cleared explicitly
+##### `DataUploader.Instance.DataUploaderStartFailed`
+> The `DataUploader` could not start
+##### `DataUploader.Instance.EventMetadataUploadJobExecutionFailed`
+> The batch-upload background task occurrence did not execute successfully
