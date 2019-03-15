@@ -203,7 +203,7 @@ EventMetaCache.Instance.Add(
     {HTTP request headers});
 ```
 ## Error Handling
-Errors are handled implicitly, so that the your application process flow is not interrupted by streaming errors. You can subscribe to any thrown error
+Errors are handled implicitly, so that the your application process flow is not interrupted. You can subscribe to any thrown error
 ##### `EventMetaCache.Instance.AddEventMetaFailed`
 > An event could not be added to the `EventMetaCache` instance
 ##### `EventMetaCache.Instance.GetEventMetadataPayloadBatchFailed`
