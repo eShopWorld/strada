@@ -135,7 +135,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 const string errorMessage = "An error occurred while clearing the cache.";
                 OnClearCacheFailed(new ClearCacheFailedEventArgs(new Exception(errorMessage, exception)));
             }
-        } // todo: Clear cache if it becomes too big - just increase job frequency, and thread-count ...
+        }
 
         protected virtual void OnEventMetaAdded(EventMetaAddedEventArgs e)
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 using Quartz;
 using Quartz.Impl;
@@ -28,16 +29,20 @@ namespace Eshopworld.Strada.Plugins.Streaming
         public async Task StartAsync(
             DataTransmissionClient dataTransmissionClient,
             EventMetaCache eventMetaCache,
-            int executionTimeInterval = 30)
+            int executionTimeInterval = 30,
+            int maxThreadCount = 4)
         {
             if (dataTransmissionClient == null) throw new ArgumentNullException(nameof(dataTransmissionClient));
             if (eventMetaCache == null) throw new ArgumentNullException(nameof(eventMetaCache));
             if (executionTimeInterval <= 0)
                 throw new IndexOutOfRangeException("Execution time interval must be greater than 0.");
+            if (maxThreadCount <= 0)
+                throw new IndexOutOfRangeException("Max thread-count must be greater than 0.");
 
             try
             {
-                var factory = new StdSchedulerFactory();
+                var factory = new StdSchedulerFactory(new NameValueCollection
+                    {["quartz.threadPool.threadCount"] = maxThreadCount.ToString()});
                 _scheduler = await factory.GetScheduler();
 
                 await _scheduler.Start();
