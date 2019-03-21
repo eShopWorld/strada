@@ -10,7 +10,7 @@ The Data Analytics Transmission Component (DATC) is a [.NET Standard 2.0](https:
 ![DATC Data Flow](https://storage.googleapis.com/streaming-library/implicit-mode.PNG)
 # Installation
 ## .NET Framework 4.6
-[![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://eshopworld.visualstudio.com/Github%20build/_build?definitionId=644&_a=summary) [![NuGet](https://img.shields.io/badge/myget-v2.2.3-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming.AspNet)
+[![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://eshopworld.visualstudio.com/Github%20build/_build?definitionId=644&_a=summary) [![NuGet](https://img.shields.io/badge/myget-v2.2.4-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming.AspNet)
 
 Install the `Strada` NuGet package
 `Install-Package Eshopworld.Strada.Plugins.Streaming`
@@ -84,7 +84,7 @@ AspNet.DataUploader.Instance.StartAsync(
 Notice the `EventMetaCache.Instance` parameter - this is a Singleton component that manages the retention and processing of events stored in memory
 
 ## .NET Core 2
-[![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://eshopworld.visualstudio.com/Github%20build/_build?definitionId=645&_a=summary) [![NuGet](https://img.shields.io/badge/myget-v2.1.8-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming.NetCore)
+[![Build status](https://ci.appveyor.com/api/projects/status/ly3h4f406u5332n3?svg=true)](https://eshopworld.visualstudio.com/Github%20build/_build?definitionId=645&_a=summary) [![NuGet](https://img.shields.io/badge/myget-v2.1.9-blue.svg)](https://eshopworld.myget.org/feed/github-dev/package/nuget/Eshopworld.Strada.Plugins.Streaming.NetCore)
 
 Install the `Strada` NuGet package
 `Install-Package Eshopworld.Strada.Plugins.Streaming`
