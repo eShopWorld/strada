@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Eshopworld.Strada.Plugins.Streaming.AspNet\Eshopworld.Strada.Plugins.Streaming.AspNet.csproj" />
     <ProjectReference Include="..\..\src\Eshopworld.Strada.Plugins.Streaming\Eshopworld.Strada.Plugins.Streaming.csproj" />
   </ItemGroup>
 

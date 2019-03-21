@@ -100,7 +100,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
             catch (Exception exception)
             {
                 const string errorMessage = "An error occurred while transmitting the payload.";
-                OnTransmissionFailed(new TransmissionFailedEventArgs(new Exception(errorMessage, exception)));
+                OnTransmissionFailed(new TransmissionFailedEventArgs(new Exception(errorMessage, exception))); // todo: batch-publish events to Stackdriver; make sure jobs run regularly
             }
         }
 

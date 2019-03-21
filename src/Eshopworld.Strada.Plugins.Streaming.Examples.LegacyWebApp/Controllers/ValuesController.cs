@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Net.Http;
+using System.Web.Http;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
 {
@@ -18,11 +19,13 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.Controllers
                 Greeting = "Hey!",
                 Value = id
             };
-
+            
             EventMetaCache.Instance.Add(payload,
                 "MAX",
                 "CREATE",
-                AspNet.Functions.GetFingerprint(Request)
+                AspNet.Functions.GetFingerprint(Request),
+                "",
+                AspNet.Functions.ParseHttpHeaders(Request.Headers)
             );
         }
 
