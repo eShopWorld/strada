@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp.Controllers
 {
@@ -29,14 +28,13 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp.Controllers
         [HttpPost]
         public void Post([FromBody] Payload payload)
         {
-            var httpHeaders = new Dictionary<string, string> {{"User-Agent", "USERAGENT"}, {"Content-Type", "CONTENT"}};
             EventMetaCache.Instance.Add(
                 payload,
                 "MAX",
                 "CREATE",
                 _dataAnalyticsMeta.Fingerprint,
                 null,
-                httpHeaders);
+                NetCore.Functions.ParseHttpHeaders(Request.Headers));
         }
 
         [HttpPut("{id}")]

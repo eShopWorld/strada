@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -8,7 +9,29 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
     public class FunctionsTests
     {
         [Fact]
-        public void HttpHeadersAreExtractedInKvFormat()
+        public void HttpHeadersAreExtractedInKvFormatNetCore()
+        {
+            const string key1 = "KEY1";
+            const string key2 = "KEY2";
+            const string value1 = "VAL1";
+            const string value2 = "VAL2";
+
+            IHeaderDictionary httpHeadersDictionary = new HeaderDictionary
+            {
+                {key1, value1},
+                {key2, value2}
+            };
+
+            var httpHeaders = NetCore.Functions.ParseHttpHeaders(httpHeadersDictionary);
+
+            Assert.True(httpHeaders.ContainsKey(key1));
+            Assert.True(httpHeaders.ContainsKey(key2));
+            Assert.True(httpHeaders.ContainsValue(value1));
+            Assert.True(httpHeaders.ContainsValue(value2));
+        }
+
+        [Fact]
+        public void HttpHeadersAreExtractedInKvFormatNetFramework()
         {
             const string key1 = "KEY1";
             const string key2 = "KEY2";

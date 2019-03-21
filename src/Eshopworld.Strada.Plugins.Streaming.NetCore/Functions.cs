@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
@@ -21,6 +22,12 @@ namespace Eshopworld.Strada.Plugins.Streaming.NetCore
                 fingerprint = headerValues.LastOrDefault();
 
             return fingerprint;
+        }
+
+        public static Dictionary<string, string>
+            ParseHttpHeaders(IHeaderDictionary httpRequestHeaders)
+        {
+            return httpRequestHeaders?.ToDictionary(h => h.Key, h => h.Value.LastOrDefault());
         }
     }
 }
