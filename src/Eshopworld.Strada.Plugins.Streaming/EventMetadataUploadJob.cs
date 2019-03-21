@@ -15,12 +15,12 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 var dataTransmissionClient = (DataTransmissionClient) dataMap[nameof(DataTransmissionClient)];
 
                 var eventMetadataPayloadBatch = eventMetaCache.GetEventMetadataPayloadBatch();
-                await dataTransmissionClient.TransmitAsync(eventMetadataPayloadBatch); // todo: won't ever throw
+                await dataTransmissionClient.TransmitAsync(eventMetadataPayloadBatch);
             }
             catch (Exception exception)
             {
                 const string errorMessage = "Event meta-upload background task execution failed.";
-                throw new Exception(errorMessage, exception); // todo: README, other error events
+                throw new Exception(errorMessage, exception);
             }
         }
     }

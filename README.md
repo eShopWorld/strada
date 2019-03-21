@@ -206,6 +206,10 @@ EventMetaCache.Instance.Add(
 Errors are handled implicitly, so that the your application process flow is not interrupted. You can subscribe to any thrown error
 ##### `EventMetaCache.Instance.AddEventMetaFailed`
 > An event could not be added to the `EventMetaCache` instance
+##### `DataTransmissionClient.Instance.InitialisationFailed`
+> `DataTransmissionClient` could not start
+##### `DataTransmissionClient.Instance.TransmissionFailed`
+> A batch of events could not be transmitted to Google Cloud Pub/Sub
 ##### `EventMetaCache.Instance.GetEventMetadataPayloadBatchFailed`
 > Cached events could not be removed from cache during batch-upload
 ##### `EventMetaCache.Instance.ClearCacheFailed`
