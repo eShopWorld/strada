@@ -58,7 +58,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 {
                     BatchingSettings = new BatchingSettings(
                         dataTransmissionClientConfigSettings.ElementCountThreshold,
-                        null,
+                        dataTransmissionClientConfigSettings.RequestByteThreshold, // todo: Load tests!
                         TimeSpan.FromSeconds(dataTransmissionClientConfigSettings.DelayThreshold))
                 };
 
@@ -100,7 +100,9 @@ namespace Eshopworld.Strada.Plugins.Streaming
             catch (Exception exception)
             {
                 const string errorMessage = "An error occurred while transmitting the payload.";
-                OnTransmissionFailed(new TransmissionFailedEventArgs(new Exception(errorMessage, exception))); // todo: batch-publish events to Stackdriver; make sure jobs run regularly
+                OnTransmissionFailed(
+                    new TransmissionFailedEventArgs(new Exception(errorMessage,
+                        exception))); // todo: batch-publish events to Stackdriver; make sure jobs run regularly
             }
         }
 

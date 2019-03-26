@@ -33,7 +33,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp.Controllers
                 "MAX",
                 "CREATE",
                 _dataAnalyticsMeta.Fingerprint,
-                null,
+                Request.QueryString.ToString(),
                 NetCore.Functions.ParseHttpHeaders(Request.Headers));
         }
 
