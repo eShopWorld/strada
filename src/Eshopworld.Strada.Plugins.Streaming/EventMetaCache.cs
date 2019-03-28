@@ -58,7 +58,15 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
             try
             {
-                var serialisedEventMetadataPayload = JsonConvert.SerializeObject(eventMetadataPayload);
+                var jsonSerializerSettings = new JsonSerializerSettings
+                {
+                    PreserveReferencesHandling = PreserveReferencesHandling.None
+                };
+
+                var serialisedEventMetadataPayload = JsonConvert.SerializeObject(
+                    eventMetadataPayload,
+                    jsonSerializerSettings);
+
                 var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
 
                 var cachePayload = Functions.AddTrackingMetadataToJson(

@@ -104,7 +104,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
                     new TransmissionFailedEventArgs(new Exception(errorMessage,
                         exception))); // todo: batch-publish events to Stackdriver; make sure jobs run regularly
             }
-        }
+        }   
 
         private void OnTransmissionFailed(TransmissionFailedEventArgs e)
         {
@@ -119,6 +119,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
         private void OnDataTransmitted(DataTransmittedEventArgs e)
         {
             DataTransmitted?.Invoke(this, e);
-        }
+        } // todo: Move everything to .NET Framework 4.6
     }
 }
