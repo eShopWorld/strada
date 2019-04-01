@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using Xunit;
 
 namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
@@ -24,6 +25,24 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
 
             var eventMetadataPayloadBatch = eventMetadataCache.GetEventMetadataPayloadBatch();
             Assert.Equal(100, eventMetadataPayloadBatch.Count);
+        }
+
+        [Fact]
+        public void CacheSizeLimitIsImposed()
+        {
+            var eventMetaCache = new EventMetaCache {MaxQueueLength = 10};
+
+            dynamic payload = new ExpandoObject();
+            payload.Name = "";
+
+            for (var i = 0; i < 11; i++)
+                eventMetaCache.Add(
+                    payload,
+                    "BRANDCODE",
+                    "EVENTNAME",
+                    "FINGERPRINT");
+
+            Assert.Equal(10, eventMetaCache.NumItems);
         }
 
         [Fact]

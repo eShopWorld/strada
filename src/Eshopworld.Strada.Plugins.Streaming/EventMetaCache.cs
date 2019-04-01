@@ -35,6 +35,8 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         public static EventMetaCache Instance => Lazy.Value;
 
+        public int MaxQueueLength { get; set; } = 175000;
+
         public event EventMetaAddedEventHandler EventMetaAdded;
         public event AddEventMetaFailedEventHandler AddEventMetaFailed;
         public event GetEventMetadataPayloadBatchFailedEventHandler GetEventMetadataPayloadBatchFailed;
@@ -54,7 +56,16 @@ namespace Eshopworld.Strada.Plugins.Streaming
             if (string.IsNullOrEmpty(eventName)) throw new ArgumentNullException(nameof(eventName));
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException(nameof(fingerprint));
 
-            if (_cache == null) _cache = new ConcurrentQueue<string>();
+            if (_cache == null)
+            {
+                _cache = new ConcurrentQueue<string>();
+            }
+            else if (_cache.Count >= MaxQueueLength)
+            {
+                const string errorMessage = "The cache is full.";
+                OnAddEventMetaFailed(new AddEventMetaFailedEventArgs(new Exception(errorMessage)));
+                return;
+            }
 
             try
             {
@@ -80,7 +91,6 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 );
 
                 _cache.Enqueue(cachePayload);
-
                 OnEventMetaAdded(new EventMetaAddedEventArgs(cachePayload));
             }
             catch (Exception exception)

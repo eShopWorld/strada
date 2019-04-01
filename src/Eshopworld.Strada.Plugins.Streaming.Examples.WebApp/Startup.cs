@@ -38,8 +38,6 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
             var dataTransmissionClientConfigSettings = new DataTransmissionClientConfigSettings();
             Configuration.GetSection("dataTransmissionClientConfigSettings").Bind(dataTransmissionClientConfigSettings);
 
-            dataTransmissionClientConfigSettings.MaxThreadCount = Environment.ProcessorCount;
-
             DataTransmissionClient.Instance.InitialisationFailed += DataTransmissionClient_InitialisationFailed;
             DataTransmissionClient.Instance.TransmissionFailed += DataTransmissionClient_TransmissionFailed;
             DataTransmissionClient.Instance.DataTransmitted += DataTransmissionClient_DataTransmitted;
@@ -62,8 +60,10 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.WebApp
 
             DataUploader
                 .Instance
-                .StartAsync(DataTransmissionClient.Instance, EventMetaCache.Instance, 30,
-                    dataTransmissionClientConfigSettings.MaxThreadCount)
+                .StartAsync(
+                    DataTransmissionClient.Instance,
+                    EventMetaCache.Instance,
+                    dataTransmissionClientConfigSettings)
                 .Wait();
 
             app.UseMiddleware<DataTransmissionMiddleware>();

@@ -26,6 +26,7 @@ namespace Eshopworld.Strada.Plugins.Streaming
 
         public event EventMetadataUploadJobExecutionFailedEventHandler EventMetadataUploadJobExecutionFailed;
 
+        [Obsolete("Please use overloaded implementation.")]
         public async Task StartAsync(
             DataTransmissionClient dataTransmissionClient,
             EventMetaCache eventMetaCache,
@@ -73,6 +74,66 @@ namespace Eshopworld.Strada.Plugins.Streaming
                 _trigger = TriggerBuilder.Create()
                     .WithSimpleSchedule(s => s
                         .WithIntervalInSeconds(executionTimeInterval)
+                        .RepeatForever())
+                    .Build();
+
+                await _scheduler.ScheduleJob(_jobDetail, _trigger);
+            }
+            catch (Exception exception)
+            {
+                const string errorMessage = "Failed to start data-upload background task.";
+                OnDataUploaderStartFailed(new DataUploaderStartFailedEventArgs(new Exception(errorMessage, exception)));
+            }
+        }
+
+        public async Task StartAsync(
+            DataTransmissionClient dataTransmissionClient,
+            EventMetaCache eventMetaCache,
+            DataTransmissionClientConfigSettings dataTransmissionClientConfigSettings)
+        {
+            if (dataTransmissionClient == null) throw new ArgumentNullException(nameof(dataTransmissionClient));
+            if (eventMetaCache == null) throw new ArgumentNullException(nameof(eventMetaCache));
+            if (dataTransmissionClientConfigSettings == null)
+                throw new ArgumentNullException(nameof(dataTransmissionClientConfigSettings));
+
+            try
+            {
+                eventMetaCache.MaxQueueLength = dataTransmissionClientConfigSettings.MaxQueueLength;
+
+                var factory = new StdSchedulerFactory(new NameValueCollection
+                {
+                    ["quartz.threadPool.threadCount"] = dataTransmissionClientConfigSettings.MaxThreadCount.ToString()
+                });
+                _scheduler = await factory.GetScheduler();
+
+                await _scheduler.Start();
+
+                const string jobName = "eventMetadataUploadJob";
+
+                _jobDetail = new JobDetailImpl(
+                    jobName,
+                    typeof(EventMetadataUploadJob))
+                {
+                    JobDataMap =
+                    {
+                        [nameof(DataTransmissionClient)] = dataTransmissionClient,
+                        [nameof(EventMetaCache)] = eventMetaCache
+                    }
+                };
+
+                _eventMetadataUploadJobListener = new EventMetadataUploadJobListener();
+
+                if (EventMetadataUploadJobExecutionFailed != null)
+                    _eventMetadataUploadJobListener.EventMetadataUploadJobExecutionFailed +=
+                        EventMetadataUploadJobExecutionFailed;
+
+                _scheduler.ListenerManager.AddJobListener(
+                    _eventMetadataUploadJobListener,
+                    KeyMatcher<JobKey>.KeyEquals(new JobKey(jobName)));
+
+                _trigger = TriggerBuilder.Create()
+                    .WithSimpleSchedule(s => s
+                        .WithIntervalInSeconds(dataTransmissionClientConfigSettings.ExecutionTimeInterval)
                         .RepeatForever())
                     .Build();
 
