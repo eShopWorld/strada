@@ -9,11 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshopworld.Strada.Plugins.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshopworld.Strada.Plugins.Streaming.NetCore", "src\Eshopworld.Strada.Plugins.Streaming.NetCore\Eshopworld.Strada.Plugins.Streaming.NetCore.csproj", "{DD926285-827F-4859-A101-2DADC65040C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp", "src\Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp\Eshopworld.Strada.Plugins.Streaming.Examples.LegacyWebApp.csproj", "{E36686B9-BDD8-4CB6-9B20-3EDFBA5A222F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshopworld.Strada.Plugins.Streaming.Examples.WebApp", "src\Eshopworld.Strada.Plugins.Streaming.Examples.WebApp\Eshopworld.Strada.Plugins.Streaming.Examples.WebApp.csproj", "{F4757D96-40E6-4D46-8D75-E520AA5BD9D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshopworld.Strada.Plugins.Streaming.AspNet", "src\Eshopworld.Strada.Plugins.Streaming.AspNet\Eshopworld.Strada.Plugins.Streaming.AspNet.csproj", "{E9AEFC8A-B449-41EA-B2A5-F20E4F0588BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshopworld.Strada.Plugins.Streaming.NetFramework", "src\Eshopworld.Strada.Plugins.Streaming.NetFramework\Eshopworld.Strada.Plugins.Streaming.NetFramework.csproj", "{7B941392-BEB4-44B6-9FB2-096209334FD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,18 +31,14 @@ Global
 		{DD926285-827F-4859-A101-2DADC65040C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD926285-827F-4859-A101-2DADC65040C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD926285-827F-4859-A101-2DADC65040C8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E36686B9-BDD8-4CB6-9B20-3EDFBA5A222F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E36686B9-BDD8-4CB6-9B20-3EDFBA5A222F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E36686B9-BDD8-4CB6-9B20-3EDFBA5A222F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E36686B9-BDD8-4CB6-9B20-3EDFBA5A222F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F4757D96-40E6-4D46-8D75-E520AA5BD9D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F4757D96-40E6-4D46-8D75-E520AA5BD9D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4757D96-40E6-4D46-8D75-E520AA5BD9D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4757D96-40E6-4D46-8D75-E520AA5BD9D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9AEFC8A-B449-41EA-B2A5-F20E4F0588BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9AEFC8A-B449-41EA-B2A5-F20E4F0588BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9AEFC8A-B449-41EA-B2A5-F20E4F0588BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9AEFC8A-B449-41EA-B2A5-F20E4F0588BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B941392-BEB4-44B6-9FB2-096209334FD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B941392-BEB4-44B6-9FB2-096209334FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B941392-BEB4-44B6-9FB2-096209334FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B941392-BEB4-44B6-9FB2-096209334FD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
