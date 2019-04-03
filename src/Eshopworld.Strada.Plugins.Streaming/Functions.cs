@@ -12,24 +12,22 @@ namespace Eshopworld.Strada.Plugins.Streaming
     {
         public static string AddTrackingMetadataToJson(
             string json,
-            string brandCode,
-            string eventName,
-            string fingerprint,
-            string queryString,
-            Dictionary<string, string> httpHeaders,
-            string timestamp)
+            string brandCode = null,
+            string eventName = null,
+            string fingerprint = null,
+            string queryString = null,
+            Dictionary<string, string> httpHeaders = null,
+            string timestamp = null)
         {
             try
             {
                 var jsonObject = JObject.Parse(json);
-                jsonObject.Add(new JProperty("brandCode", brandCode));
-                jsonObject.Add(new JProperty("eventName", eventName));
-                jsonObject.Add(new JProperty("correlationId", fingerprint));
-                jsonObject.Add(new JProperty("queryString", queryString));
-                jsonObject.Add(httpHeaders != null
-                    ? new JProperty("httpHeaders", JObject.FromObject(httpHeaders))
-                    : new JProperty("httpHeaders", null));
-                jsonObject.Add(new JProperty("created", timestamp));
+                if (!string.IsNullOrEmpty(brandCode)) jsonObject.Add(new JProperty("brandCode", brandCode));
+                if (!string.IsNullOrEmpty(eventName)) jsonObject.Add(new JProperty("eventName", eventName));
+                if (!string.IsNullOrEmpty(fingerprint)) jsonObject.Add(new JProperty("correlationId", fingerprint));
+                if (!string.IsNullOrEmpty(queryString)) jsonObject.Add(new JProperty("queryString", queryString));
+                if (httpHeaders != null) jsonObject.Add(new JProperty("httpHeaders", JObject.FromObject(httpHeaders)));
+                if (timestamp != null) jsonObject.Add(new JProperty("created", timestamp));
                 return jsonObject.ToString();
             }
             catch (Exception exception)

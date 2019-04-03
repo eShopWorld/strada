@@ -100,6 +100,51 @@ namespace Eshopworld.Strada.Plugins.Streaming
             }
         }
 
+        public void Add(string eventMetadataPayload,
+            string brandCode = null,
+            string eventName = null,
+            string fingerprint = null,
+            string queryString = null,
+            Dictionary<string, string> httpHeaders = null)
+        {
+            if (string.IsNullOrEmpty(eventMetadataPayload))
+                throw new ArgumentNullException(nameof(eventMetadataPayload));
+
+            if (_cache == null)
+            {
+                _cache = new ConcurrentQueue<string>();
+            }
+            else if (_cache.Count >= MaxQueueLength)
+            {
+                const string errorMessage = "The cache is full.";
+                OnAddEventMetaFailed(new AddEventMetaFailedEventArgs(new Exception(errorMessage)));
+                return;
+            }
+
+            try
+            {
+                var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
+
+                var cachePayload = Functions.AddTrackingMetadataToJson(
+                    eventMetadataPayload,
+                    brandCode,
+                    eventName,
+                    fingerprint,
+                    queryString,
+                    httpHeaders,
+                    null
+                );
+
+                _cache.Enqueue(cachePayload);
+                OnEventMetaAdded(new EventMetaAddedEventArgs(cachePayload));
+            }
+            catch (Exception exception)
+            {
+                const string errorMessage = "An error occurred while adding event-meta to cache.";
+                OnAddEventMetaFailed(new AddEventMetaFailedEventArgs(new Exception(errorMessage, exception)));
+            }
+        }
+
         public List<string> GetEventMetadataPayloadBatch(
             int maxItemsToRemove = 1000)
         {
