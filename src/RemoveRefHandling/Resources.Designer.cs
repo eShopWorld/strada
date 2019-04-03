@@ -77,23 +77,5 @@ namespace RemoveRefHandling {
                 return ResourceManager.GetString("DataTransmissionClientConfigSettings", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string JSON {
-            get {
-                return ResourceManager.GetString("JSON", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string UnDelimitedJSON {
-            get {
-                return ResourceManager.GetString("UnDelimitedJSON", resourceCulture);
-            }
-        }
     }
 }
