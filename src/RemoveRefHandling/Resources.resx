@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CloudServiceCredentials" xml:space="preserve">
+    <value />
+  </data>
   <data name="DataTransmissionClientConfigSettings" xml:space="preserve">
     <value />
   </data>
-  <data name="GcpServiceCredentials" xml:space="preserve">
+  <data name="JSON" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnDelimitedJSON" xml:space="preserve">
     <value />
   </data>
 </root>

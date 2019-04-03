@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Eshopworld.Strada.Plugins.Streaming.Examples.AspNet {
+namespace RemoveRefHandling {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.AspNet {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Eshopworld.Strada.Plugins.Streaming.Examples.AspNet.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RemoveRefHandling.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,6 +63,15 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.AspNet {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string CloudServiceCredentials {
+            get {
+                return ResourceManager.GetString("CloudServiceCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataTransmissionClientConfigSettings {
             get {
                 return ResourceManager.GetString("DataTransmissionClientConfigSettings", resourceCulture);
@@ -72,9 +81,18 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.AspNet {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string GcpServiceCredentials {
+        internal static string JSON {
             get {
-                return ResourceManager.GetString("GcpServiceCredentials", resourceCulture);
+                return ResourceManager.GetString("JSON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string UnDelimitedJSON {
+            get {
+                return ResourceManager.GetString("UnDelimitedJSON", resourceCulture);
             }
         }
     }
