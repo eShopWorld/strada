@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddEventMetaFailedEventArgs.cs" />
+    <Compile Include="Agent.cs" />
     <Compile Include="ClearCacheFailedEventArgs.cs" />
     <Compile Include="CloudServiceCredentials.cs" />
     <Compile Include="DataAnalyticsMeta.cs" />
