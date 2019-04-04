@@ -90,7 +90,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.NetFramework
                     eventTimestamp.ToString()
                 );
 
-                _cache.Enqueue(cachePayload);
+                _cache.Enqueue(serialisedEventMetadataPayload); // todo: undo this
                 OnEventMetaAdded(new EventMetaAddedEventArgs(cachePayload));
             }
             catch (Exception exception)
