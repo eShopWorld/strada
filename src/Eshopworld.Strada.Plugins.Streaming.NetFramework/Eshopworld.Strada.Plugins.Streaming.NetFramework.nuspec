@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package>
+   <metadata>
+      <id>Eshopworld.Strada.Plugins.Streaming.NetFramework</id>
+      <version>1.0.8</version>
+      <title>Strada For .NET Framework 4.6</title>
+      <authors>Paul Mooney</authors>
+      <owners>ESW</owners>
+      <projectUrl>https://github.com/eShopWorld/strada</projectUrl>
+      <requireLicenseAcceptance>false</requireLicenseAcceptance>
+      <description>Strada package compatible with .NET Framework 4.6</description>
+      <copyright>Copyright 2019</copyright>
+      <tags>strada bigdata</tags>
+      <dependencies>
+         <dependency id="Google.Api.CommonProtos" version="1.6.0" />
+         <dependency id="Google.Api.Gax" version="2.6.0" />
+         <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
+         <dependency id="Google.Apis" version="1.38.2" />
+         <dependency id="Google.Apis.Auth" version="1.38.2" />
+         <dependency id="Google.Apis.Core" version="1.38.2" />
+         <dependency id="Google.Cloud.Iam.V1" version="1.2.0" />
+         <dependency id="Google.Cloud.PubSub.V1" version="1.0.0" />
+         <dependency id="Google.Protobuf" version="3.7.0" />
+         <dependency id="Grpc.Auth" version="1.19.0" />
+         <dependency id="Grpc.Core" version="1.19.0" />
+         <dependency id="Grpc.Core.Api" version="1.19.0" />
+         <dependency id="Microsoft.Win32.Primitives" version="4.0.1" />
+         <dependency id="Newtonsoft.Json" version="11.0.2" />
+         <dependency id="Quartz" version="3.0.7" />
+         <dependency id="System.Diagnostics.DiagnosticSource" version="4.0.0" />
+         <dependency id="System.Interactive.Async" version="3.2.0" />
+         <dependency id="System.Net.Http" version="4.3.4" />
+         <dependency id="System.Security.Cryptography.Algorithms" version="4.3.0" />
+         <dependency id="System.Security.Cryptography.Encoding" version="4.3.0" />
+         <dependency id="System.Security.Cryptography.Primitives" version="4.3.0" />
+         <dependency id="System.Security.Cryptography.X509Certificates" version="4.3.0" />
+      </dependencies>
+   </metadata>
+   <files>
+      <file src="bin\Debug\*.dll" target="lib\net45" />
+      <file src="bin\Debug\*.dll" target="lib\net46" />
+      <file src="bin\Debug\*.dll" target="lib\net461" />
+      <file src="bin\Debug\*.dll" target="lib\net462" />
+   </files>
+</package>
