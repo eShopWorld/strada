@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using Eshopworld.Strada.Plugins.Streaming.NetFramework;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Xunit;
@@ -40,7 +41,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Tests.Unit
 
             var httpHeadersCollection = new NameValueCollection {{key1, value1}, {key2, value2}};
 
-            var httpHeaders = NetFramework.Functions.ParseHttpHeaders(httpHeadersCollection);
+            var httpHeaders = Agent.ParseHttpHeaders(httpHeadersCollection);
 
             Assert.True(httpHeaders.ContainsKey(key1));
             Assert.True(httpHeaders.ContainsKey(key2));

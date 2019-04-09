@@ -21,8 +21,8 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.AspNet.Controllers
             d.Age = 12;
 
             EventMetaCache.Instance.Add(d, "D", "D",
-                Functions.GetFingerprint(Request), "D",
-                Functions.ParseHttpHeaders(Request.Headers));
+                Agent.GetFingerprint(Request), "D",
+                Agent.ParseHttpHeaders(Request.Headers));
         }
 
         // POST api/values
