@@ -61,7 +61,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.AspNet {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to {&quot;ProjectId&quot;:&quot;eshop-puddle&quot;,&quot;TopicId&quot;:&quot;local-mooney-test&quot;,&quot;ElementCountThreshold&quot;:1000,&quot;RequestByteThreshold&quot;:5242880,&quot;DelayThreshold&quot;:3}.
         /// </summary>
         internal static string ClientConfigSettings {
             get {
@@ -70,7 +70,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.AspNet {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to {&quot;Type&quot;:&quot;service_account&quot;,&quot;project_id&quot;:&quot;eshop-puddle&quot;,&quot;private_key_id&quot;:&quot;acd4411bb8ffdafe22babf84d49928821f9a17d6&quot;,&quot;private_key&quot;:&quot;-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDDqPNSI1Ww8+w0\nJrDXawuDYLxJnlWPMgZlRFbVfyTuiDFc8iJZWAIC8CkHnPJR0ocYMF629IP5uwea\n0JequSJS6dX0g7zeX0VhQQagYYmIn8ou8N1Pk0D/sFS9z+n/1/wDIqgCm4xx20Ks\neoWEODiu+7eoQUTWZFMUb/ri7q4uzbcrHX7HnPXGdMvBqJogvir3QNiiJfiZ42Ba\ngKWz4CFz5m3JJJYBAwbKNK1htvxiLFLSxttw7DuTq6Uu5NpGB8JInWQTtqOlk/ZM\n5YpmQIPD1uCKpy6DbE2BCjHi [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CloudServiceCredentials {
             get {
