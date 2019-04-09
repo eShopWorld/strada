@@ -2,7 +2,7 @@
 <package>
    <metadata>
       <id>Eshopworld.Strada.Plugins.Streaming.NetFramework</id>
-      <version>1.0.10</version>
+      <version>1.0.14</version>
       <title>Strada For .NET Framework 4.6</title>
       <authors>Paul Mooney</authors>
       <owners>ESW</owners>
@@ -23,16 +23,16 @@
          <dependency id="Grpc.Auth" version="1.19.0" />
          <dependency id="Grpc.Core" version="1.19.0" />
          <dependency id="Grpc.Core.Api" version="1.19.0" />
-         <dependency id="Microsoft.Win32.Primitives" version="4.0.1" />
-         <dependency id="Newtonsoft.Json" version="11.0.2" />
+         <dependency id="Microsoft.Win32.Primitives" version="4.3.0" />
+         <dependency id="Newtonsoft.Json" version="12.0.1" />
          <dependency id="Quartz" version="3.0.7" />
-         <dependency id="System.Diagnostics.DiagnosticSource" version="4.0.0" />
+         <dependency id="System.Diagnostics.DiagnosticSource" version="4.5.1" />
          <dependency id="System.Interactive.Async" version="3.2.0" />
          <dependency id="System.Net.Http" version="4.3.4" />
-         <dependency id="System.Security.Cryptography.Algorithms" version="4.3.0" />
+         <dependency id="System.Security.Cryptography.Algorithms" version="4.3.1" />
          <dependency id="System.Security.Cryptography.Encoding" version="4.3.0" />
          <dependency id="System.Security.Cryptography.Primitives" version="4.3.0" />
-         <dependency id="System.Security.Cryptography.X509Certificates" version="4.3.0" />
+         <dependency id="System.Security.Cryptography.X509Certificates" version="4.3.2" />
       </dependencies>
    </metadata>
    <files>
