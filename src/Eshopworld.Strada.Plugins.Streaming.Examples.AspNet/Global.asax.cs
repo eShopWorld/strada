@@ -40,19 +40,14 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.AspNet
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
             var cloudServiceCredentials =
-                JsonConvert.DeserializeObject<CloudServiceCredentials>(Resources.GcpServiceCredentials);
+                JsonConvert.DeserializeObject<CloudServiceCredentials>(Resources.CloudServiceCredentials);
 
             var dataTransmissionClientConfigSettings =
                 JsonConvert.DeserializeObject<DataTransmissionClientConfigSettings>(
-                    Resources.DataTransmissionClientConfigSettings);
-
-            Agent.Instance.EventMetaAdded += Instance_EventMetaAdded;
+                    Resources.ClientConfigSettings);
+            dataTransmissionClientConfigSettings.ExecutionTimeInterval = 30;
+            
             Agent.Instance.Start(cloudServiceCredentials, dataTransmissionClientConfigSettings);
-        }
-
-        private static void Instance_EventMetaAdded(object sender, EventMetaAddedEventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
