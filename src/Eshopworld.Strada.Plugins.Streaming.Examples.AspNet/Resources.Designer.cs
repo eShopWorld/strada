@@ -63,18 +63,18 @@ namespace Eshopworld.Strada.Plugins.Streaming.Examples.AspNet {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DataTransmissionClientConfigSettings {
+        internal static string ClientConfigSettings {
             get {
-                return ResourceManager.GetString("DataTransmissionClientConfigSettings", resourceCulture);
+                return ResourceManager.GetString("ClientConfigSettings", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string GcpServiceCredentials {
+        internal static string CloudServiceCredentials {
             get {
-                return ResourceManager.GetString("GcpServiceCredentials", resourceCulture);
+                return ResourceManager.GetString("CloudServiceCredentials", resourceCulture);
             }
         }
     }
