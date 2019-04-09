@@ -80,7 +80,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.NetFramework
 
                 var eventTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
 
-                var cachePayload = Functions.AddTrackingMetadataToJson(
+                var cachePayload = Agent.AddTrackingMetadataToJson(
                     serialisedEventMetadataPayload,
                     brandCode,
                     eventName,
@@ -100,7 +100,7 @@ namespace Eshopworld.Strada.Plugins.Streaming.NetFramework
             }
         }
 
-        public List<string> GetEventMetadataPayloadBatch(
+        public IEnumerable<string> GetEventMetadataPayloadBatch(
             int maxItemsToRemove = 1000)
         {
             if (maxItemsToRemove > 1000)

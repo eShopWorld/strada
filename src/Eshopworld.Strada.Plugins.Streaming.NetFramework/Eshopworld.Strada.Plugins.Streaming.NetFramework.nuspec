@@ -2,11 +2,10 @@
 <package>
    <metadata>
       <id>Eshopworld.Strada.Plugins.Streaming.NetFramework</id>
-      <version>1.0.8</version>
+      <version>1.0.9</version>
       <title>Strada For .NET Framework 4.6</title>
       <authors>Paul Mooney</authors>
       <owners>ESW</owners>
-      <projectUrl>https://github.com/eShopWorld/strada</projectUrl>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <description>Strada package compatible with .NET Framework 4.6</description>
       <copyright>Copyright 2019</copyright>
@@ -37,9 +36,13 @@
       </dependencies>
    </metadata>
    <files>
-      <file src="bin\Debug\*.dll" target="lib\net45" />
-      <file src="bin\Debug\*.dll" target="lib\net46" />
-      <file src="bin\Debug\*.dll" target="lib\net461" />
-      <file src="bin\Debug\*.dll" target="lib\net462" />
+      <!--Don't publish release DLLs to MyGet; reserve for nuget -->
+      <file src="bin\debug\Eshopworld.Strada.Plugins.Streaming.NetFramework.dll" target="lib\net45" />
+      <file src="bin\debug\Eshopworld.Strada.Plugins.Streaming.NetFramework.dll" target="lib\net46" />
+      <file src="bin\debug\Eshopworld.Strada.Plugins.Streaming.NetFramework.dll" target="lib\net461" />
+      <file src="bin\debug\Eshopworld.Strada.Plugins.Streaming.NetFramework.dll" target="lib\net462" />
+      <file src="bin\debug\Eshopworld.Strada.Plugins.Streaming.NetFramework.dll" target="lib\net47" />
+      <file src="bin\debug\Eshopworld.Strada.Plugins.Streaming.NetFramework.dll" target="lib\net471" />
+      <file src="bin\debug\Eshopworld.Strada.Plugins.Streaming.NetFramework.dll" target="lib\net472" />
    </files>
 </package>

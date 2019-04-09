@@ -124,7 +124,7 @@
     <Compile Include="DataTransmissionClient.cs" />
     <Compile Include="DataTransmissionClientConfigSettings.cs" />
     <Compile Include="DataTransmittedEventArgs.cs" />
-    <Compile Include="DataUploader.cs" />
+    <Compile Include="JobScheduler.cs" />
     <Compile Include="DataUploaderStartFailedEventArgs.cs" />
     <Compile Include="EventMetaAddedEventArgs.cs" />
     <Compile Include="EventMetaCache.cs" />
@@ -132,7 +132,6 @@
     <Compile Include="EventMetadataUploadJobExecutionFailedEventArgs.cs" />
     <Compile Include="EventMetadataUploadJobExecutionFailedEventHandler.cs" />
     <Compile Include="EventMetadataUploadJobListener.cs" />
-    <Compile Include="Functions.cs" />
     <Compile Include="GetEventMetadataPayloadBatchEventArgs.cs" />
     <Compile Include="GetEventMetadataPayloadBatchFailedEventArgs.cs" />
     <Compile Include="InitialisationFailedEventArgs.cs" />
@@ -140,7 +139,6 @@
     <Compile Include="TransmissionFailedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
