@@ -51,6 +51,22 @@ namespace Eshopworld.Strada.Plugins.Streaming.NetFramework
                 dataTransmissionClientConfigSettings).Wait();
         }
 
+        public void AddEvent<T>(T eventMetadataPayload,
+            string brandCode,
+            string eventName,
+            string fingerprint,
+            string queryString = null,
+            Dictionary<string, string> httpHeaders = null)
+        {
+            EventMetaCache.Instance.Add(
+                eventMetadataPayload,
+                brandCode,
+                eventName,
+                fingerprint,
+                queryString,
+                httpHeaders);
+        }
+
         public static string AddTrackingMetadataToJson(
             string json,
             string brandCode,
