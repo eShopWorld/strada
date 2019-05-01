@@ -55,13 +55,13 @@ Agent.Instance.Start(cloudServiceCredentials, clientConfigSettings);
 ### Publishing Events
 An event is a generic data model that contains metadata relevant to your application, e.g., a `Create Order`. These events are cached in memory, and uploaded in batches at regular intervals. Add events as they occur in your application as follows
 ```csharp
-	EventMetadataCache.Instance.Add(
-	eventMetadata,
-	"{brand-code}",
-	"{event-name}",
-	"{fingerprint}",
-	"{HTTP query string}",
-	"{HTTP headers}");
+EventMetadataCache.Instance.Add(
+eventMetadata,
+"{brand-code}",
+"{event-name}",
+"{fingerprint}",
+"{HTTP query string}",
+"{HTTP headers}");
 ```
 ### Error Handling
 Errors are handled implicitly, so that the your application process flow is not interrupted. You can subscribe to the following errors
